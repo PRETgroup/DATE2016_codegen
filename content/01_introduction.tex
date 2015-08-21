@@ -1,3 +1,5 @@
+\section{Introduction}
+
 Numerous cases of death and injuries due to malfunction of 
 cyber-physical devices such as  pacemakers have been reported.
 In 1990-2000, close to 200,000 pacemakers have been recalled
@@ -8,4 +10,24 @@ Unlike the ideas of hardware-in-the-loop testing [ref],
 it is not possible to test on actual heart.
 Further, unlike the hardware that is almost identical 
 during mass production, each individual heart is different.
-T  
+Thus there is a need to develop a virtual heart that is tailored
+to an individual person and achieves
+ personalised healthcare~\cite{Trayanova2014}. This idea can be extended 
+to a network of human organs, resulting in a virtual human.
+
+Typically these biological  models are  developed by biomedical engineers.
+They mimic the heart's working at the
+molecular level~\cite{Trayanova2014}. 
+To simulate one heart beat takes severely hours, if not days~[].
+These models are very computationally intensive and 
+are not for real-time emulation,
+which is required for closed-loop testing of time-critical 
+controllers such as cardiac pacemakers.
+Further, the models are 
+ very precise resulting in sophisticated models that are not amenable for  
+formal verification. 
+Thus, there is a need to develop abstract models by computer systems engineers that  
+(1)  \emph{capture the behaviour} of the heart (plant) from a pacemaker (controller) point of view,
+(2) \emph{real-time emulation} of the heart such that it is possible for closed-loop simulation and
+allows for (3) \emph{formal verification} of functional and timing properties.
+
