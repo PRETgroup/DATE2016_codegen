@@ -1,0 +1,47 @@
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=white!30, 
+text width=5em, text badly centered, node distance=3.2cm, inner sep=0pt]
+\tikzstyle{file} = [rectangle, draw, fill=gray!20, 
+text width=5em, text centered, minimum height=4em]
+\tikzstyle{process} = [rectangle, draw, fill=blue!15, 
+text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex', ultra thick]
+\tikzstyle{state} = [draw, ellipse,fill=red!30, 
+node distance=3.5cm, text width=5em, 
+text badly centered,
+minimum height=2em]
+
+
+\begin{tikzpicture}[node distance = 1cm, auto]
+% Place nodes
+\node [file] (HA) {{HA}};
+
+\node [decision, right of = HA] (D) {Is a WHA~? (step 1,a
+	Sec~\ref{sec:static-analysis-ha})};
+
+\node [state, right of = D] (E) {Invalid input};
+
+\node [file, right of = E, node distance=3cm] (FSM) {FSM/ C-code};
+
+
+\node [process, below of = D, node distance =3cm] (GSHA) {Generate
+	\ac{SHA} (step 2, Sec~\ref{sec:generation-sha})};
+
+\node [file, below of = E, node distance =3cm] 
+(SHA) {\ac{SHA}};
+
+\node [process, below of = FSM, node distance =3cm] (GFSM)
+{Generate backend code (step 3,
+	Sec~\ref{sec:back-code-gener})};
+
+
+
+%edges
+\path [line] (HA) -- (D);
+\path [line] (D)-- node[near start]{no}(E);
+\path [line] (D)-- node[near start]{yes}(GSHA);
+
+\path [line] (GSHA) -- (SHA);
+\path [line] (SHA) -- (GFSM);
+\path [line] (GFSM) -- (FSM);
+\end{tikzpicture}    
