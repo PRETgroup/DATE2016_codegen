@@ -30,17 +30,33 @@ both ventricles. This contracts the muscles and pumps the blood out.
 The propagation of electrical signal at cellular level 
 is described as a change in  voltage 
 across cell membrane due to ionic flow over a period of time, 
-know as \acf{AP} shown in Figure~\ref{fig:actionPotential}.  
+know as \acf{AP} shown in Figure~\ref{fig:actionPotential}. 
 The voltage behaviour can be described in four stages.
 \begin{enumerate}
 	\item \acf{RP}: This is the steady state of the cell and awaits for 
 					external stimulus current to activate it.
-	\item \acf{UP}: 
-	\item \acf{ERP}:
-	\item \acf{RRP}:
-	
-For more details, please refer to~[]
+	\item \acf{UP}: When activated by stimulus current, 
+					the cell depolarises (inward flow of positive ions) and 
+					contracts the muscles. This depolarisation yields 
+					stimulus current that activates neighbouring cells.
+	\item \acf{ERP}: Once activated, the cell cannot be activated again 
+					 due to recovery process of the ionic channels. 
+					 Any new stimulus will be blocked. 
+	\item \acf{RRP}: During this period, the ionic channels are partially recovered
+					 and the cell can be activated. However, the morphology
+					 of the action potential curve will be shorter.
 	
 \end{enumerate} 
+ For more details on understanding action potential please refer to~[X].
 
 \noindent \textbf{Abstract model.}
+The human heart has over two trillion cells. For analytical purposes, a
+model consisting  a network of  $32$ nodes is presented in literature
+and is used for testing off-the-shelf pacemakers~\cite{chen14,zhihao12}.
+The abstracted electrical conduction system consisting  of 
+nodes and paths is presented in Figure~\ref{fig:heartNetwork}.
+The functionality of each node is described using \acf{HA} in Section~\ref{sec:HA}.
+Later in Section~\ref{sec:codeGen}, we use the abstract network model 
+to illustrate our modular code generation.
+
+ 
