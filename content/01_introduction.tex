@@ -24,10 +24,46 @@ are not for real-time emulation,
 which is required for closed-loop testing of time-critical 
 controllers such as cardiac pacemakers.
 Further, the models are 
- very precise resulting in sophisticated models that are not amenable for  
-formal verification. 
-Thus, there is a need to develop abstract models by computer systems engineers that  
-(1)  \emph{capture the behaviour} of the heart (plant) from a pacemaker (controller) point of view,
-(2) \emph{real-time emulation} of the heart such that it is possible for closed-loop simulation and
-allows for (3) \emph{formal verification} of functional and timing properties.
+ very precise resulting in sophisticated models that 
+ are not amenable for  formal verification. 
+Thus, there is a need to develop abstract models 
+by computer systems engineers that  
+(1)  \emph{capture the behaviour} of the heart (plant) 
+from a pacemaker's (controller's) point of view,
+allows for (2) \emph{real-time emulation} of the heart 
+such that it is possible for closed-loop simulation and
+is amenable for (3) \emph{formal verification} of 
+functional and timing properties.
 
+
+The continuous dynamics of a plant (e.g., heart) and
+ the discrete behaviour of a controller (e.g., pacemaker) 
+ results in so called hybrid systems. 
+ These are often formally described using Hybrid Automata~\cite{alur2015principles,raskin05,chen201487}.
+ However, these are non-deterministic and ....
+ (motivate need for deterministic execution)
+ 
+ \textbf{Contributions} of this paper are 
+ (1) We propose a \emph{deterministic semantics} for \acf{HA}.
+ (2) A \emph{scalable modular code generation} approach 
+ to aid real-time emulation
+     of a plant.
+  (3) We quantitatively evaluate the efficacy of the 
+  proposed approach by comparing  
+   to the widely used Simulink\textsuperscript{\textregistered}
+   simulation framework.
+   
+ An overview of the proposed approach is presented
+ in Figure~\ref{fig:overview}.
+ 
+ \begin{figure}[thbp]
+ 	\centering
+ 	\scalebox{0.7}{
+	 \input{./figures/overview}
+	}
+	 \caption{Overview of the proposed solution 
+	 	[NEEDS TO BE UPDATED] \label{fig:overview}}
+\end{figure}
+      
+ 
+ 

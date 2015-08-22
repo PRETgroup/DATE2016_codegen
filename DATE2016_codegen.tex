@@ -8,11 +8,28 @@
 
 
 
+\usepackage{acronym}
 
+%\input{./content/00_macros.tex}  %Macros/#defs for the paper
 
+\usepackage{epsfig}
+\usepackage{xspace}
+\usepackage{url}
+%\usepackage[dvips]{color}
+\usepackage{subfigure}
+\usepackage{pgf}
+\usepackage{pgfplots,pgfplotstable} %for plotting results
+\usepgfplotslibrary{units}
 
+\usepackage{mathrsfs}
+\usepackage{filecontents}
+\usepackage{tikz} % for drawing
+\usetikzlibrary{arrows,shapes,automata,positioning,decorations,calc} % for drawing
+\usetikzlibrary{spy,backgrounds}
 
 \begin{document}
+\input{./content/00_acronyms.tex} 		%acronyms
+	
 \title{Modular code generation from Hybrid Automata for plant emulation }
 
 \author{}
@@ -30,7 +47,8 @@
 
 
 \input{content/01_introduction}
-
+\input{content/02_background}
+\input{content/03_hybridAutomata}
 \input{content/05_discussion}
 
 
