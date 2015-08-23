@@ -1,9 +1,79 @@
 \section{Hybrid Automata}
 \label{sec:HA}
 
-\begin{itemize}
-	\item Example (heart)
-	\item Definition
-	\item Deterministic Semantics
-	\item Proof for Determinism
-\end{itemize}
+
+
+\acf{HA} is ideal for describing 
+Cyber-physical systems. As explained in the Introduction,
+non-deterministic of \ac{HA} are not suitable for modelling and
+emulation of a plant. To address this problem, based on the
+synchronous approach~[], we propose a deterministic semantics for \ac{HA}.
+In this section, we (1) present an example \ac{HA} 
+followed by a formal definition.
+Then, we present deterministic semantics for \ac{HA} 
+along with a proof for determinism.
+
+
+
+\subsection{Example of \ac{HA} (TEXT NEEDS TO BE UPDATED)}
+
+\begin{figure}
+	
+\input{figures/cellHA}
+\caption{\acf{HA} of a cell (NEED TO UPDATE)}
+\end{figure}
+
+An HA~\cite{lynch03} is defined using Definition~\ref{def:ha}. For the
+water tank example shown in Figure~\ref{fig:waterTankHAtank},
+$Loc=\{t_1, t_2, t_3, t_4\}$, $\Sigma=\{ON, OFF, \tau\}$, and an example
+edge in $Edge$ is $(t_1, ON, t_2)$. There is a single continuous
+variable $x$ representing the temperature of the water in the
+tank. Hence, $X=\{x\}$, $\dot{X}=\{\dot{x}\}$, and $X'=\{x'\}$. The only
+location that is marked initial is $t_1$ and $Init(t_1): x=20$. An
+example flow predicate is $Flow(t_1): \dot{x}=0$, which specifies that
+the temperature of the water inside the tank does not change.  A jump
+predicate assigned to an edge specifies the condition needed to take a
+transition and the updating of values of some continuous variables when
+the transition is taken.  For example,
+$Jump(t_4, \tau, t_1): x=20 \wedge x'=x$ specifies that the transition
+is taken when the value of the temperature is $20^\circ$C and the
+updated value of the temperature is also $20^\circ$C. We now formalise
+the HA using Definition~\ref{def:ha}.
+
+\subsection{Definition of \ac{HA}}
+
+\begin{definition}
+	A hybrid automata is \newline 
+	$H = \langle Loc, Edge, \Sigma, Inv, Flow, Jump \rangle$ where
+	\begin{itemize}
+		\item $Loc=\{l_1,..,l_n\}$ representing $n$ control modes or
+		locations.
+		\item $Edge \subseteq Loc \times \Sigma \times Loc$ are the set of
+		edges between locations.
+		\item $\Sigma=\Sigma_I \cup \Sigma_O \cup \{\iSignal\}$ is set of
+		event names comprising of input, output, and internal events.
+		\item Three sets for the set of continuous variables, their rate of
+		change and their updated values represented as follows: \newline
+		$X=\{x_1,.., x_m\}$, $\dot{X}=\{\dot{x_1},.., \dot{x_m}\}$, and \newline
+		$X'=\{x_{1}',.., x_{m}'\}$.
+		\item $Init(l)$: Is a predicate whose free variables are from $X$. It
+		specifies the possible valuations of these when the HA starts in
+		$l$.
+		\item $Inv(l)$: Is a predicate whose free variables are from $X$ and
+		it constrains these when the HA resides in $l$.
+		\item $Flow(l)$: Is a predicate whose free variables are from
+		$X \cup \dot{X}$ and it specifies the rate of change of these
+		variables when the HA resides in $l$.
+		\item $Jump(e)$: Is a function that assigns to the edge `$e$' a
+		predicate whose free variables are from $X \cup X'$. This predicate
+		specifies when the mode switch using `$e$' is possible. It also
+		specifies the updated values of the variables when this mode switch
+		happens.
+	\end{itemize}
+	\label{def:ha}
+\end{definition}
+
+
+\subsection{Deterministic semantics of \ac{HA}}
+
+\subsection{Proof for determinism}

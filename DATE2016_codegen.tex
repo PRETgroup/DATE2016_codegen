@@ -11,8 +11,9 @@
 
 \usepackage{acronym}
 
-%\input{./content/00_macros.tex}  %Macros/#defs for the paper
 
+\usepackage{array}
+\usepackage{multirow}
 \usepackage{epsfig}
 \usepackage{xspace}
 \usepackage{url}
@@ -28,6 +29,23 @@
 \usetikzlibrary{arrows,shapes,automata,positioning,decorations,calc} % for drawing
 \usetikzlibrary{spy,backgrounds}
 
+\newcounter{lemmas}
+\newtheorem{lemma}{Lemma}
+%\newcounter{proofs}
+%\newtheorem{proof}{Proof}
+\newcounter{theorems}
+\newtheorem{theorem}{Theorem}
+
+
+%\newtheorem*{proof*}{Theorem}
+%\newtheorem*{proof}{Proof}
+
+
+
+\newcounter{definitions}
+\newtheorem{definition}{Definition}
+
+\input{./content/00_macros.tex}  %Macros/#defs for the paper
 \begin{document}
 \input{./content/00_acronyms.tex} 		%acronyms
 	

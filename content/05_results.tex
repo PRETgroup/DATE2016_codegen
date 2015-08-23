@@ -1,4 +1,43 @@
 \section{Benchmarking}
 \label{sec:benchmarking}
-We quantitatively evaluate the advantages of the
-proposed approach by comparing against Simulink. 
+
+
+We present a set of experiments to 
+evaluate  the efficacy of the proposed 
+ modular code generation tool (\ourTool) 
+with Simulink. 
+In the first experiment, we evaluate the \emph{scalability} 
+of \ourTool as the number of cells in the heart model
+increase exponentially. 
+In the second experiment, we select benchmarks 
+that span across different application
+domains such as medical, physics, and 
+industrial automation, to illustrating the \emph{diversity} of the proposed 
+approach. 
+In both experiments we compare against Simulink in terms of compilation time,
+execution time and code size.
+
+
+\subsection{Scalability}
+
+
+\subsection{Diversity}
+For the purposes of this experiment, we use the five benchmarks presented in
+Table~\ref{tab:benchmarks}. 
+
+
+As depicted in column one of Table~\ref{tab:benchmarks}, four out of the 
+seven benchmarks are described using a single \ac{HA} and 
+the remaining three examples are described using more than one \ac{HA}.
+The table also presents the 
+number of locations (\#L) in each hybrid automata.
+For example, (2,3) denotes that the Train Gate Control
+(TG) benchmark is described using a HA with two locations 
+and a second HA with three locations. More details
+about the benchmarks and their 
+implementation in 
+%\ourTool 
+and Simulink
+are available online~\cite{githubBenchmarks}.
+
+\input{./content/05_tableBenchmarks}
