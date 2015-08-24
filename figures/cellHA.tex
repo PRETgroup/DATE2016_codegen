@@ -1,49 +1,63 @@
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,
-node distance=5.4cm,
+node distance=4cm,
 semithick,scale=0.9, transform shape]
 \tikzstyle{every state}=[rectangle,rounded corners,
- minimum height = 1.2cm, text width=2.2cm, text centered, fill=blue!20,draw=none,text=black, draw,line width=0.3mm]
+ minimum height = 1.2cm, text width=3cm, text centered, fill=blue!20,draw=none,text=black, draw,line width=0.3mm]
 
 \node[state, 
-label={[shift={(0,-1.9)}]$ x = 20$}, 
-label={[shift={(-1.5,-0.2)}]\large $ \mathbf{t_1}$ }]
-(T1)  {$\dot{x}=0$};
+label={[shift={(0,0)}]$v \leq V_T$}, 
+label={[shift={(-1.5,0)}]\large $ \mathbf{q_0}$ }]
+(Q0)  {$\dot{v_x}=a^0_x v_x$ \\ $\dot{v_y}=a^0_y v_y$ \\ $\dot{v_z}=a^0_z v_z$ \\ $v=v_x - v_y + v_z$};
 
 %entry
-\draw[<-, dashed](T1.180) -- node[below] {initial} ++(-1cm,-0cm);
+\draw[<-, dashed](Q0.130) -- node[above, shift={(0,0.4)}] {\footnotesize initial} ++(0cm,1cm);
 
 
 
 
 \node[state, 
-label={[shift={(0,0.1)}]$20\leq x \leq 100$}, 
-label={[shift={(-1.5,-0.2)}]\large $\mathbf{t_2}$   }]
-(T2) [node distance=4.4cm, above of=T1] 	 {$\dot{x}=K(h-x)$};
+label={[shift={(0,0)}]$v \leq v_T$}, 
+label={[shift={(-1.5,0)}]\large $\mathbf{q_1}$   }]
+(Q1) [node distance=6cm, right of=Q0] {$\dot{v_x}=a^1_x v_x + \beta_x g(\vec{v})$ \\ $\dot{v_y}=a^1_y v_y + \beta_y g(\vec{v})$ \\ $\dot{v_z}=a^1_z v_z + \beta_z g(\vec{v})$ \\ $v=v_x - v_y + v_z$};
 
 \node[state, 
-label={[shift={(0,0.1)}]$ x = 100$}, 
-label={[shift={(1.5,-0.2)}]\large $\mathbf{t_3}$  }] 
-(T3) [right of=T2] 	 {$\dot{x}=0$};
+label={[shift={(0,-2.5)}]$v \leq V_O - 80.1 \sqrt{\theta}$}, 
+label={[shift={(-1.5,0)}]\large $\mathbf{q_2}$  }] 
+(Q2) [below of=Q1] {$\dot{v_x}=a^2_x v_x$ \\ $\dot{v_y}=a^2_y v_y$ \\ $\dot{v_z}=a^2_z v_z$ \\ $v=v_x - v_y + v_z$};
 
 \node[state, 
-label={[shift={(0,-1.9)}]$20\leq x \leq 100$}, 
-label={[shift={(1.5,-0.2)}]\large $\mathbf{t_4}$  }]
-(T4) [right of=T1] 	 {$\dot{x}=-Kx$};
+label={[shift={(0,-2.5)}]$v \geq V_R$}, 
+label={[shift={(-1.5,0)}]\large $\mathbf{q_3}$  }]
+(Q3) [below of=Q0] {$\dot{v_x}=a^3_x v_x f(\theta)$ \\ $\dot{v_y}=a^3_y v_y f(\theta)$ \\ $\dot{v_z}=a^3_z v_z$ \\ $v=v_x - v_y + v_z$};
 
+\path[->] (Q0.10) edge node[align=center] {
+	\footnotesize $\{g(\vec{v}) > V_T\}$, \\
+	\footnotesize $\{\emptyset\}$, \\
+	\footnotesize $\left\{\begin{matrix} v^\prime_x = 0.3v \\ v^\prime_y = 0.0v \\ v^\prime_z = 0.7v \\ \theta^\prime = v / V_T \end{matrix}\right\}$
+} (Q1.170);
 
-\draw (T1) -- (T2) node [midway] 
-{\footnotesize $\inSignal{ON},x^\prime = x$};
-\draw (T2) -- (T3) node [midway] 
-{\footnotesize $\iSignal,x=100 \wedge x^\prime = x$};
-\draw (T3) -- (T4) node [midway, right] 
-{\footnotesize $\inSignal{OFF},x^\prime = x$};
-\draw (T4) -- (T1) node [midway] 
-{\footnotesize $\iSignal,x=20 \wedge x^\prime = x$};
+\path[->] (Q1.190) edge node[align=center] {
+	\footnotesize $\{g(\vec{v}) \leq 0\}$, \\
+	\footnotesize $\{v < V_T\}$, \\
+	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
+} (Q0.350);
 
-%diagonal arrows
-\draw (T2.330) -- (T4) node [midway, sloped] 
-{\footnotesize $\inSignal{OFF},x^\prime = x$};
-\draw (T4.150) -- (T2) node [midway, sloped] 
-{\footnotesize $\inSignal{ON},x^\prime = x$};
+\path[->] (Q1) edge node[align=center] {
+	\footnotesize $\{\tau\}$, \\
+	\footnotesize $\{v \geq V_T\}$, \\
+	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
+} (Q2);
+
+\path[->] (Q2) edge node[align=center] {
+	\footnotesize $\{\tau\}$, \\
+	\footnotesize $\{v \geq V_O - 80.1\sqrt{\theta}\}$, \\
+	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
+} (Q3);
+
+\path[->] (Q3) edge node[align=center, shift={(1.8,0)}] {
+	\footnotesize $\{\tau\}$, \\
+	\footnotesize $\{v \leq V_R\}$, \\
+	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
+} (Q0);
 
 \end{tikzpicture}
