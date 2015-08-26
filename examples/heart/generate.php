@@ -87,7 +87,7 @@ if(is_file("Cells/cells.csv")) {
 			$headers[] = "Cells/Generated/" . $safe_name . ".h";
 			fwrite($makefile, "Objects/" . $safe_name . ": Cells/Generated/" . $safe_name . ".c Generic/step.h\n");
 			fwrite($makefile, "\t@echo Building " . $cell["Name"] . "...\n");
-			fwrite($makefile, "\t@gcc -c Cells/Generated/" . $safe_name . ".c -o Objects/" . $safe_name . "\n");
+			fwrite($makefile, "\t@gcc -c -O2 -lm -Wall Cells/Generated/" . $safe_name . ".c -o Objects/" . $safe_name . "\n");
 			fwrite($makefile, "\n");
 		}
 		else {
@@ -136,7 +136,7 @@ if(is_file("Paths/paths.csv")) {
 			$headers[] = "Paths/Generated/" . $safe_name . ".h";
 			fwrite($makefile, "Objects/" . $safe_name . ": Paths/Generated/" . $safe_name . ".c Generic/step.h\n");
 			fwrite($makefile, "\t@echo Building " . $path["Name"] . "...\n");
-			fwrite($makefile, "\t@gcc -c Paths/Generated/" . $safe_name . ".c -o Objects/" . $safe_name . "\n");
+			fwrite($makefile, "\t@gcc -c -O2 -lm -Wall Paths/Generated/" . $safe_name . ".c -o Objects/" . $safe_name . "\n");
 			fwrite($makefile, "\n");
 		}
 		else {
@@ -150,6 +150,8 @@ $runnable = fopen("runnable.c", "w");
 fwrite($runnable, "#include <stdint.h>\n");
 fwrite($runnable, "#include <stdlib.h>\n");
 fwrite($runnable, "#include <stdio.h>\n");
+fwrite($runnable, "#include <string.h>\n");
+fwrite($runnable, "#include <sys/time.h>\n");
 fwrite($runnable, "\n");
 fwrite($runnable, "#include \"Generic/step.h\"\n");
 foreach($headers as $header) {
@@ -157,9 +159,14 @@ foreach($headers as $header) {
 }
 fwrite($runnable, "\n");
 
+foreach($items as $item) {
+	fwrite($runnable, "" . $item . " " . $item . "_data;\n");
+}
+fwrite($runnable, "\n");
+
 fwrite($runnable, "int main(void) {\n");
 foreach($items as $item) {
-	fwrite($runnable, "\t" . $item . " " . $item . "_data;\n");
+	fwrite($runnable, "\t(void) memset((void *)&" . $item . "_data, 0, sizeof(" . $item . "));\n");
 	fwrite($runnable, "\t" . $item . "Init(&" . $item . "_data);\n");
 	fwrite($runnable, "\n");
 }
@@ -167,9 +174,14 @@ foreach($items as $item) {
 fwrite($runnable, "\tFILE* fo = fopen(\"out.csv\", \"w\");\n");
 fwrite($runnable, "\n");
 
-fwrite($runnable, "\tfor(unsigned int i=0; i*STEP_SIZE < SIMULATION_TIME; i++) {\n");
-fwrite($runnable, "\t\tfprintf(stdout, \"Time: %fms\\n\", i*STEP_SIZE);\n");
-fwrite($runnable, "\t\tfflush(stdout);\n");
+fwrite($runnable, "\tstruct timeval t0, t1;\n");
+fwrite($runnable, "\tgettimeofday(&t0, 0);\n");
+fwrite($runnable, "\n");
+
+fwrite($runnable, "\tunsigned int i = 0;\n");
+fwrite($runnable, "\tfor(i=0; i < (SIMULATION_TIME / STEP_SIZE); i++) {\n");
+fwrite($runnable, "\t\t//fprintf(stdout, \"Time: %fms\\n\", i*STEP_SIZE);\n");
+fwrite($runnable, "\t\t//fflush(stdout);\n");
 
 if(is_file("custom_code.c")) {
 	fwrite($runnable, "\n");
@@ -185,6 +197,12 @@ foreach($items as $item) {
 fwrite($runnable, "\t}\n");
 fwrite($runnable, "\n");
 
+fwrite($runnable, "\tgettimeofday(&t1, 0);\n");
+fwrite($runnable, "\tlong elapsed = (t1.tv_sec-t0.tv_sec)*1000000 + t1.tv_usec-t0.tv_usec;\n");
+fwrite($runnable, "\n");
+fwrite($runnable, "\tprintf(\"Time taken: %ld microseconds (%.3f seconds)\\n\", elapsed, (elapsed / 1000000.0));\n");
+fwrite($runnable, "\n");
+
 fwrite($runnable, "\tfclose(fo);\n");
 fwrite($runnable, "\n");
 
@@ -195,7 +213,7 @@ fclose($runnable);
 
 fwrite($makefile, "runnable: runnable.c Generic/step.h\n");
 fwrite($makefile, "\t@echo Building Runnable...\n");
-fwrite($makefile, "\t@gcc runnable.c ");
+fwrite($makefile, "\t@gcc -O2 -lm -Wall runnable.c ");
 foreach($items as $item) {
 	fwrite($makefile, "Objects/" . $item . " ");
 }

@@ -3,10 +3,8 @@ fflush(fo);
 
 double stim_voltage = 0;
 
-if(i*STEP_SIZE >= 10 && i*STEP_SIZE < 15) {
-	stim_voltage = 262;
-}
-else if(i*STEP_SIZE >= 510 && i*STEP_SIZE < 515) {
+unsigned long cycle_step = i % (unsigned long) (500 / STEP_SIZE);
+if(cycle_step >= (10 / STEP_SIZE) && cycle_step < (15 / STEP_SIZE)) {
 	stim_voltage = 262;
 }
 

@@ -2,275 +2,275 @@ all: build
 
 Objects/SinoatrialNode: Cells/Generated/SinoatrialNode.c Generic/step.h
 	@echo Building SinoatrialNode...
-	@gcc -c Cells/Generated/SinoatrialNode.c -o Objects/SinoatrialNode
+	@gcc -c -O2 -lm -Wall Cells/Generated/SinoatrialNode.c -o Objects/SinoatrialNode
 
 Objects/BachmannBundle: Cells/Generated/BachmannBundle.c Generic/step.h
 	@echo Building BachmannBundle...
-	@gcc -c Cells/Generated/BachmannBundle.c -o Objects/BachmannBundle
+	@gcc -c -O2 -lm -Wall Cells/Generated/BachmannBundle.c -o Objects/BachmannBundle
 
 Objects/LeftAtrium: Cells/Generated/LeftAtrium.c Generic/step.h
 	@echo Building LeftAtrium...
-	@gcc -c Cells/Generated/LeftAtrium.c -o Objects/LeftAtrium
+	@gcc -c -O2 -lm -Wall Cells/Generated/LeftAtrium.c -o Objects/LeftAtrium
 
 Objects/LeftAtrium1: Cells/Generated/LeftAtrium1.c Generic/step.h
 	@echo Building LeftAtrium1...
-	@gcc -c Cells/Generated/LeftAtrium1.c -o Objects/LeftAtrium1
+	@gcc -c -O2 -lm -Wall Cells/Generated/LeftAtrium1.c -o Objects/LeftAtrium1
 
 Objects/RightAtrium: Cells/Generated/RightAtrium.c Generic/step.h
 	@echo Building RightAtrium...
-	@gcc -c Cells/Generated/RightAtrium.c -o Objects/RightAtrium
+	@gcc -c -O2 -lm -Wall Cells/Generated/RightAtrium.c -o Objects/RightAtrium
 
 Objects/RightAtrium1: Cells/Generated/RightAtrium1.c Generic/step.h
 	@echo Building RightAtrium1...
-	@gcc -c Cells/Generated/RightAtrium1.c -o Objects/RightAtrium1
+	@gcc -c -O2 -lm -Wall Cells/Generated/RightAtrium1.c -o Objects/RightAtrium1
 
 Objects/CoronarySinus: Cells/Generated/CoronarySinus.c Generic/step.h
 	@echo Building CoronarySinus...
-	@gcc -c Cells/Generated/CoronarySinus.c -o Objects/CoronarySinus
+	@gcc -c -O2 -lm -Wall Cells/Generated/CoronarySinus.c -o Objects/CoronarySinus
 
 Objects/CristaTerminalis: Cells/Generated/CristaTerminalis.c Generic/step.h
 	@echo Building CristaTerminalis...
-	@gcc -c Cells/Generated/CristaTerminalis.c -o Objects/CristaTerminalis
+	@gcc -c -O2 -lm -Wall Cells/Generated/CristaTerminalis.c -o Objects/CristaTerminalis
 
 Objects/CristaTerminalis1: Cells/Generated/CristaTerminalis1.c Generic/step.h
 	@echo Building CristaTerminalis1...
-	@gcc -c Cells/Generated/CristaTerminalis1.c -o Objects/CristaTerminalis1
+	@gcc -c -O2 -lm -Wall Cells/Generated/CristaTerminalis1.c -o Objects/CristaTerminalis1
 
 Objects/Ostium: Cells/Generated/Ostium.c Generic/step.h
 	@echo Building Ostium...
-	@gcc -c Cells/Generated/Ostium.c -o Objects/Ostium
+	@gcc -c -O2 -lm -Wall Cells/Generated/Ostium.c -o Objects/Ostium
 
 Objects/Fast: Cells/Generated/Fast.c Generic/step.h
 	@echo Building Fast...
-	@gcc -c Cells/Generated/Fast.c -o Objects/Fast
+	@gcc -c -O2 -lm -Wall Cells/Generated/Fast.c -o Objects/Fast
 
 Objects/Fast1: Cells/Generated/Fast1.c Generic/step.h
 	@echo Building Fast1...
-	@gcc -c Cells/Generated/Fast1.c -o Objects/Fast1
+	@gcc -c -O2 -lm -Wall Cells/Generated/Fast1.c -o Objects/Fast1
 
 Objects/Slow: Cells/Generated/Slow.c Generic/step.h
 	@echo Building Slow...
-	@gcc -c Cells/Generated/Slow.c -o Objects/Slow
+	@gcc -c -O2 -lm -Wall Cells/Generated/Slow.c -o Objects/Slow
 
 Objects/Slow1: Cells/Generated/Slow1.c Generic/step.h
 	@echo Building Slow1...
-	@gcc -c Cells/Generated/Slow1.c -o Objects/Slow1
+	@gcc -c -O2 -lm -Wall Cells/Generated/Slow1.c -o Objects/Slow1
 
 Objects/AtrioventricularNode: Cells/Generated/AtrioventricularNode.c Generic/step.h
 	@echo Building AtrioventricularNode...
-	@gcc -c Cells/Generated/AtrioventricularNode.c -o Objects/AtrioventricularNode
+	@gcc -c -O2 -lm -Wall Cells/Generated/AtrioventricularNode.c -o Objects/AtrioventricularNode
 
 Objects/BundleOfHis: Cells/Generated/BundleOfHis.c Generic/step.h
 	@echo Building BundleOfHis...
-	@gcc -c Cells/Generated/BundleOfHis.c -o Objects/BundleOfHis
+	@gcc -c -O2 -lm -Wall Cells/Generated/BundleOfHis.c -o Objects/BundleOfHis
 
 Objects/BundleOfHis1: Cells/Generated/BundleOfHis1.c Generic/step.h
 	@echo Building BundleOfHis1...
-	@gcc -c Cells/Generated/BundleOfHis1.c -o Objects/BundleOfHis1
+	@gcc -c -O2 -lm -Wall Cells/Generated/BundleOfHis1.c -o Objects/BundleOfHis1
 
 Objects/BundleOfHis2: Cells/Generated/BundleOfHis2.c Generic/step.h
 	@echo Building BundleOfHis2...
-	@gcc -c Cells/Generated/BundleOfHis2.c -o Objects/BundleOfHis2
+	@gcc -c -O2 -lm -Wall Cells/Generated/BundleOfHis2.c -o Objects/BundleOfHis2
 
 Objects/LeftBundleBranch: Cells/Generated/LeftBundleBranch.c Generic/step.h
 	@echo Building LeftBundleBranch...
-	@gcc -c Cells/Generated/LeftBundleBranch.c -o Objects/LeftBundleBranch
+	@gcc -c -O2 -lm -Wall Cells/Generated/LeftBundleBranch.c -o Objects/LeftBundleBranch
 
 Objects/LeftBundleBranch1: Cells/Generated/LeftBundleBranch1.c Generic/step.h
 	@echo Building LeftBundleBranch1...
-	@gcc -c Cells/Generated/LeftBundleBranch1.c -o Objects/LeftBundleBranch1
+	@gcc -c -O2 -lm -Wall Cells/Generated/LeftBundleBranch1.c -o Objects/LeftBundleBranch1
 
 Objects/LeftVentricularApex: Cells/Generated/LeftVentricularApex.c Generic/step.h
 	@echo Building LeftVentricularApex...
-	@gcc -c Cells/Generated/LeftVentricularApex.c -o Objects/LeftVentricularApex
+	@gcc -c -O2 -lm -Wall Cells/Generated/LeftVentricularApex.c -o Objects/LeftVentricularApex
 
 Objects/LeftVentricle: Cells/Generated/LeftVentricle.c Generic/step.h
 	@echo Building LeftVentricle...
-	@gcc -c Cells/Generated/LeftVentricle.c -o Objects/LeftVentricle
+	@gcc -c -O2 -lm -Wall Cells/Generated/LeftVentricle.c -o Objects/LeftVentricle
 
 Objects/LeftVentricle1: Cells/Generated/LeftVentricle1.c Generic/step.h
 	@echo Building LeftVentricle1...
-	@gcc -c Cells/Generated/LeftVentricle1.c -o Objects/LeftVentricle1
+	@gcc -c -O2 -lm -Wall Cells/Generated/LeftVentricle1.c -o Objects/LeftVentricle1
 
 Objects/LeftVentricularSeptum: Cells/Generated/LeftVentricularSeptum.c Generic/step.h
 	@echo Building LeftVentricularSeptum...
-	@gcc -c Cells/Generated/LeftVentricularSeptum.c -o Objects/LeftVentricularSeptum
+	@gcc -c -O2 -lm -Wall Cells/Generated/LeftVentricularSeptum.c -o Objects/LeftVentricularSeptum
 
 Objects/LeftVentricularSeptum1: Cells/Generated/LeftVentricularSeptum1.c Generic/step.h
 	@echo Building LeftVentricularSeptum1...
-	@gcc -c Cells/Generated/LeftVentricularSeptum1.c -o Objects/LeftVentricularSeptum1
+	@gcc -c -O2 -lm -Wall Cells/Generated/LeftVentricularSeptum1.c -o Objects/LeftVentricularSeptum1
 
 Objects/CSLeftVentricular: Cells/Generated/CSLeftVentricular.c Generic/step.h
 	@echo Building CSLeftVentricular...
-	@gcc -c Cells/Generated/CSLeftVentricular.c -o Objects/CSLeftVentricular
+	@gcc -c -O2 -lm -Wall Cells/Generated/CSLeftVentricular.c -o Objects/CSLeftVentricular
 
 Objects/RightBundleBranch: Cells/Generated/RightBundleBranch.c Generic/step.h
 	@echo Building RightBundleBranch...
-	@gcc -c Cells/Generated/RightBundleBranch.c -o Objects/RightBundleBranch
+	@gcc -c -O2 -lm -Wall Cells/Generated/RightBundleBranch.c -o Objects/RightBundleBranch
 
 Objects/RightBundleBranch1: Cells/Generated/RightBundleBranch1.c Generic/step.h
 	@echo Building RightBundleBranch1...
-	@gcc -c Cells/Generated/RightBundleBranch1.c -o Objects/RightBundleBranch1
+	@gcc -c -O2 -lm -Wall Cells/Generated/RightBundleBranch1.c -o Objects/RightBundleBranch1
 
 Objects/RightVentricularApex: Cells/Generated/RightVentricularApex.c Generic/step.h
 	@echo Building RightVentricularApex...
-	@gcc -c Cells/Generated/RightVentricularApex.c -o Objects/RightVentricularApex
+	@gcc -c -O2 -lm -Wall Cells/Generated/RightVentricularApex.c -o Objects/RightVentricularApex
 
 Objects/RightVentricle: Cells/Generated/RightVentricle.c Generic/step.h
 	@echo Building RightVentricle...
-	@gcc -c Cells/Generated/RightVentricle.c -o Objects/RightVentricle
+	@gcc -c -O2 -lm -Wall Cells/Generated/RightVentricle.c -o Objects/RightVentricle
 
 Objects/RightVentricle1: Cells/Generated/RightVentricle1.c Generic/step.h
 	@echo Building RightVentricle1...
-	@gcc -c Cells/Generated/RightVentricle1.c -o Objects/RightVentricle1
+	@gcc -c -O2 -lm -Wall Cells/Generated/RightVentricle1.c -o Objects/RightVentricle1
 
 Objects/RightVentricularSeptum: Cells/Generated/RightVentricularSeptum.c Generic/step.h
 	@echo Building RightVentricularSeptum...
-	@gcc -c Cells/Generated/RightVentricularSeptum.c -o Objects/RightVentricularSeptum
+	@gcc -c -O2 -lm -Wall Cells/Generated/RightVentricularSeptum.c -o Objects/RightVentricularSeptum
 
 Objects/RightVentricularSeptum1: Cells/Generated/RightVentricularSeptum1.c Generic/step.h
 	@echo Building RightVentricularSeptum1...
-	@gcc -c Cells/Generated/RightVentricularSeptum1.c -o Objects/RightVentricularSeptum1
+	@gcc -c -O2 -lm -Wall Cells/Generated/RightVentricularSeptum1.c -o Objects/RightVentricularSeptum1
 
 Objects/SA_BB: Paths/Generated/SA_BB.c Generic/step.h
 	@echo Building SA_BB...
-	@gcc -c Paths/Generated/SA_BB.c -o Objects/SA_BB
+	@gcc -c -O2 -lm -Wall Paths/Generated/SA_BB.c -o Objects/SA_BB
 
 Objects/SA_OS: Paths/Generated/SA_OS.c Generic/step.h
 	@echo Building SA_OS...
-	@gcc -c Paths/Generated/SA_OS.c -o Objects/SA_OS
+	@gcc -c -O2 -lm -Wall Paths/Generated/SA_OS.c -o Objects/SA_OS
 
 Objects/SA_RA: Paths/Generated/SA_RA.c Generic/step.h
 	@echo Building SA_RA...
-	@gcc -c Paths/Generated/SA_RA.c -o Objects/SA_RA
+	@gcc -c -O2 -lm -Wall Paths/Generated/SA_RA.c -o Objects/SA_RA
 
 Objects/SA_CT: Paths/Generated/SA_CT.c Generic/step.h
 	@echo Building SA_CT...
-	@gcc -c Paths/Generated/SA_CT.c -o Objects/SA_CT
+	@gcc -c -O2 -lm -Wall Paths/Generated/SA_CT.c -o Objects/SA_CT
 
 Objects/BB_LA: Paths/Generated/BB_LA.c Generic/step.h
 	@echo Building BB_LA...
-	@gcc -c Paths/Generated/BB_LA.c -o Objects/BB_LA
+	@gcc -c -O2 -lm -Wall Paths/Generated/BB_LA.c -o Objects/BB_LA
 
 Objects/LA_LA1: Paths/Generated/LA_LA1.c Generic/step.h
 	@echo Building LA_LA1...
-	@gcc -c Paths/Generated/LA_LA1.c -o Objects/LA_LA1
+	@gcc -c -O2 -lm -Wall Paths/Generated/LA_LA1.c -o Objects/LA_LA1
 
 Objects/RA_RA1: Paths/Generated/RA_RA1.c Generic/step.h
 	@echo Building RA_RA1...
-	@gcc -c Paths/Generated/RA_RA1.c -o Objects/RA_RA1
+	@gcc -c -O2 -lm -Wall Paths/Generated/RA_RA1.c -o Objects/RA_RA1
 
 Objects/RA1_CS: Paths/Generated/RA1_CS.c Generic/step.h
 	@echo Building RA1_CS...
-	@gcc -c Paths/Generated/RA1_CS.c -o Objects/RA1_CS
+	@gcc -c -O2 -lm -Wall Paths/Generated/RA1_CS.c -o Objects/RA1_CS
 
 Objects/CT_CT1: Paths/Generated/CT_CT1.c Generic/step.h
 	@echo Building CT_CT1...
-	@gcc -c Paths/Generated/CT_CT1.c -o Objects/CT_CT1
+	@gcc -c -O2 -lm -Wall Paths/Generated/CT_CT1.c -o Objects/CT_CT1
 
 Objects/OS_Fast: Paths/Generated/OS_Fast.c Generic/step.h
 	@echo Building OS_Fast...
-	@gcc -c Paths/Generated/OS_Fast.c -o Objects/OS_Fast
+	@gcc -c -O2 -lm -Wall Paths/Generated/OS_Fast.c -o Objects/OS_Fast
 
 Objects/Fast_Fast1: Paths/Generated/Fast_Fast1.c Generic/step.h
 	@echo Building Fast_Fast1...
-	@gcc -c Paths/Generated/Fast_Fast1.c -o Objects/Fast_Fast1
+	@gcc -c -O2 -lm -Wall Paths/Generated/Fast_Fast1.c -o Objects/Fast_Fast1
 
 Objects/OS_Slow: Paths/Generated/OS_Slow.c Generic/step.h
 	@echo Building OS_Slow...
-	@gcc -c Paths/Generated/OS_Slow.c -o Objects/OS_Slow
+	@gcc -c -O2 -lm -Wall Paths/Generated/OS_Slow.c -o Objects/OS_Slow
 
 Objects/Slow_Slow1: Paths/Generated/Slow_Slow1.c Generic/step.h
 	@echo Building Slow_Slow1...
-	@gcc -c Paths/Generated/Slow_Slow1.c -o Objects/Slow_Slow1
+	@gcc -c -O2 -lm -Wall Paths/Generated/Slow_Slow1.c -o Objects/Slow_Slow1
 
 Objects/Fast1_AV: Paths/Generated/Fast1_AV.c Generic/step.h
 	@echo Building Fast1_AV...
-	@gcc -c Paths/Generated/Fast1_AV.c -o Objects/Fast1_AV
+	@gcc -c -O2 -lm -Wall Paths/Generated/Fast1_AV.c -o Objects/Fast1_AV
 
 Objects/Slow1_AV: Paths/Generated/Slow1_AV.c Generic/step.h
 	@echo Building Slow1_AV...
-	@gcc -c Paths/Generated/Slow1_AV.c -o Objects/Slow1_AV
+	@gcc -c -O2 -lm -Wall Paths/Generated/Slow1_AV.c -o Objects/Slow1_AV
 
 Objects/AV_His: Paths/Generated/AV_His.c Generic/step.h
 	@echo Building AV_His...
-	@gcc -c Paths/Generated/AV_His.c -o Objects/AV_His
+	@gcc -c -O2 -lm -Wall Paths/Generated/AV_His.c -o Objects/AV_His
 
 Objects/His_His1: Paths/Generated/His_His1.c Generic/step.h
 	@echo Building His_His1...
-	@gcc -c Paths/Generated/His_His1.c -o Objects/His_His1
+	@gcc -c -O2 -lm -Wall Paths/Generated/His_His1.c -o Objects/His_His1
 
 Objects/His1_His2: Paths/Generated/His1_His2.c Generic/step.h
 	@echo Building His1_His2...
-	@gcc -c Paths/Generated/His1_His2.c -o Objects/His1_His2
+	@gcc -c -O2 -lm -Wall Paths/Generated/His1_His2.c -o Objects/His1_His2
 
 Objects/His2_LBB: Paths/Generated/His2_LBB.c Generic/step.h
 	@echo Building His2_LBB...
-	@gcc -c Paths/Generated/His2_LBB.c -o Objects/His2_LBB
+	@gcc -c -O2 -lm -Wall Paths/Generated/His2_LBB.c -o Objects/His2_LBB
 
 Objects/LBB_LBB1: Paths/Generated/LBB_LBB1.c Generic/step.h
 	@echo Building LBB_LBB1...
-	@gcc -c Paths/Generated/LBB_LBB1.c -o Objects/LBB_LBB1
+	@gcc -c -O2 -lm -Wall Paths/Generated/LBB_LBB1.c -o Objects/LBB_LBB1
 
 Objects/LBB1_LVA: Paths/Generated/LBB1_LVA.c Generic/step.h
 	@echo Building LBB1_LVA...
-	@gcc -c Paths/Generated/LBB1_LVA.c -o Objects/LBB1_LVA
+	@gcc -c -O2 -lm -Wall Paths/Generated/LBB1_LVA.c -o Objects/LBB1_LVA
 
 Objects/His2_RBB: Paths/Generated/His2_RBB.c Generic/step.h
 	@echo Building His2_RBB...
-	@gcc -c Paths/Generated/His2_RBB.c -o Objects/His2_RBB
+	@gcc -c -O2 -lm -Wall Paths/Generated/His2_RBB.c -o Objects/His2_RBB
 
 Objects/RBB_RBB1: Paths/Generated/RBB_RBB1.c Generic/step.h
 	@echo Building RBB_RBB1...
-	@gcc -c Paths/Generated/RBB_RBB1.c -o Objects/RBB_RBB1
+	@gcc -c -O2 -lm -Wall Paths/Generated/RBB_RBB1.c -o Objects/RBB_RBB1
 
 Objects/RBB1_RVA: Paths/Generated/RBB1_RVA.c Generic/step.h
 	@echo Building RBB1_RVA...
-	@gcc -c Paths/Generated/RBB1_RVA.c -o Objects/RBB1_RVA
+	@gcc -c -O2 -lm -Wall Paths/Generated/RBB1_RVA.c -o Objects/RBB1_RVA
 
 Objects/LVA_RVA: Paths/Generated/LVA_RVA.c Generic/step.h
 	@echo Building LVA_RVA...
-	@gcc -c Paths/Generated/LVA_RVA.c -o Objects/LVA_RVA
+	@gcc -c -O2 -lm -Wall Paths/Generated/LVA_RVA.c -o Objects/LVA_RVA
 
 Objects/LVA_LV: Paths/Generated/LVA_LV.c Generic/step.h
 	@echo Building LVA_LV...
-	@gcc -c Paths/Generated/LVA_LV.c -o Objects/LVA_LV
+	@gcc -c -O2 -lm -Wall Paths/Generated/LVA_LV.c -o Objects/LVA_LV
 
 Objects/LV_LV1: Paths/Generated/LV_LV1.c Generic/step.h
 	@echo Building LV_LV1...
-	@gcc -c Paths/Generated/LV_LV1.c -o Objects/LV_LV1
+	@gcc -c -O2 -lm -Wall Paths/Generated/LV_LV1.c -o Objects/LV_LV1
 
 Objects/LVA_LVS: Paths/Generated/LVA_LVS.c Generic/step.h
 	@echo Building LVA_LVS...
-	@gcc -c Paths/Generated/LVA_LVS.c -o Objects/LVA_LVS
+	@gcc -c -O2 -lm -Wall Paths/Generated/LVA_LVS.c -o Objects/LVA_LVS
 
 Objects/LVS_LVS1: Paths/Generated/LVS_LVS1.c Generic/step.h
 	@echo Building LVS_LVS1...
-	@gcc -c Paths/Generated/LVS_LVS1.c -o Objects/LVS_LVS1
+	@gcc -c -O2 -lm -Wall Paths/Generated/LVS_LVS1.c -o Objects/LVS_LVS1
 
 Objects/LVS1_CSLV: Paths/Generated/LVS1_CSLV.c Generic/step.h
 	@echo Building LVS1_CSLV...
-	@gcc -c Paths/Generated/LVS1_CSLV.c -o Objects/LVS1_CSLV
+	@gcc -c -O2 -lm -Wall Paths/Generated/LVS1_CSLV.c -o Objects/LVS1_CSLV
 
 Objects/RVA_RV: Paths/Generated/RVA_RV.c Generic/step.h
 	@echo Building RVA_RV...
-	@gcc -c Paths/Generated/RVA_RV.c -o Objects/RVA_RV
+	@gcc -c -O2 -lm -Wall Paths/Generated/RVA_RV.c -o Objects/RVA_RV
 
 Objects/RV_RV1: Paths/Generated/RV_RV1.c Generic/step.h
 	@echo Building RV_RV1...
-	@gcc -c Paths/Generated/RV_RV1.c -o Objects/RV_RV1
+	@gcc -c -O2 -lm -Wall Paths/Generated/RV_RV1.c -o Objects/RV_RV1
 
 Objects/RVA_RVS: Paths/Generated/RVA_RVS.c Generic/step.h
 	@echo Building RVA_RVS...
-	@gcc -c Paths/Generated/RVA_RVS.c -o Objects/RVA_RVS
+	@gcc -c -O2 -lm -Wall Paths/Generated/RVA_RVS.c -o Objects/RVA_RVS
 
 Objects/RVS_RVS1: Paths/Generated/RVS_RVS1.c Generic/step.h
 	@echo Building RVS_RVS1...
-	@gcc -c Paths/Generated/RVS_RVS1.c -o Objects/RVS_RVS1
+	@gcc -c -O2 -lm -Wall Paths/Generated/RVS_RVS1.c -o Objects/RVS_RVS1
 
 runnable: runnable.c Generic/step.h
 	@echo Building Runnable...
-	@gcc runnable.c Objects/SinoatrialNode Objects/BachmannBundle Objects/LeftAtrium Objects/LeftAtrium1 Objects/RightAtrium Objects/RightAtrium1 Objects/CoronarySinus Objects/CristaTerminalis Objects/CristaTerminalis1 Objects/Ostium Objects/Fast Objects/Fast1 Objects/Slow Objects/Slow1 Objects/AtrioventricularNode Objects/BundleOfHis Objects/BundleOfHis1 Objects/BundleOfHis2 Objects/LeftBundleBranch Objects/LeftBundleBranch1 Objects/LeftVentricularApex Objects/LeftVentricle Objects/LeftVentricle1 Objects/LeftVentricularSeptum Objects/LeftVentricularSeptum1 Objects/CSLeftVentricular Objects/RightBundleBranch Objects/RightBundleBranch1 Objects/RightVentricularApex Objects/RightVentricle Objects/RightVentricle1 Objects/RightVentricularSeptum Objects/RightVentricularSeptum1 Objects/SA_BB Objects/SA_OS Objects/SA_RA Objects/SA_CT Objects/BB_LA Objects/LA_LA1 Objects/RA_RA1 Objects/RA1_CS Objects/CT_CT1 Objects/OS_Fast Objects/Fast_Fast1 Objects/OS_Slow Objects/Slow_Slow1 Objects/Fast1_AV Objects/Slow1_AV Objects/AV_His Objects/His_His1 Objects/His1_His2 Objects/His2_LBB Objects/LBB_LBB1 Objects/LBB1_LVA Objects/His2_RBB Objects/RBB_RBB1 Objects/RBB1_RVA Objects/LVA_RVA Objects/LVA_LV Objects/LV_LV1 Objects/LVA_LVS Objects/LVS_LVS1 Objects/LVS1_CSLV Objects/RVA_RV Objects/RV_RV1 Objects/RVA_RVS Objects/RVS_RVS1 -o runnable
+	@gcc -O2 -lm -Wall runnable.c Objects/SinoatrialNode Objects/BachmannBundle Objects/LeftAtrium Objects/LeftAtrium1 Objects/RightAtrium Objects/RightAtrium1 Objects/CoronarySinus Objects/CristaTerminalis Objects/CristaTerminalis1 Objects/Ostium Objects/Fast Objects/Fast1 Objects/Slow Objects/Slow1 Objects/AtrioventricularNode Objects/BundleOfHis Objects/BundleOfHis1 Objects/BundleOfHis2 Objects/LeftBundleBranch Objects/LeftBundleBranch1 Objects/LeftVentricularApex Objects/LeftVentricle Objects/LeftVentricle1 Objects/LeftVentricularSeptum Objects/LeftVentricularSeptum1 Objects/CSLeftVentricular Objects/RightBundleBranch Objects/RightBundleBranch1 Objects/RightVentricularApex Objects/RightVentricle Objects/RightVentricle1 Objects/RightVentricularSeptum Objects/RightVentricularSeptum1 Objects/SA_BB Objects/SA_OS Objects/SA_RA Objects/SA_CT Objects/BB_LA Objects/LA_LA1 Objects/RA_RA1 Objects/RA1_CS Objects/CT_CT1 Objects/OS_Fast Objects/Fast_Fast1 Objects/OS_Slow Objects/Slow_Slow1 Objects/Fast1_AV Objects/Slow1_AV Objects/AV_His Objects/His_His1 Objects/His1_His2 Objects/His2_LBB Objects/LBB_LBB1 Objects/LBB1_LVA Objects/His2_RBB Objects/RBB_RBB1 Objects/RBB1_RVA Objects/LVA_RVA Objects/LVA_LV Objects/LV_LV1 Objects/LVA_LVS Objects/LVS_LVS1 Objects/LVS1_CSLV Objects/RVA_RV Objects/RV_RV1 Objects/RVA_RVS Objects/RVS_RVS1 -o runnable
 
 build: Objects/SinoatrialNode Objects/BachmannBundle Objects/LeftAtrium Objects/LeftAtrium1 Objects/RightAtrium Objects/RightAtrium1 Objects/CoronarySinus Objects/CristaTerminalis Objects/CristaTerminalis1 Objects/Ostium Objects/Fast Objects/Fast1 Objects/Slow Objects/Slow1 Objects/AtrioventricularNode Objects/BundleOfHis Objects/BundleOfHis1 Objects/BundleOfHis2 Objects/LeftBundleBranch Objects/LeftBundleBranch1 Objects/LeftVentricularApex Objects/LeftVentricle Objects/LeftVentricle1 Objects/LeftVentricularSeptum Objects/LeftVentricularSeptum1 Objects/CSLeftVentricular Objects/RightBundleBranch Objects/RightBundleBranch1 Objects/RightVentricularApex Objects/RightVentricle Objects/RightVentricle1 Objects/RightVentricularSeptum Objects/RightVentricularSeptum1 Objects/SA_BB Objects/SA_OS Objects/SA_RA Objects/SA_CT Objects/BB_LA Objects/LA_LA1 Objects/RA_RA1 Objects/RA1_CS Objects/CT_CT1 Objects/OS_Fast Objects/Fast_Fast1 Objects/OS_Slow Objects/Slow_Slow1 Objects/Fast1_AV Objects/Slow1_AV Objects/AV_His Objects/His_His1 Objects/His1_His2 Objects/His2_LBB Objects/LBB_LBB1 Objects/LBB1_LVA Objects/His2_RBB Objects/RBB_RBB1 Objects/RBB1_RVA Objects/LVA_RVA Objects/LVA_LV Objects/LV_LV1 Objects/LVA_LVS Objects/LVS_LVS1 Objects/LVS1_CSLV Objects/RVA_RV Objects/RV_RV1 Objects/RVA_RVS Objects/RVS_RVS1 runnable
 

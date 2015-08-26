@@ -19,13 +19,14 @@ void OS_SlowInit(OS_Slow* me) {
     me->cell2_mode_delayed = 0;
     me->cell2_replay_latch = False;
     
-    for(int i=0; i<(30 / STEP_SIZE); i++) {
+	int i=0;
+    for(i=0; i<(30 / STEP_SIZE); i++) {
         me->cell1_v_buffer[i] = 0;
         me->cell1_mode_buffer[i] = 0;
     }
     me->cell1_buffer_index = 0;
 
-    for(int i=0; i<(30 / STEP_SIZE); i++) {
+    for(i=0; i<(30 / STEP_SIZE); i++) {
         me->cell2_v_buffer[i] = 0;
         me->cell2_mode_buffer[i] = 0;
     }

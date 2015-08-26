@@ -1,6 +1,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <sys/time.h>
 
 #include "Generic/step.h"
 #include "Cells/Generated/SinoatrialNode.h"
@@ -71,223 +73,293 @@
 #include "Paths/Generated/RVA_RVS.h"
 #include "Paths/Generated/RVS_RVS1.h"
 
+SinoatrialNode SinoatrialNode_data;
+BachmannBundle BachmannBundle_data;
+LeftAtrium LeftAtrium_data;
+LeftAtrium1 LeftAtrium1_data;
+RightAtrium RightAtrium_data;
+RightAtrium1 RightAtrium1_data;
+CoronarySinus CoronarySinus_data;
+CristaTerminalis CristaTerminalis_data;
+CristaTerminalis1 CristaTerminalis1_data;
+Ostium Ostium_data;
+Fast Fast_data;
+Fast1 Fast1_data;
+Slow Slow_data;
+Slow1 Slow1_data;
+AtrioventricularNode AtrioventricularNode_data;
+BundleOfHis BundleOfHis_data;
+BundleOfHis1 BundleOfHis1_data;
+BundleOfHis2 BundleOfHis2_data;
+LeftBundleBranch LeftBundleBranch_data;
+LeftBundleBranch1 LeftBundleBranch1_data;
+LeftVentricularApex LeftVentricularApex_data;
+LeftVentricle LeftVentricle_data;
+LeftVentricle1 LeftVentricle1_data;
+LeftVentricularSeptum LeftVentricularSeptum_data;
+LeftVentricularSeptum1 LeftVentricularSeptum1_data;
+CSLeftVentricular CSLeftVentricular_data;
+RightBundleBranch RightBundleBranch_data;
+RightBundleBranch1 RightBundleBranch1_data;
+RightVentricularApex RightVentricularApex_data;
+RightVentricle RightVentricle_data;
+RightVentricle1 RightVentricle1_data;
+RightVentricularSeptum RightVentricularSeptum_data;
+RightVentricularSeptum1 RightVentricularSeptum1_data;
+SA_BB SA_BB_data;
+SA_OS SA_OS_data;
+SA_RA SA_RA_data;
+SA_CT SA_CT_data;
+BB_LA BB_LA_data;
+LA_LA1 LA_LA1_data;
+RA_RA1 RA_RA1_data;
+RA1_CS RA1_CS_data;
+CT_CT1 CT_CT1_data;
+OS_Fast OS_Fast_data;
+Fast_Fast1 Fast_Fast1_data;
+OS_Slow OS_Slow_data;
+Slow_Slow1 Slow_Slow1_data;
+Fast1_AV Fast1_AV_data;
+Slow1_AV Slow1_AV_data;
+AV_His AV_His_data;
+His_His1 His_His1_data;
+His1_His2 His1_His2_data;
+His2_LBB His2_LBB_data;
+LBB_LBB1 LBB_LBB1_data;
+LBB1_LVA LBB1_LVA_data;
+His2_RBB His2_RBB_data;
+RBB_RBB1 RBB_RBB1_data;
+RBB1_RVA RBB1_RVA_data;
+LVA_RVA LVA_RVA_data;
+LVA_LV LVA_LV_data;
+LV_LV1 LV_LV1_data;
+LVA_LVS LVA_LVS_data;
+LVS_LVS1 LVS_LVS1_data;
+LVS1_CSLV LVS1_CSLV_data;
+RVA_RV RVA_RV_data;
+RV_RV1 RV_RV1_data;
+RVA_RVS RVA_RVS_data;
+RVS_RVS1 RVS_RVS1_data;
+
 int main(void) {
-	SinoatrialNode SinoatrialNode_data;
+	(void) memset((void *)&SinoatrialNode_data, 0, sizeof(SinoatrialNode));
 	SinoatrialNodeInit(&SinoatrialNode_data);
 
-	BachmannBundle BachmannBundle_data;
+	(void) memset((void *)&BachmannBundle_data, 0, sizeof(BachmannBundle));
 	BachmannBundleInit(&BachmannBundle_data);
 
-	LeftAtrium LeftAtrium_data;
+	(void) memset((void *)&LeftAtrium_data, 0, sizeof(LeftAtrium));
 	LeftAtriumInit(&LeftAtrium_data);
 
-	LeftAtrium1 LeftAtrium1_data;
+	(void) memset((void *)&LeftAtrium1_data, 0, sizeof(LeftAtrium1));
 	LeftAtrium1Init(&LeftAtrium1_data);
 
-	RightAtrium RightAtrium_data;
+	(void) memset((void *)&RightAtrium_data, 0, sizeof(RightAtrium));
 	RightAtriumInit(&RightAtrium_data);
 
-	RightAtrium1 RightAtrium1_data;
+	(void) memset((void *)&RightAtrium1_data, 0, sizeof(RightAtrium1));
 	RightAtrium1Init(&RightAtrium1_data);
 
-	CoronarySinus CoronarySinus_data;
+	(void) memset((void *)&CoronarySinus_data, 0, sizeof(CoronarySinus));
 	CoronarySinusInit(&CoronarySinus_data);
 
-	CristaTerminalis CristaTerminalis_data;
+	(void) memset((void *)&CristaTerminalis_data, 0, sizeof(CristaTerminalis));
 	CristaTerminalisInit(&CristaTerminalis_data);
 
-	CristaTerminalis1 CristaTerminalis1_data;
+	(void) memset((void *)&CristaTerminalis1_data, 0, sizeof(CristaTerminalis1));
 	CristaTerminalis1Init(&CristaTerminalis1_data);
 
-	Ostium Ostium_data;
+	(void) memset((void *)&Ostium_data, 0, sizeof(Ostium));
 	OstiumInit(&Ostium_data);
 
-	Fast Fast_data;
+	(void) memset((void *)&Fast_data, 0, sizeof(Fast));
 	FastInit(&Fast_data);
 
-	Fast1 Fast1_data;
+	(void) memset((void *)&Fast1_data, 0, sizeof(Fast1));
 	Fast1Init(&Fast1_data);
 
-	Slow Slow_data;
+	(void) memset((void *)&Slow_data, 0, sizeof(Slow));
 	SlowInit(&Slow_data);
 
-	Slow1 Slow1_data;
+	(void) memset((void *)&Slow1_data, 0, sizeof(Slow1));
 	Slow1Init(&Slow1_data);
 
-	AtrioventricularNode AtrioventricularNode_data;
+	(void) memset((void *)&AtrioventricularNode_data, 0, sizeof(AtrioventricularNode));
 	AtrioventricularNodeInit(&AtrioventricularNode_data);
 
-	BundleOfHis BundleOfHis_data;
+	(void) memset((void *)&BundleOfHis_data, 0, sizeof(BundleOfHis));
 	BundleOfHisInit(&BundleOfHis_data);
 
-	BundleOfHis1 BundleOfHis1_data;
+	(void) memset((void *)&BundleOfHis1_data, 0, sizeof(BundleOfHis1));
 	BundleOfHis1Init(&BundleOfHis1_data);
 
-	BundleOfHis2 BundleOfHis2_data;
+	(void) memset((void *)&BundleOfHis2_data, 0, sizeof(BundleOfHis2));
 	BundleOfHis2Init(&BundleOfHis2_data);
 
-	LeftBundleBranch LeftBundleBranch_data;
+	(void) memset((void *)&LeftBundleBranch_data, 0, sizeof(LeftBundleBranch));
 	LeftBundleBranchInit(&LeftBundleBranch_data);
 
-	LeftBundleBranch1 LeftBundleBranch1_data;
+	(void) memset((void *)&LeftBundleBranch1_data, 0, sizeof(LeftBundleBranch1));
 	LeftBundleBranch1Init(&LeftBundleBranch1_data);
 
-	LeftVentricularApex LeftVentricularApex_data;
+	(void) memset((void *)&LeftVentricularApex_data, 0, sizeof(LeftVentricularApex));
 	LeftVentricularApexInit(&LeftVentricularApex_data);
 
-	LeftVentricle LeftVentricle_data;
+	(void) memset((void *)&LeftVentricle_data, 0, sizeof(LeftVentricle));
 	LeftVentricleInit(&LeftVentricle_data);
 
-	LeftVentricle1 LeftVentricle1_data;
+	(void) memset((void *)&LeftVentricle1_data, 0, sizeof(LeftVentricle1));
 	LeftVentricle1Init(&LeftVentricle1_data);
 
-	LeftVentricularSeptum LeftVentricularSeptum_data;
+	(void) memset((void *)&LeftVentricularSeptum_data, 0, sizeof(LeftVentricularSeptum));
 	LeftVentricularSeptumInit(&LeftVentricularSeptum_data);
 
-	LeftVentricularSeptum1 LeftVentricularSeptum1_data;
+	(void) memset((void *)&LeftVentricularSeptum1_data, 0, sizeof(LeftVentricularSeptum1));
 	LeftVentricularSeptum1Init(&LeftVentricularSeptum1_data);
 
-	CSLeftVentricular CSLeftVentricular_data;
+	(void) memset((void *)&CSLeftVentricular_data, 0, sizeof(CSLeftVentricular));
 	CSLeftVentricularInit(&CSLeftVentricular_data);
 
-	RightBundleBranch RightBundleBranch_data;
+	(void) memset((void *)&RightBundleBranch_data, 0, sizeof(RightBundleBranch));
 	RightBundleBranchInit(&RightBundleBranch_data);
 
-	RightBundleBranch1 RightBundleBranch1_data;
+	(void) memset((void *)&RightBundleBranch1_data, 0, sizeof(RightBundleBranch1));
 	RightBundleBranch1Init(&RightBundleBranch1_data);
 
-	RightVentricularApex RightVentricularApex_data;
+	(void) memset((void *)&RightVentricularApex_data, 0, sizeof(RightVentricularApex));
 	RightVentricularApexInit(&RightVentricularApex_data);
 
-	RightVentricle RightVentricle_data;
+	(void) memset((void *)&RightVentricle_data, 0, sizeof(RightVentricle));
 	RightVentricleInit(&RightVentricle_data);
 
-	RightVentricle1 RightVentricle1_data;
+	(void) memset((void *)&RightVentricle1_data, 0, sizeof(RightVentricle1));
 	RightVentricle1Init(&RightVentricle1_data);
 
-	RightVentricularSeptum RightVentricularSeptum_data;
+	(void) memset((void *)&RightVentricularSeptum_data, 0, sizeof(RightVentricularSeptum));
 	RightVentricularSeptumInit(&RightVentricularSeptum_data);
 
-	RightVentricularSeptum1 RightVentricularSeptum1_data;
+	(void) memset((void *)&RightVentricularSeptum1_data, 0, sizeof(RightVentricularSeptum1));
 	RightVentricularSeptum1Init(&RightVentricularSeptum1_data);
 
-	SA_BB SA_BB_data;
+	(void) memset((void *)&SA_BB_data, 0, sizeof(SA_BB));
 	SA_BBInit(&SA_BB_data);
 
-	SA_OS SA_OS_data;
+	(void) memset((void *)&SA_OS_data, 0, sizeof(SA_OS));
 	SA_OSInit(&SA_OS_data);
 
-	SA_RA SA_RA_data;
+	(void) memset((void *)&SA_RA_data, 0, sizeof(SA_RA));
 	SA_RAInit(&SA_RA_data);
 
-	SA_CT SA_CT_data;
+	(void) memset((void *)&SA_CT_data, 0, sizeof(SA_CT));
 	SA_CTInit(&SA_CT_data);
 
-	BB_LA BB_LA_data;
+	(void) memset((void *)&BB_LA_data, 0, sizeof(BB_LA));
 	BB_LAInit(&BB_LA_data);
 
-	LA_LA1 LA_LA1_data;
+	(void) memset((void *)&LA_LA1_data, 0, sizeof(LA_LA1));
 	LA_LA1Init(&LA_LA1_data);
 
-	RA_RA1 RA_RA1_data;
+	(void) memset((void *)&RA_RA1_data, 0, sizeof(RA_RA1));
 	RA_RA1Init(&RA_RA1_data);
 
-	RA1_CS RA1_CS_data;
+	(void) memset((void *)&RA1_CS_data, 0, sizeof(RA1_CS));
 	RA1_CSInit(&RA1_CS_data);
 
-	CT_CT1 CT_CT1_data;
+	(void) memset((void *)&CT_CT1_data, 0, sizeof(CT_CT1));
 	CT_CT1Init(&CT_CT1_data);
 
-	OS_Fast OS_Fast_data;
+	(void) memset((void *)&OS_Fast_data, 0, sizeof(OS_Fast));
 	OS_FastInit(&OS_Fast_data);
 
-	Fast_Fast1 Fast_Fast1_data;
+	(void) memset((void *)&Fast_Fast1_data, 0, sizeof(Fast_Fast1));
 	Fast_Fast1Init(&Fast_Fast1_data);
 
-	OS_Slow OS_Slow_data;
+	(void) memset((void *)&OS_Slow_data, 0, sizeof(OS_Slow));
 	OS_SlowInit(&OS_Slow_data);
 
-	Slow_Slow1 Slow_Slow1_data;
+	(void) memset((void *)&Slow_Slow1_data, 0, sizeof(Slow_Slow1));
 	Slow_Slow1Init(&Slow_Slow1_data);
 
-	Fast1_AV Fast1_AV_data;
+	(void) memset((void *)&Fast1_AV_data, 0, sizeof(Fast1_AV));
 	Fast1_AVInit(&Fast1_AV_data);
 
-	Slow1_AV Slow1_AV_data;
+	(void) memset((void *)&Slow1_AV_data, 0, sizeof(Slow1_AV));
 	Slow1_AVInit(&Slow1_AV_data);
 
-	AV_His AV_His_data;
+	(void) memset((void *)&AV_His_data, 0, sizeof(AV_His));
 	AV_HisInit(&AV_His_data);
 
-	His_His1 His_His1_data;
+	(void) memset((void *)&His_His1_data, 0, sizeof(His_His1));
 	His_His1Init(&His_His1_data);
 
-	His1_His2 His1_His2_data;
+	(void) memset((void *)&His1_His2_data, 0, sizeof(His1_His2));
 	His1_His2Init(&His1_His2_data);
 
-	His2_LBB His2_LBB_data;
+	(void) memset((void *)&His2_LBB_data, 0, sizeof(His2_LBB));
 	His2_LBBInit(&His2_LBB_data);
 
-	LBB_LBB1 LBB_LBB1_data;
+	(void) memset((void *)&LBB_LBB1_data, 0, sizeof(LBB_LBB1));
 	LBB_LBB1Init(&LBB_LBB1_data);
 
-	LBB1_LVA LBB1_LVA_data;
+	(void) memset((void *)&LBB1_LVA_data, 0, sizeof(LBB1_LVA));
 	LBB1_LVAInit(&LBB1_LVA_data);
 
-	His2_RBB His2_RBB_data;
+	(void) memset((void *)&His2_RBB_data, 0, sizeof(His2_RBB));
 	His2_RBBInit(&His2_RBB_data);
 
-	RBB_RBB1 RBB_RBB1_data;
+	(void) memset((void *)&RBB_RBB1_data, 0, sizeof(RBB_RBB1));
 	RBB_RBB1Init(&RBB_RBB1_data);
 
-	RBB1_RVA RBB1_RVA_data;
+	(void) memset((void *)&RBB1_RVA_data, 0, sizeof(RBB1_RVA));
 	RBB1_RVAInit(&RBB1_RVA_data);
 
-	LVA_RVA LVA_RVA_data;
+	(void) memset((void *)&LVA_RVA_data, 0, sizeof(LVA_RVA));
 	LVA_RVAInit(&LVA_RVA_data);
 
-	LVA_LV LVA_LV_data;
+	(void) memset((void *)&LVA_LV_data, 0, sizeof(LVA_LV));
 	LVA_LVInit(&LVA_LV_data);
 
-	LV_LV1 LV_LV1_data;
+	(void) memset((void *)&LV_LV1_data, 0, sizeof(LV_LV1));
 	LV_LV1Init(&LV_LV1_data);
 
-	LVA_LVS LVA_LVS_data;
+	(void) memset((void *)&LVA_LVS_data, 0, sizeof(LVA_LVS));
 	LVA_LVSInit(&LVA_LVS_data);
 
-	LVS_LVS1 LVS_LVS1_data;
+	(void) memset((void *)&LVS_LVS1_data, 0, sizeof(LVS_LVS1));
 	LVS_LVS1Init(&LVS_LVS1_data);
 
-	LVS1_CSLV LVS1_CSLV_data;
+	(void) memset((void *)&LVS1_CSLV_data, 0, sizeof(LVS1_CSLV));
 	LVS1_CSLVInit(&LVS1_CSLV_data);
 
-	RVA_RV RVA_RV_data;
+	(void) memset((void *)&RVA_RV_data, 0, sizeof(RVA_RV));
 	RVA_RVInit(&RVA_RV_data);
 
-	RV_RV1 RV_RV1_data;
+	(void) memset((void *)&RV_RV1_data, 0, sizeof(RV_RV1));
 	RV_RV1Init(&RV_RV1_data);
 
-	RVA_RVS RVA_RVS_data;
+	(void) memset((void *)&RVA_RVS_data, 0, sizeof(RVA_RVS));
 	RVA_RVSInit(&RVA_RVS_data);
 
-	RVS_RVS1 RVS_RVS1_data;
+	(void) memset((void *)&RVS_RVS1_data, 0, sizeof(RVS_RVS1));
 	RVS_RVS1Init(&RVS_RVS1_data);
 
 	FILE* fo = fopen("out.csv", "w");
 
-	for(unsigned int i=0; i*STEP_SIZE < SIMULATION_TIME; i++) {
-		fprintf(stdout, "Time: %fms\n", i*STEP_SIZE);
-		fflush(stdout);
+	struct timeval t0, t1;
+	gettimeofday(&t0, 0);
+
+	unsigned int i = 0;
+	for(i=0; i < (SIMULATION_TIME / STEP_SIZE); i++) {
+		//fprintf(stdout, "Time: %fms\n", i*STEP_SIZE);
+		//fflush(stdout);
 
 fprintf(fo, "%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", i*STEP_SIZE, SinoatrialNode_data.v, Ostium_data.v, Fast_data.v, Fast1_data.v, AtrioventricularNode_data.v, BundleOfHis_data.v, BundleOfHis1_data.v, BundleOfHis2_data.v, LeftBundleBranch_data.v, LeftBundleBranch1_data.v, LeftVentricularApex_data.v);
 fflush(fo);
 
 double stim_voltage = 0;
 
-if(i*STEP_SIZE >= 10 && i*STEP_SIZE < 15) {
-	stim_voltage = 262;
-}
-else if(i*STEP_SIZE >= 510 && i*STEP_SIZE < 515) {
+unsigned long cycle_step = i % (unsigned long) (500 / STEP_SIZE);
+if(cycle_step >= (10 / STEP_SIZE) && cycle_step < (15 / STEP_SIZE)) {
 	stim_voltage = 262;
 }
 
@@ -746,6 +818,11 @@ RVS_RVS1_data.cell2_mode = RightVentricularSeptum1_data.state;
 
 		RVS_RVS1Run(&RVS_RVS1_data);
 	}
+
+	gettimeofday(&t1, 0);
+	long elapsed = (t1.tv_sec-t0.tv_sec)*1000000 + t1.tv_usec-t0.tv_usec;
+
+	printf("Time taken: %ld microseconds (%.3f seconds)\n", elapsed, (elapsed / 1000000.0));
 
 	fclose(fo);
 
