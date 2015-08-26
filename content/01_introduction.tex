@@ -40,9 +40,16 @@ The continuous dynamics of a plant (e.g., heart) and
  the discrete behaviour of a controller (e.g., pacemaker) 
  results in so called hybrid systems. 
  These are often formally described using Hybrid Automata~\cite{alur2015principles,raskin05,chen201487}.
- However, these are non-deterministic and ....
- (motivate need for deterministic execution).
- We apply synchronous rendering.
+ However, these are non-deterministic and are problematic
+ for generating constructive models.
+ A more abstract deterministic model will enable us to
+ develop constructive/synthesisable models~\cite{Lee2014}. Also, 
+ it is easier to draw trusted conclusions from simulations
+ of deterministic models. Based on the
+ well-known synchronous approach~[], 
+ we present a deterministic semantics for \ac{HA} and show
+ constructive models in this paper.
+
  
  \textbf{Contributions} of this paper are 
  (1) We propose a \emph{deterministic semantics} for \acf{HA}, see Section~\ref{sec:HA}.
