@@ -45,17 +45,24 @@ fwrite($makefile, "all: build\n\n");
 $items = Array();
 $headers = Array();
 
+if(is_dir("Cells/Generated")) {
+	delTree("Cells/Generated", false);
+}
+else {
+	mkdir("Cells/Generated");
+}
+
+if(is_dir("Paths/Generated")) {
+	delTree("Paths/Generated", false);
+}
+else {
+	mkdir("Paths/Generated");
+}
+
 if(is_file("Cells/cells.csv")) {
 	$fp = fopen("Cells/cells.csv", "r");
 
 	$data = CSVToArray($fp);
-
-	if(is_dir("Cells/Generated")) {
-		delTree("Cells/Generated", false);
-	}
-	else {
-		mkdir("Cells/Generated");
-	}
 
 	foreach($data as $cell) {
 		$safe_name = str_replace("-", "", $cell["Name"]);
@@ -100,13 +107,6 @@ if(is_file("Paths/paths.csv")) {
 	$fp = fopen("Paths/paths.csv", "r");
 
 	$data = CSVToArray($fp);
-
-	if(is_dir("Paths/Generated")) {
-		delTree("Paths/Generated", false);
-	}
-	else {
-		mkdir("Paths/Generated");
-	}
 
 	foreach($data as $path) {
 		$safe_name = str_replace("-", "", $path["Name"]);

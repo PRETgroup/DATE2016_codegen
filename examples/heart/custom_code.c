@@ -1,5 +1,5 @@
-fprintf(fo, "%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", i*STEP_SIZE, SinoatrialNode_data.v, Ostium_data.v, Fast_data.v, Fast1_data.v, AtrioventricularNode_data.v, BundleOfHis_data.v, BundleOfHis1_data.v, BundleOfHis2_data.v, LeftBundleBranch_data.v, LeftBundleBranch1_data.v, LeftVentricularApex_data.v);
-fflush(fo);
+//fprintf(fo, "%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", i*STEP_SIZE, SinoatrialNode_data.v, Ostium_data.v, Fast_data.v, Fast1_data.v, AtrioventricularNode_data.v, BundleOfHis_data.v, BundleOfHis1_data.v, BundleOfHis2_data.v, RightBundleBranch_data.v, RightBundleBranch1_data.v, RightVentricularApex_data.v);
+//fflush(fo);
 
 double stim_voltage = 0;
 
