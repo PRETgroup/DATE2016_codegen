@@ -1,0 +1,38 @@
+\begin{tikzpicture}
+\begin{axis}[
+	ybar,
+	enlargelimits=0.15,
+	legend style={
+		at={(0.5,-0.15)},
+		anchor=north,
+		legend columns=-1
+	},
+	ylabel={Execution time (ms)},
+	symbolic x coords={TTS, NHC, WH, MTG, NP},
+	xtick=data,
+	nodes near coords,
+	nodes near coords align={vertical},
+]
+
+%Simulink
+\addplot coordinates {
+	(TTS,0)
+	(NHC,31477)
+	(WH,0)
+	(MTG,0)
+	(NP,0)
+};
+
+%Piha
+\addplot coordinates {
+	(TTS,0)
+	(NHC,713)
+	(WH,0)
+	(MTG,0)
+	(NP,0)
+};
+
+\legend{Simulink, Piha}
+
+\end{axis}
+\end{tikzpicture}
