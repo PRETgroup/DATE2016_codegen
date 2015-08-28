@@ -1,8 +1,36 @@
 \section{Modular code generation}
 \label{sec:codeGen}
+
+\begin{figure}[t!]
+	\centering
+	\scalebox{0.7}{
+		\input{./figures/compilingHA}
+	}
+	\caption{Process for compiling a network of \acf{HA}}
+	\label{fig:compilingHA}
+\end{figure}
+
+%\begin{figure}[htbp]
+%	\centering
+%	\input{./figures/codeGenOverview}
+%	\caption{The water tank component from the running example}
+%	\label{fig:codeGenOverview}
+%\end{figure}
+
 In this section we present our approach for modular code generation from
 a network of \ac{HA}. 
-An overview of the solution is presented in Figure~X.
+An overview of the solution is presented in Figure~\ref{fig:compilingHA} and the two steps are outlined in detail below in Sections \ref{sec:shaGeneration} and \ref{sec:backendCodeGeneration}.
+
+\subsection{Generation of a network of \ac{SHA}}
+\label{sec:shaGeneration}
+
+This section describes step 1 of the compilation process from Figure~\ref{fig:compilingHA}.
+This step involves converting all of the \acp{ODE} in each of the \acp{HA} into their forward Euler equivalent methods.
+
+Given the \ac{ODE} for $\dot{v_x}$ in state $\mathbf{q_1}$ of the Heart Cell \ac{HA} defined in Figure~\ref{fig:cellHA} ($\dot{v_x} = a^1_x v_x + \beta_x g(\vec{v})$) the forward Euler equivalent becomes $v_x[t+1] = v_x[t] + \delta * (a^1_x v_x[t] + \beta_x g(\vec{v}))$
+
+\subsection{Backend code generation}
+\label{sec:backendCodeGeneration}
 
 \begin{itemize}
 	\item Overview Figure

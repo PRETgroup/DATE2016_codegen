@@ -1,0 +1,27 @@
+% Define block styles
+\tikzstyle{file} = [rectangle, draw, fill=gray!20, 
+    text width=7em, text centered, minimum height=4em]
+\tikzstyle{process} = [rectangle, draw, fill=blue!15, 
+    text width=7em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex', ultra thick]
+    
+    
+\begin{tikzpicture}
+    % Place nodes
+    \node [file] (HA) {Network of \ac{HA}};
+    
+    \node [process, below of = HA, node distance = 3cm] (GSHA) {Generate network of \ac{SHA} (step 1, Sec~\ref{sec:shaGeneration})};
+    
+    \node [file, right of = GSHA, node distance = 4cm] (SHA) {Network of \ac{SHA}};
+    
+    \node [process, right of = SHA, node distance = 4cm] (GFSM) {Generate backend code (step 2, Sec~\ref{sec:backendCodeGeneration})};
+		 
+	\node [file, above of = GFSM, node distance = 3cm] (FSM) {FSM/ C-code};
+		 
+		 
+	%edges
+	\path [line] (HA) -- (GSHA);
+	\path [line] (GSHA) -- (SHA);
+	\path [line] (SHA) -- (GFSM);
+	\path [line] (GFSM) -- (FSM);
+\end{tikzpicture}    

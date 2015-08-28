@@ -1,0 +1,191 @@
+{
+	\centering
+	\subfigure[\acf{HA}, see Definition~\ref{def:ha}. Reproduced from Figure~\ref{fig:waterTankHAtank}. Symbols $K$ and $h$ are constants with values $0.075$ and $150$, respectively. \label{fig:codeGenHA}
+	]{
+	\framebox[0.50\textwidth]{
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,
+			node distance=5.4cm,
+			semithick,scale=0.9, transform shape]
+			\tikzstyle{every state}=[rectangle,rounded corners,
+			minimum height = 1.2cm, text width=2.2cm, text centered, fill=blue!20,draw=none,text=black, draw,line width=0.3mm]
+			
+			\node[state, 
+			label={[shift={(0,-1.9)}]$ x = 20$}, 
+			label={[shift={(-1.5,-0.2)}]\large $ \mathbf{t_1}$ }]
+			(T1)  {$\dot{x}=0$};
+			
+			\draw[<-, dashed](T1.180) -- node[below]
+                        {initial} ++(-1.0cm,-0cm);
+			
+			\node[state, 
+			label={[shift={(0,0.1)}]$20\leq x \leq 100$}, 
+			label={[shift={(-1.5,-0.2)}]\large $\mathbf{t_2}$   }]
+			(T2) [node distance=3.4cm, above of=T1] 	 {$\dot{x}=K(h-x)$};
+			
+			\node[state, 
+			label={[shift={(0,0.1)}]$ x = 100$}, 
+			label={[shift={(1.5,-0.2)}]\large $\mathbf{t_3}$  }] 
+			(T3) [right of=T2] 	 {$\dot{x}=0$};
+			
+			\node[state, 
+			label={[shift={(0,-1.9)}]$20\leq x \leq 100$}, 
+			label={[shift={(1.5,-0.2)}]\large $\mathbf{t_4}$  }]
+			(T4) [right of=T1] 	 {$\dot{x}=-Kx$};
+			
+			
+			\draw (T1) -- (T2) node [midway] 
+			{\footnotesize $\inSignal{ON},x^\prime = x$};
+			\draw (T2) -- (T3) node [midway] 
+			{\footnotesize $\iSignal,x=100 \wedge x^\prime = x$};
+			\draw (T3) -- (T4) node [midway, right] 
+			{\footnotesize $\inSignal{OFF},x^\prime = x$};
+			\draw (T4) -- (T1) node [midway] 
+			{\footnotesize $\iSignal,x=20 \wedge x^\prime = x$};
+			
+			%diagonal arrows
+			\draw (T2.335) -- (T4) node [midway, sloped] 
+			{\footnotesize $\inSignal{OFF},x^\prime = x$};
+			\draw (T4.155) -- (T2) node [midway, sloped] 
+			{\footnotesize $\inSignal{ON},x^\prime = x$};
+		\end{tikzpicture}
+	  } %framebox
+	} % HA
+	
+	\subfigure[\label{fig:codeGenSHA} \acf{SHA}, see
+        Definition~\ref{def:sha}. Flow predicates are described using
+        witness functions. Values of the constants $h$ and $K$ are $150$
+        and $0.075$, respectively. Furthermore, witness function
+        $F_1=C_1 e^{-0.075\times t} + 150.0$ and
+        $F_2=C_1 e^{-0.075\times t}$ ]{
+          \framebox[0.5\textwidth]{
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,
+		node distance=5.7cm,
+		semithick,scale=0.9, transform shape]
+		\tikzstyle{every state}=[rectangle,rounded corners,
+		minimum height = 1.2cm, text width=2.9cm, text centered, fill=blue!20,draw=none,text=black, draw,line width=0.3mm]
+		
+		\node[state, 
+		label={[shift={(0,-1.9)}]$ x = 20$}, 
+		label={[shift={(-1.5,0)}]\large $ \mathbf{t_1}$ }]
+		(T1)  { $\mathbf{x(t)=20}$ $\mathbf{x(0) \in [20,20]}$};
+		
+		
+		\draw[<-, dashed](T1.180) -- node[below] {initial}
+                ++(-1cm,0cm);
+		
+		
+		
+		\node[state, 
+		label={[shift={(0,0.1)}]$20\leq x \leq 100$}, 
+		label={[shift={(-1.5,0)}]\large $\mathbf{t_2}$   }]
+		(T2) [node distance=3.4cm, above of=T1]  	 {\small  $\mathbf{x(t)=F_1(t,C_1)}$  $\mathbf{x(0) \in [20,100]}$};
+		
+		\node[state, 
+		label={[shift={(0,0.1)}]$ x = 100$}, 
+		label={[shift={(1.5,0)}]\large $\mathbf{t_3}$  }] 
+		(T3) [right of=T2] 	 {$\mathbf{x(t)=100}$  $\mathbf{x(0) \in [100,100]}$};
+		
+		\node[state, 
+		label={[shift={(0,-1.9)}]$20\leq x \leq 100$}, 
+		label={[shift={(1.5,0)}]\large $\mathbf{t_4}$  }]
+		(T4) [right of=T1] 	 {\small  $\mathbf{x(t)=F_2(t,C_1)}$  
+			$\mathbf{x(0) \in [20,100]}$};
+		
+		
+		\draw (T1) -- (T2) node [midway] 
+		{\footnotesize $ON,x^\prime = x$};
+		\draw (T2) -- (T3) node [midway] 
+		{\footnotesize $\iSignal,x=100 \wedge x^\prime = x$};
+		\draw (T3) -- (T4) node [midway, right] 
+		{\footnotesize $OFF,x^\prime = x$};
+		\draw (T4) -- (T1) node [midway] 
+		{\footnotesize $\iSignal,x=20 \wedge x^\prime = x$};
+		
+		
+		\draw (T2.335) -- (T4) node [midway, sloped] 
+		{\footnotesize $OFF,x^\prime = x$};
+		\draw (T4.155) -- (T2) node [midway, sloped] 
+		{\footnotesize $ON,x^\prime = x$};
+		
+		\end{tikzpicture}
+		} %framebox
+	}% SHA
+	
+	\subfigure[\label{fig:codeGenDTTS} {Synchronous Witness Automata
+          (SWA). We abuse the notation $x[k]$ to update the value of
+          $x$, although $x[k]$ represents the valuation of the
+          continuous variable $x$. This physical time
+          $t=k \times \delta$, where $k$ is the logical tick and
+          $\delta$ is the tick length.}]{ \framebox[0.49\textwidth]{
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=5.6cm,
+			semithick,scale=0.85, transform shape]
+			\tikzstyle{every state}=[circle,rounded corners,
+                        minimum height = 1.2cm, text width=1.2cm, text
+                        centered, fill=blue!20,draw=none,text=black,
+                        draw,line width=0.3mm]
+			
+			\node[state] (T1)  { $t_1$ };
+			
+			\draw[<-, dashed](T1.180) -- node[above, text
+                        width =1.5cm] {initial $x[0]=20,$ $k=0$}
+                        ++(-1.3cm,0cm);
+			
+			\node[state]
+			(T2) [above of=T1] 	 {$t_2$};
+			
+			\node[state] 
+			(T3) [right of=T2] 	 {$t_3$};
+			
+			\node[state] 
+			(T4) [right of=T1] 	 { $t_4$};
+			
+			
+			%edges
+			\draw (T1) -- (T2) node [pos=0.5, rotate =90, above] 
+			{ $\frac{{ON} \wedge \overline{OFF} \wedge x[k]=20}{C_1=x[k]-150, x[0]=x[k],k=0}$};
+			
+			\draw (T2) -- (T3) node [midway] 
+			{ $\frac{\overline{ON} \wedge \overline{OFF} \wedge x[k]=100}{x[0]=x[k], k=0}$};
+			
+			\draw (T4) -- (T1) node [midway] 
+			{ $\frac{\overline{ON}
+					 \wedge \overline{OFF} \wedge x[k]=20}
+				{x[0]=x[k],k=0}
+				$};
+			
+			\draw (T3) -- (T4) node [midway,rotate =90, below] 
+			{$\frac{ \overline{ON} \wedge {OFF} \wedge x[k]=100}
+				{C_1=x[k], x[0]=x[k],k=0} $};
+			
+			%\draw (T2.180)--([xshift=-1em]T2.180)|-([yshift=1em]T2.90)--(T2.90) node [pos=0.5, rotate =0, above]
+			
+			\draw (T2.180) to[out=180,in=90, distance=1.5cm] (T2.90);
+			\draw (T2)  node[yshift=1.7cm]
+			{ $\frac{\overline{ON}  \wedge \overline{OFF} \wedge (20 \leq x[k]  \leq 100)} {x[k+1]=F_1(\delta,k,C_1), k=k+1}   $ };
+			
+			\draw (T3.0) to[out=0,in=90, distance=1.5cm] (T3.90);
+			\draw (T3)  node[yshift=1.7cm]
+			{ $\frac{\overline{ON}  \wedge \overline{OFF} \wedge ( x[k]  = 100)} {x[k+1]=x[k],k=k+1}   $ };
+			
+			\draw (T4.0) to[out=0,in=-90, distance=1.5cm] (T4.-90);
+			\draw (T4)  node[yshift=-1.7cm]
+			{ $\frac{\overline{ON}  \wedge \overline{OFF} \wedge ( x[k]  = 100)}{x[k+1]=F_2(\delta,k,C_1),k=k+1}   $ };
+			
+			\draw (T1.-90) to[out=-90,in=200, distance=1.5cm] (T1.200);
+			\draw (T1)  node[yshift=-1.7cm]
+			{ $\frac{\overline{ON}  \wedge \overline{OFF} \wedge ( x[k]  = 20)}{x[k+1]=x[k],k=k+1}   $ };
+			
+			%diagnonal arrows
+			\draw (T2) to[out=-20,in=110, distance=1.5cm] (T4);
+			\draw (T4)  node[yshift=3.7cm, xshift=-2cm, rotate =-45]
+			{ $\frac{\overline{ON}  \wedge {OFF} }{C_1=x[k], x[0]=x[k],k=0}   $ };
+			
+			\draw (T4) to[out=160,in=-70, distance=1.5cm] (T2);
+			\draw (T2)  node[yshift=-3.7cm, xshift=2cm, rotate =-45]
+			{ $\frac{{ON}  \wedge \overline{OFF} }{C_1=x[k]-150, x[0]=x[k],k=0}   $ };
+			
+		\end{tikzpicture}
+	  } %framebox
+	}% code gen
+
+}
