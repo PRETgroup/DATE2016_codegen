@@ -4,76 +4,126 @@
 
 
 \acf{HA} is ideal for describing 
-Cyber-physical systems. As explained in the Introduction,
-non-deterministic of \ac{HA} are not suitable for modelling and
-emulation of a plant. To address this problem, based on the
-synchronous approach~\cite{benveniste03}, we propose a deterministic semantics for \ac{HA}.
-In this section, we (1) present an example \ac{HA} 
-followed by a formal definition.
-Then, we present deterministic semantics for \ac{HA} 
-along with a proof for determinism.
+Cyber-physical systems. It is very expressive and
+some constraints need to be imposed s.t. it is possible to  
+generate synthesisable  code~[X]. In this section, 
+we define a restricted \ac{HA}, called 
+\acf{WHA} and then propose a discrete abstraction
+called \acf{SHA} which is based on the
+synchronous approach~\cite{benveniste03}.
+Finally, we propose a deterministic semantics for \ac{SHA}.
 
 
 
-\subsection{Example of \ac{HA} (TEXT NEEDS TO BE UPDATED)}
+\subsection{Example of \acf{WHA} }
 
 \begin{figure}
 \centering
 \input{figures/cellHA}
-\caption{\acf{HA} of a heart cell}
+\caption{\acf{WHA} of a heart cell \label{fig:heartCellHA}}
 \end{figure}
 
-An HA~\cite{lynch03} is defined using Definition~\ref{def:ha}. For the
-water tank example shown in Figure~\ref{fig:waterTankHAtank},
-$Loc=\{t_1, t_2, t_3, t_4\}$, $\Sigma=\{ON, OFF, \tau\}$, and an example
-edge in $Edge$ is $(t_1, ON, t_2)$. There is a single continuous
-variable $x$ representing the temperature of the water in the
-tank. Hence, $X=\{x\}$, $\dot{X}=\{\dot{x}\}$, and $X'=\{x'\}$. The only
-location that is marked initial is $t_1$ and $Init(t_1): x=20$. An
-example flow predicate is $Flow(t_1): \dot{x}=0$, which specifies that
-the temperature of the water inside the tank does not change.  A jump
-predicate assigned to an edge specifies the condition needed to take a
-transition and the updating of values of some continuous variables when
-the transition is taken.  For example,
-$Jump(t_4, \tau, t_1): x=20 \wedge x'=x$ specifies that the transition
-is taken when the value of the temperature is $20^\circ$C and the
-updated value of the temperature is also $20^\circ$C. We now formalise
-the HA using Definition~\ref{def:ha}.
 
-\subsection{Definition of \ac{HA}}
+For the four stages of action potential  shown in Figure~\ref{fig:actionPotential}, the \ac{WHA} is
+shown in Figure~\ref{fig:heartCellHA}.
+The first stage (\ac{RP}), the continuous behaviour is captured 
+by location~$q_0$. (ADD MORE DESCRIPTION ABOUT THE CELL).
+We now formalise
+the \ac{WHA} using Definition~\ref{def:wha} and illustrate using Figure~\ref{fig:heartCellHA}.
+
+\subsection{Definition of \acf{WHA}}
 
 \begin{definition}
-	A hybrid automata is \newline 
-	$H = \langle Loc, Edge, \Sigma, Inv, Flow, Jump \rangle$ where
+	$WHA = \langle Loc, X, \Sigma, Init, Inv, Flow,$ $ Jump \rangle$ where
+	%Locations
+	$Loc=\{q_0,q_1,q_2,q_3\}$ is a set of locations.
+	$X=\{v,v_x,v_y,v_z\}$ is a set of continuous variables.
+	$\Sigma=\Sigma_I \cup \Sigma_O \cup \{\iSignal\}$ is a set of
+	 input, output, and internal events.
+	$Init=\{(q_0,v): v\leq V_T\}$ is the initial condition.
+	$Inv=\{(q_3,v): v\geq V_R\}$ is the invariant.
+	$Flow=\{(q_0,v_x): a_{x}^{0} v_x\}$ specifies the continuous flow rate.
+	$Jump=\{(q_n, q_m): signal, cond, update\}$: describes the discrete
+	transition from $q_n$ and $q_m$ is enabled when $signal$ is 
+	present and the $cond$ evaluates to true and $update$
+	some variable during this transition.
+	
+	
+	\label{def:wha}
+\end{definition}
+
+\subsection{Definition of \acf{SHA}}
+
+A \ac{SHA} is a discreatised  abstraction of the corresponding \ac{WHA}. It inherits all the
+components of a \ac{WHA} except that $Flow$ predicates are replaced by a
+composite witness function $Switness$.
+$Switness(l,k, \delta, i)=v_{k,l,i}$, which returns the evaluation of
+the witness function in location $l$ at time step $k$.
+We now formalise
+the \ac{SHA} using Definition~\ref{def:sha} and illustrate using Figure~\ref{fig:heartCellSHA}.
+
+
+
+\begin{definition}
+	Given a 
+	$WHA = \langle Loc, X, \Sigma, Init,$ $ Inv, Flow, Jump \rangle$ a \ac{SHA} corresponding to
+	this \ac{WHA} is \newline
+	$SHA = \langle Loc,  \Sigma, Init, Inv, Switness, Jump, Step \rangle$ where:
 	\begin{itemize}
-		\item $Loc=\{l_1,..,l_n\}$ representing $n$ control modes or
-		locations.
-		\item $Edge \subseteq Loc \times \Sigma \times Loc$ are the set of
-		edges between locations.
-		\item $\Sigma=\Sigma_I \cup \Sigma_O \cup \{\iSignal\}$ is set of
-		event names comprising of input, output, and internal events.
-		\item Three sets for the set of continuous variables, their rate of
-		change and their updated values represented as follows: \newline
-		$X=\{x_1,.., x_m\}$, $\dot{X}=\{\dot{x_1},.., \dot{x_m}\}$, and \newline
-		$X'=\{x_{1}',.., x_{m}'\}$.
-		\item $Init(l)$: Is a predicate whose free variables are from $X$. It
-		specifies the possible valuations of these when the HA starts in
-		$l$.
-		\item $Inv(l)$: Is a predicate whose free variables are from $X$ and
-		it constrains these when the HA resides in $l$.
-		\item $Flow(l)$: Is a predicate whose free variables are from
-		$X \cup \dot{X}$ and it specifies the rate of change of these
-		variables when the HA resides in $l$.
-		\item $Jump(e)$: Is a function that assigns to the edge `$e$' a
-		predicate whose free variables are from $X \cup X'$. This predicate
-		specifies when the mode switch using `$e$' is possible. It also
-		specifies the updated values of the variables when this mode switch
-		happens.
+		\item $Step = \delta \in \mathbb{R}^+$: This specifies the duration of the synchronous instant,  duration between 
+		two samples.
+		\item
+		$Switness: Loc \times \mathbb{N} \times \mathbb{R} \times
+		\mathbb{R}^m \rightarrow \mathbb{R}^m$:
+		is the witness function that returns the valuation of all the
+		continuous variables at any valid time step $k$ in a given location
+		$l$. It also takes as input the time step $\delta$ and the initial
+		value from which execution begins in the location.
 	\end{itemize}
-	\label{def:ha}
+	\label{def:sha}
 \end{definition}
 
 
-\subsection{Deterministic semantics of \ac{HA}}
+\begin{figure}
+	\centering
+	\input{figures/cellSHA}
+	\caption{\acf{SHA} of the heart cell (NEEDS TO BE UPDATED) \label{fig:heartCellSHA}}
+\end{figure}
 
-\subsection{Proof for determinism}
+\subsection{Deterministic semantics of \ac{SHA}}
+Deterministic semantics of a \ac{SHA} is provided as a \acf{DTTS} in
+Definition~\ref{def:dtts}. We assume that all transitions of a \acf{DTTS}
+trigger relative to the ticks of the logical clock of the synchronous
+program.
+
+\begin{definition}
+	The semantics of a \newline
+	$SHA = \langle Loc,  \Sigma, Init, Inv, Switness, Jump, Step \rangle$
+	 is a 
+	$DTTS = \langle Q, Q^0, \Sigma, \rightarrow \rangle$ where
+	
+	\begin{itemize}
+		\item The state-space is $Q$, where any state is of the form
+		$(l, v, i, k)$ where $l$ is a location, $i$ is the initial valuation
+		of the variables when execution begins in the location and $v$ is
+		the valuation at the $k$-th instant.
+		\item $Q^0 \subseteq Q$ where every $q^0 \in Q^0$ is of the form
+		$(l, v^0, i, k)$ such that $v$ satisfies $Init(l)$.
+		\item Transitions are of two types:
+		\begin{itemize}
+			\item \emph{Inter-location transitions} that lead to mode switches:
+			These are of the form
+			$(l, v, i, k) \stackrel{\sigma} \rightarrow (l', v', i', 0)$ if
+			$(l, v, i, k) \in Q$, $(l', v', i', 0) \in Q$,
+			$e=(l \stackrel{\sigma} \rightarrow l') \in Edge$ and $(v, v')$
+			satisfy $Jump(e)$.
+			\item \emph{Intra-location transitions} made during the execution in
+			a given mode / location: These are of the form
+			$(l, v, i, k) \rightarrow (l, v', i, k+1)$ if
+			$(l, v, i, k) \in Q$, $(l, v', i, k+1) \in Q$, $(v, v')$ satisfy
+			$Inv(l)$, $Switness(l,k,\delta,i)=v$ and $Switness(l,k+1,\delta,i)=v'$.
+		\end{itemize}
+	\end{itemize}
+	\label{def:dtts}
+\end{definition}
+
