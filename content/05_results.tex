@@ -8,6 +8,23 @@ In the second experiment, we select benchmarks that span across different applic
 We then compare each of these benchmarks against Simulink\textsuperscript{\textregistered} in terms of execution time and code size.
 
 
+\subsection{Experimental set-up} 
+The following steps were considered in order to achieve a fair comparison between \ourTool and Simulink\textsuperscript{\textregistered}.
+
+\begin{description}
+	\item[\textbf{Solver}] To reflect the synchronous execution model, we used a discrete solver with a fixed step in Simulink.
+	The Discrete-Time Integrator block is configured to use the Forward Euler method.
+	
+	\item[\textbf{Step Size}] For all benchmarks the step size in Simulink\textsuperscript{\textregistered} is fixed to $0.01$ milliseconds.
+	The same step size is also used in \ourTool, $\delta = 0.01$ milliseconds.
+	
+	\item[\textbf{Time}] All benchmarks were simulated for $10$ seconds of simulation time.
+	Based on a step size of $0.01$ milliseconds this translates to $1$ million ticks in \ourTool.
+\end{description}
+
+The experiments were evaluated using an Intel~i7-4790 processor with 8~GB RAM on Windows~7. 
+
+
 \subsection{Scalability}
 
 \begin{figure}[htbp]
@@ -18,6 +35,8 @@ We then compare each of these benchmarks against Simulink\textsuperscript{\textr
 \end{figure}
 
 It scales!
+
+Simulink dies at 330 cells, being unable to generate code for that many variables.
 
 \subsection{Diversity}
 

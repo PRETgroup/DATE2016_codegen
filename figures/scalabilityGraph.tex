@@ -1,18 +1,43 @@
 \begin{tikzpicture}
 \begin{axis}
-[ xlabel={Number of Heart Cells},
-ylabel={Execution Time ({s})},
-axis y line = left,
-axis x line = bottom,
-xmin=0000,   xmax=1000,
-ymin=0,
-extra tick style={grid=major}
+[
+	xlabel={Number of Heart Cells},
+	ylabel={Execution Time ({s})},
+	axis y line = left,
+	axis x line = bottom,
+	xmin=0000,
+	xmax=1000,
+	ymin=0,
+	ymax=300,
+	extra tick style={grid=major}
 ]
+
 \addplot[color=blue!90,
-mark=.,
-mark size=2,
-smooth
-]
-table [x=n, y=t, col sep=comma] {./figures/scalabilityGraphData.csv};
+	mark=.,
+	mark size=2
+] table [
+	x=n,
+	y=s_t,
+	col sep=comma
+] {./figures/scalabilityGraphData.csv};
+
+\addplot[color=blue!90,
+	dashed,
+	mark=.,
+	mark size=2
+] coordinates {
+	(297,292.836)
+	(297,0)
+};
+
+\addplot[color=red!90,
+	mark=.,
+	mark size=2
+] table [
+	x=n,
+	y=p_t,
+	col sep=comma
+] {./figures/scalabilityGraphData.csv};
+
 \end{axis}
 \end{tikzpicture}
