@@ -10,13 +10,6 @@
 	\label{fig:compilingHA}
 \end{figure}
 
-%\begin{figure}[htbp]
-%	\centering
-%	\input{./figures/codeGenOverview}
-%	\caption{The water tank component from the running example}
-%	\label{fig:codeGenOverview}
-%\end{figure}
-
 In this section we present our approach for modular code generation from
 a network of \acp{HA}. 
 An overview of the solution is presented in Figure~\ref{fig:compilingHA} and the two steps are outlined in detail below in Sections \ref{sec:shaGeneration} and \ref{sec:backendCodeGeneration}.
@@ -24,7 +17,7 @@ An overview of the solution is presented in Figure~\ref{fig:compilingHA} and the
 \subsection{Generation of a network of \ac{SHA}}
 \label{sec:shaGeneration}
 
-This section describes step 1 of the compilation process from Figure~\ref{fig:compilingHA}.
+This section describes step $1$ of the compilation process from Figure~\ref{fig:compilingHA}.
 This step involves converting all of the \acp{ODE} in each of the \acp{HA} into their forward Euler equivalent methods.
 
 Given the \ac{ODE} for $v_x$ in state $\mathbf{q_1}$ of the Heart Cell \ac{HA} defined in Figure~\ref{fig:cellHA} (reproduced in Equation~\ref{eq:ode}), the forward Euler method is applied on each iteration in order to calculate $v_x$ numerically.
@@ -69,6 +62,7 @@ Each \ac{ODE} is eventually replaced (line~\ref{alg:HAsToSHAs:assignOde}) by its
 \subsection{Backend code generation}
 \label{sec:backendCodeGeneration}
 
+Secondly, we describe step $2$ of the compilation process from Figure~\ref{fig:compilingHA}. Once a network of \acp{SHA} has been created,...
 
 \begin{itemize}
 	\item code generation
