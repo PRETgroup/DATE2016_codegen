@@ -7,34 +7,33 @@
 Cyber-physical systems. It is very expressive and
 some constraints need to be imposed s.t. it is possible to  
 generate synthesisable  code~[X]. In this section, 
-we define a restricted \ac{HA}, called 
-\acf{WHA} and then propose a discrete abstraction
+we define a restricted \ac{HA} and then propose a discrete abstraction
 called \acf{SHA} which is based on the
 synchronous approach~\cite{benveniste03}.
 Finally, we propose a deterministic semantics for \ac{SHA}.
 
 
 
-\subsection{Example of \acf{WHA} }
+\subsection{Example of \acf{HA} }
 
 \begin{figure}
 \centering
 \input{figures/cellHA}
-\caption{\acf{WHA} of a heart cell \label{fig:heartCellHA}}
+\caption{\acf{HA} of a heart cell \label{fig:heartCellHA}}
 \end{figure}
 
 
-For the four stages of action potential  shown in Figure~\ref{fig:actionPotential}, the \ac{WHA} is
+For the four stages of action potential  shown in Figure~\ref{fig:actionPotential}, the \ac{HA} is
 shown in Figure~\ref{fig:heartCellHA}.
 The first stage (\ac{RP}), the continuous behaviour is captured 
 by location~$q_0$. (ADD MORE DESCRIPTION ABOUT THE CELL).
 We now formalise
-the \ac{WHA} using Definition~\ref{def:wha} and illustrate using Figure~\ref{fig:heartCellHA}.
+the \ac{HA} using Definition~\ref{def:wha} and illustrate using Figure~\ref{fig:heartCellHA}.
 
-\subsection{Definition of \acf{WHA}}
+\subsection{Definition of \acf{HA}}
 
 \begin{definition}
-	$WHA = \langle Loc, X, \Sigma, Init, Inv, Flow,$ $ Jump \rangle$ where
+	$HA = \langle Loc, X, \Sigma, Init, Inv, Flow,$ $ Jump \rangle$ where
 	%Locations
 	$Loc=\{q_0,q_1,q_2,q_3\}$ is a set of locations.
 	$X=\{v,v_x,v_y,v_z\}$ is a set of continuous variables.
@@ -49,13 +48,13 @@ the \ac{WHA} using Definition~\ref{def:wha} and illustrate using Figure~\ref{fig
 	some variable during this transition.
 	
 	
-	\label{def:wha}
+	\label{def:ha}
 \end{definition}
 
 \subsection{Definition of \acf{SHA}}
 
-A \ac{SHA} is a discreatised  abstraction of the corresponding \ac{WHA}. It inherits all the
-components of a \ac{WHA} except that $Flow$ predicates are replaced by a
+A \ac{SHA} is a discreatised  abstraction of the corresponding \ac{HA}. It inherits all the
+components of a \ac{HA} except that $Flow$ predicates are replaced by a
 composite witness function $Switness$.
 $Switness(l,k, \delta, i)=v_{k,l,i}$, which returns the evaluation of
 the witness function in location $l$ at time step $k$.
@@ -66,8 +65,8 @@ the \ac{SHA} using Definition~\ref{def:sha} and illustrate using Figure~\ref{fig
 
 \begin{definition}
 	Given a 
-	$WHA = \langle Loc, X, \Sigma, Init,$ $ Inv, Flow, Jump \rangle$ a \ac{SHA} corresponding to
-	this \ac{WHA} is \newline
+	$HA = \langle Loc, X, \Sigma, Init,$ $ Inv, Flow, Jump \rangle$ a \ac{SHA} corresponding to
+	this \ac{HA} is \newline
 	$SHA = \langle Loc,  \Sigma, Init, Inv, Switness, Jump, Step \rangle$ where:
 	\begin{itemize}
 		\item $Step = \delta \in \mathbb{R}^+$: This specifies the duration of the synchronous instant,  duration between 
@@ -87,7 +86,7 @@ the \ac{SHA} using Definition~\ref{def:sha} and illustrate using Figure~\ref{fig
 \begin{figure}
 	\centering
 	\input{figures/cellSHA}
-	\caption{\acf{SHA} of the heart cell (NEEDS TO BE UPDATED) \label{fig:heartCellSHA}}
+	\caption{\acf{SHA} of the heart cell \label{fig:heartCellSHA}}
 \end{figure}
 
 \subsection{Deterministic semantics of \ac{SHA}}
