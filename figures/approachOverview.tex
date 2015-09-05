@@ -1,47 +1,64 @@
 % Define block styles
-\tikzstyle{decision} = [diamond, draw, fill=white!30, 
-text width=5em, text badly centered, node distance=3.2cm, inner sep=0pt]
-\tikzstyle{file} = [rectangle, draw, fill=gray!20, 
-text width=5em, text centered, minimum height=4em]
+\tikzstyle{fileS} = [rectangle, draw, fill=gray!20, 
+text width=4em, text centered, minimum height=3em]
 \tikzstyle{process} = [rectangle, draw, fill=blue!15, 
-text width=5em, text centered, rounded corners, minimum height=4em]
+text width=9em, text centered, rounded corners, minimum height=4em]
 \tikzstyle{line} = [draw, -latex', ultra thick]
-\tikzstyle{state} = [draw, ellipse,fill=red!30, 
-node distance=3.5cm, text width=5em, 
-text badly centered,
-minimum height=2em]
 
 
-\begin{tikzpicture}[node distance = 1cm, auto]
+\begin{tikzpicture}
 % Place nodes
-\node [file] (HA) {{HA}};
-
-\node [decision, right of = HA] (D) {Is a WHA~? (step 1,a
-	Sec~\ref{sec:static-analysis-ha})};
-
-\node [state, right of = D] (E) {Invalid input};
-
-\node [file, right of = E, node distance=3cm] (FSM) {FSM/ C-code};
 
 
-\node [process, below of = D, node distance =3cm] (GSHA) {Generate
-	\ac{SHA} (step 2, Sec~\ref{sec:generation-sha})};
+\node [fileS] (HA1) {\ac{HA} ($Def.~X$)};
+\node[right of = HA1, node distance = 1.3cm](PAR){\Large $||$};
+\node [fileS,right of = PAR, node distance = 1.3cm] (HA2) 
+	{\ac{HA} ($Def.~X$)};	
+\node[below of = PAR, node distance=1.3cm, text width=3.7cm, text centered]
+	(TNHA){Network of HA\\ (Def.~Y)};
+\node[draw, thick, inner sep=0.3cm, fit=(HA1) (HA2) (TNHA)] (NHA) {};
 
-\node [file, below of = E, node distance =3cm] 
-(SHA) {\ac{SHA}};
 
-\node [process, below of = FSM, node distance =3cm] (GFSM)
-{Generate backend code (step 3,
-	Sec~\ref{sec:back-code-gener})};
 
+\node [process, below of = NHA, node distance = 3.9cm] (GSHA) {Generate a network of \ac{SHA} (step~1, Sec~\ref{sec:shaGeneration})};
+
+
+%Network of SHA
+\node [fileS,above right  = -0.8cm and 1cm of  GSHA] (SHA1) {\ac{SHA} ($Def.~X$)};
+\node[right of = SHA1, node distance = 1.3cm](PAR2){\Large $||$};
+\node [fileS,right of = PAR2, node distance = 1.3cm] (SHA2) 
+{\ac{SHA} ($Def.~X$)};	
+\node[below of = PAR2, node distance=1.3cm, text width=3.7cm, text centered]
+(TNSHA){Network of SHA\\ (Def.~Y)};
+\node[draw, thick, inner sep=0.3cm, fit=(SHA1) (SHA2) (TNSHA)] (NSHA) {};
+
+
+
+\node [process, text width=5em, right of = NSHA, node distance = 4cm] (GFSM) {Generate backend code (step~2, Sec~\ref{sec:backendCodeGeneration})};
+
+
+
+\node [fileS, right  = 3cm  of  HA2] (FSM1) {FSM ($Def.~X$)};
+\node[right of = FSM1, node distance = 1.3cm](SEQ){\Large $;$};
+\node [fileS,right of = SEQ, node distance = 1.3cm] (FSM2) 
+{FSM ($Def.~X$)};	
+\node[below of = SEQ, node distance=1.3cm, text width=3.7cm, text centered]
+(TCC){Generated C code\\ (Def.~Y)};
+\node[draw, thick, inner sep=0.3cm, fit=(FSM1) (FSM2) (TCC)] (CC) {};
+
+
+
+%\node [file, right of = GSHA, node distance = 4cm] (SHA) {Network of \ac{SHA}};
+
+%\node [process, right of = SHA, node distance = 4cm] (GFSM) {Generate backend code (step 2, Sec~\ref{sec:backendCodeGeneration})};
+
+%\node [file, above of = GFSM, node distance = 3cm] (FSM) {FSM/ C-code};
 
 
 %edges
-\path [line] (HA) -- (D);
-\path [line] (D)-- node[near start]{no}(E);
-\path [line] (D)-- node[near start]{yes}(GSHA);
+\draw [line] (NHA) -- (GSHA);
+\draw [line] (GSHA) -- (GSHA-|NSHA.west);
+\draw [line] (NSHA) -- (NSHA-|GFSM.west);
+\draw [line] (GFSM) -- (GFSM|-CC.south);
 
-\path [line] (GSHA) -- (SHA);
-\path [line] (SHA) -- (GFSM);
-\path [line] (GFSM) -- (FSM);
 \end{tikzpicture}    
