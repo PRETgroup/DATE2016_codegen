@@ -27,13 +27,21 @@ For the four stages of action potential  shown in Figure~\ref{fig:actionPotentia
 shown in Figure~\ref{fig:heartCellHA}.
 The first stage (\ac{RP}), the continuous behaviour is captured 
 by location~$q_0$. (ADD MORE DESCRIPTION ABOUT THE CELL).
+
+For our hybrid automata model, we need to be able to 
+describe  input, output and internal signals. Further,
+the signals can be classified as either 
+\emph{pure} signals (absent, or present) or
+\emph{valued} signals (absent, or has a value).
 We now formalise
-the \ac{HA} using Definition~\ref{def:wha} and illustrate using Figure~\ref{fig:heartCellHA}.
+the \ac{HA} using Definition~\ref{def:ha} 
+and illustrate using Figure~\ref{fig:heartCellHA}.\newline
 
-\subsection{Definition of \acf{HA}}
 
-\begin{definition}
-	$HA = \langle Loc, X, \Sigma, Init, Inv, Flow,$ $ Jump \rangle$ where
+
+\begin{definition}[Hybrid Automata]
+	\label{def:ha}
+	 $HA = \langle Loc, X, \Sigma, Init, Inv, Flow,$ $ Jump \rangle$ where
 	%Locations
 	$Loc=\{q_0,q_1,q_2,q_3\}$ is a set of locations.
 	$X=\{v,v_x,v_y,v_z\}$ is a set of continuous variables.
@@ -46,6 +54,16 @@ the \ac{HA} using Definition~\ref{def:wha} and illustrate using Figure~\ref{fig:
 	transition from $q_n$ and $q_m$ is enabled when $signal$ is 
 	present and the $cond$ evaluates to true and $update$
 	some variable during this transition.
+	
+\end{definition}
+
+
+
+\begin{definition}[Deterministic Hybrid Automata]
+	\label{def:dha}
+	An hybrid automata is called \acf{DHA} if 
+	for all locations, there does not exist one 
+	active 
 	
 	
 	\label{def:ha}
