@@ -9,22 +9,26 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 \begin{tikzpicture}
 % Place nodes
 
-
-\node [fileS] (HA1) {\ac{HA} ($Def.~X$)};
+%-----------------------------------------------------------------------
+\node [fileS] (HA1) {HA ($Def.~\ref{def:ha}$)};
 \node[right of = HA1, node distance = 1.3cm](PAR){\Large $||$};
 \node [fileS,right of = PAR, node distance = 1.3cm] (HA2) 
-	{\ac{HA} ($Def.~X$)};	
+	{HA ($Def.~\ref{def:ha}$)};	
 \node[below of = PAR, node distance=1.3cm, text width=3.7cm, text centered]
-	(TNHA){Network of HA\\ (Def.~Y)};
+	(TNHA){Network of HA\\ {($Def.~\ref{def:nha}$)}};
 \node[draw, thick, inner sep=0.3cm, fit=(HA1) (HA2) (TNHA)] (NHA) {};
 
+\node[draw, dashed, inner sep=0.3cm,
+	label={[label distance=0cm]60:Section~\ref{sec:HA}}, 
+	fit= (NHA)] (S1) {};
+%-----------------------------------------------------------------------
 
 
-\node [process, below of = NHA, node distance = 3.9cm] (GSHA) {Generate a network of \ac{SHA} (step~1, Sec~\ref{sec:shaGeneration})};
+\node [process, below left = 2cm and -2.9cm of NHA, node distance = 4.2cm] (GSHA) {Generate a network of \ac{SHA} (step~1, Sec~\ref{sec:shaGeneration})};
 
 
 %Network of SHA
-\node [fileS,above right  = -0.8cm and 1cm of  GSHA] (SHA1) {\ac{SHA} ($Def.~X$)};
+\node [fileS,above right  = -0.8cm and 0.8cm of  GSHA] (SHA1) {\ac{SHA} ($Def.~X$)};
 \node[right of = SHA1, node distance = 1.3cm](PAR2){\Large $||$};
 \node [fileS,right of = PAR2, node distance = 1.3cm] (SHA2) 
 {\ac{SHA} ($Def.~X$)};	
@@ -32,13 +36,17 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 (TNSHA){Network of SHA\\ (Def.~Y)};
 \node[draw, thick, inner sep=0.3cm, fit=(SHA1) (SHA2) (TNSHA)] (NSHA) {};
 
+\node[draw, dashed, inner sep=0.2cm,
+	label={[label distance=0cm]60:Section~\ref{sec:SHA}}, 
+	fit= (GSHA)(NSHA)] (S2) {};
+%--------------------------------------------------------------------------------
+
+\node [process, text width=5em, right of = NSHA, node distance = 4cm] 
+	(GFSM) {Generate code (step~2, Sec~\ref{sec:codeGen})};
 
 
-\node [process, text width=5em, right of = NSHA, node distance = 4cm] (GFSM) {Generate backend code (step~2, Sec~\ref{sec:backendCodeGeneration})};
 
-
-
-\node [fileS, right  = 3cm  of  HA2] (FSM1) {FSM ($Def.~X$)};
+\node [fileS, right  = 1.8cm  of  HA2] (FSM1) {FSM ($Def.~X$)};
 \node[right of = FSM1, node distance = 1.3cm](SEQ){\Large $;$};
 \node [fileS,right of = SEQ, node distance = 1.3cm] (FSM2) 
 {FSM ($Def.~X$)};	
@@ -46,17 +54,25 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 (TCC){Generated C code\\ (Def.~Y)};
 \node[draw, thick, inner sep=0.3cm, fit=(FSM1) (FSM2) (TCC)] (CC) {};
 
+\node[label={[label distance=0cm]60:Section~\ref{sec:codeGen}}, 
+fit= (CC)] (S3) {};
 
+\path[draw, dashed, inner sep=0.3cm,] 
+	([yshift=2mm, xshift=-2mm]CC.north west)--
+	([yshift=2mm, xshift=2mm]CC.north east)--
+	([yshift=-2mm, xshift=2mm] GFSM.south east)--
+	([yshift=-2mm, xshift=-2mm]GFSM.south west)--
+    ([yshift=-2mm, xshift=-2mm] GFSM.north west |- CC.south)-- 
+    ([yshift=-2mm, xshift=-2mm]CC.south west)--
+    ([yshift=2mm, xshift=-2mm]CC.north west);
 
-%\node [file, right of = GSHA, node distance = 4cm] (SHA) {Network of \ac{SHA}};
+%\node[draw, dashed, inner sep=0.2cm,
+%	label={[label distance=0cm]60:Section~\ref{sec:SHA}}, 
+%	fit= (GFSM)(CC)] (S3) {};
 
-%\node [process, right of = SHA, node distance = 4cm] (GFSM) {Generate backend code (step 2, Sec~\ref{sec:backendCodeGeneration})};
-
-%\node [file, above of = GFSM, node distance = 3cm] (FSM) {FSM/ C-code};
-
-
+%--------------------------------------------------------------------------------
 %edges
-\draw [line] (NHA) -- (GSHA);
+\draw [line] (NHA.south-|GSHA.north) -- (GSHA);
 \draw [line] (GSHA) -- (GSHA-|NSHA.west);
 \draw [line] (NSHA) -- (NSHA-|GFSM.west);
 \draw [line] (GFSM) -- (GFSM|-CC.south);

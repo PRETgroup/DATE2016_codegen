@@ -6,7 +6,7 @@
 	\scalebox{0.7}{
 		\input{./figures/compilingHA}
 	}
-	\caption{Process for compiling a network of \acf{HA}}
+	\caption{Process for compiling a network of \acf{SHA} ( UPDATE THE FIGURE, it should reflect figure~1)}
 	\label{fig:compilingHA}
 \end{figure}
 
@@ -14,50 +14,7 @@ In this section we present our approach for modular code generation from
 a network of \acp{HA}. 
 An overview of the solution is presented in Figure~\ref{fig:compilingHA} and the two steps are outlined in detail below in Sections \ref{sec:shaGeneration} and \ref{sec:backendCodeGeneration}.
 
-\subsection{Generation of a network of \ac{SHA}}
-\label{sec:shaGeneration}
 
-This section describes step $1$ of the compilation process from Figure~\ref{fig:compilingHA}.
-This step involves converting all of the \acp{ODE} in each of the \acp{HA} into their forward Euler equivalent methods.
-
-Given the \ac{ODE} for $v_x$ in state $\mathbf{q_1}$ of the Heart Cell \ac{HA} defined in Figure~\ref{fig:cellHA} (reproduced in Equation~\ref{eq:ode}), the forward Euler method is applied on each iteration in order to calculate $v_x$ numerically.
-The forward Euler equivalent for this ODE is shown in Equation~\ref{eq:euler_equiv} where $\delta$ is the time-step size and $v^\prime_x$ represents the value of $v_x$ after the current iteration.
-
-\begin{equation}
-\dot{v_x} = a^1_x v_x + \beta_x g(\vec{v})
-\label{eq:ode}
-\end{equation}
-
-\begin{equation}
-v^\prime_x = v_x + \delta * (a^1_x v_x + \beta_x g(\vec{v}))
-\label{eq:euler_equiv}
-\end{equation}
-
-\renewcommand{\algorithmiccomment}[1]{// #1}
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-\begin{algorithm}[t!]
-	\begin{algorithmic}[1]
-		\REQUIRE Network of HA has 
-		\ENSURE Network of SHA shas
-		\FORALL{$ha \in has$} \label{alg:HAsToSHAs:allHAs}
-			\FORALL{$loc \in ha$}  \label{alg:HAsToSHAs:allLocs}
-				\FORALL{$ode \in loc$} \label{alg:HAsToSHAs:allODEs}
-					\STATE $eq \leftarrow create\_euler(ode)$ \label{alg:HAsToSHAs:createEuler}
-					\STATE $ode \leftarrow eq$ \label{alg:HAsToSHAs:assignOde}
-				\ENDFOR
-			\ENDFOR
-		\ENDFOR
-		\RETURN this
-	\end{algorithmic}
-	\caption{The algorithm to generate a Network of \acp{SHA} from a Network of \acp{HA}}
-	\label{alg:HAsToSHAs}
-\end{algorithm}
-
-The procedure for performing this conversion across the entire network of \acp{HA} to generate a network of \acp{SHA} is shown in Algorithm~\ref{alg:HAsToSHAs}.
-The algorithm needs to visit every \ac{HA} in the network, every location within each \ac{HA}, and every \ac{ODE} in each location (lines~\ref{alg:HAsToSHAs:allHAs} - \ref{alg:HAsToSHAs:allODEs}).
-For each of these \acp{ODE} the forward Euler equivalent is created in the same manner as described earlier (line~\ref{alg:HAsToSHAs:createEuler}).
-Each \ac{ODE} is eventually replaced (line~\ref{alg:HAsToSHAs:assignOde}) by its equivalent numerical solution in order to form the network of \acp{SHA}.
 
 \subsection{Backend code generation}
 \label{sec:backendCodeGeneration}
