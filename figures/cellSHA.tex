@@ -2,36 +2,36 @@
 node distance=4cm,
 semithick,scale=0.9, transform shape]
 \tikzstyle{every state}=[rectangle,rounded corners,
- minimum height = 1.2cm, text width=3.35cm, text centered, fill=blue!20,draw=none,text=black, draw,line width=0.3mm]
+ minimum height = 1.9cm, text width=3.35cm, text centered, fill=blue!20,draw=none,text=black, draw,line width=0.3mm]
 
 \node[state, 
-label={[shift={(0,0)}]$v \leq V_T$}, 
-label={[shift={(-1.5,0)}]\large $ \mathbf{q_0}$ }]
+label={[shift={(0,0)}]$v < V_T \wedge g(\vec{v}) \leq V_T$}, 
+label={[shift={(-1.5,-2.5)}]\large $ \mathbf{q_0}$ }]
 (Q0)  {$v^\prime_x = v_x + \delta C_{1} v_x$ \\ $v^\prime_y = v_y + \delta C_{2} v_y$ \\ $v^\prime_z = v_z + \delta C_{3} v_z$ \\ $v^\prime=v^\prime_x - v^\prime_y + v^\prime_z$};
 
 %entry
-\draw[<-, dashed](Q0.130) -- node[above, shift={(0,0.4)}] {\footnotesize initial} ++(0cm,1cm);
+\draw[<-, dashed](Q0.150) -- node[above, shift={(0.3,0.4)}] {\footnotesize initial} ++(0cm,1cm);
 
 
 
 
 \node[state, 
-label={[shift={(0,0)}]$v \leq v_T$}, 
-label={[shift={(-1.5,0)}]\large $\mathbf{q_1}$   }]
+label={[shift={(0,0)}]$v < V_T \wedge g(\vec{v}) > 0$}, 
+label={[shift={(-1.5,-2.5)}]\large $\mathbf{q_1}$   }]
 (Q1) [node distance=6.3cm, right of=Q0] {\small{ $v^\prime_x {=} v_x {+} \delta (C_{4} v_x {+} C_{7} g(\vec{v}))$ \\ $v^\prime_y {=} v_y {+} \delta (C_{5} v_y {+} C_{8} g(\vec{v}))$ \\ $v^\prime_z {=} v_z {+} \delta (C_{6} v_z {+} C_{9} g(\vec{v}))$ \\ $v^\prime=v^\prime_x - v^\prime_y + v^\prime_z$}};
 
 \node[state, 
-label={[shift={(0,-2.5)}]$v \leq V_O - 80.1 \sqrt{\theta}$}, 
-label={[shift={(-1.5,0)}]\large $\mathbf{q_2}$  }] 
+label={[shift={(0.2,-2.5)}]$v < V_O - 80.1 \sqrt{\theta}$}, 
+label={[shift={(-1.5,-2.5)}]\large $\mathbf{q_2}$  }] 
 (Q2) [below of=Q1] {$v^\prime_x = v_x + \delta C_{10} v_x$ \\ $v^\prime_y = v_y + \delta C_{11} v_y$ \\ $v^\prime_z = v_z + \delta C_{12} v_z$ \\ $v^\prime=v^\prime_x - v^\prime_y + v^\prime_z$};
 
 \node[state, 
-label={[shift={(0,-2.5)}]$v \geq V_R$}, 
-label={[shift={(-1.5,0)}]\large $\mathbf{q_3}$  }]
+label={[shift={(0,-2.5)}]$v > V_R$}, 
+label={[shift={(-1.5,-2.5)}]\large $\mathbf{q_3}$  }]
 (Q3) [below of=Q0] {$v^\prime_x = v_x + \delta C_{13} v_x f(\theta)$ \\ $v^\prime_y = v_y + \delta C_{14} v_y f(\theta)$ \\ $v^\prime_z = v_z + \delta C_{15} v_z$ \\ $v^\prime=v^\prime_x - v^\prime_y + v^\prime_z$};
 
 \path[->] (Q0.10) edge node[align=center] {
-	\footnotesize $\{g(\vec{v}) > V_T\}$, \\
+	\footnotesize $\{g(\vec{v}) \geq V_T\}$, \\
 	\footnotesize $\{\emptyset\}$, \\
 	\footnotesize $\left\{\begin{matrix} v^\prime_x = 0.3v \\ v^\prime_y = 0.0v \\ v^\prime_z = 0.7v \\ \theta^\prime = v / V_T \end{matrix}\right\}$
 } (Q1.170);
