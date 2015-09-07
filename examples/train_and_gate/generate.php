@@ -1,5 +1,7 @@
 <?php
 
+$opt_level = "0";
+
 function CSVToArray($fp) {
 	$headers = Array();
 	$array = Array();
@@ -93,7 +95,7 @@ if(is_file("Trains/trains.csv")) {
 			$headers[] = "Trains/Generated/" . $safe_name . ".h";
 			fwrite($makefile, "Objects/" . $safe_name . ": Trains/Generated/" . $safe_name . ".c Generic/step.h\n");
 			fwrite($makefile, "\t@echo Building " . $train["Name"] . "...\n");
-			fwrite($makefile, "\t@gcc -c -O2 -lm -Wall Trains/Generated/" . $safe_name . ".c -o Objects/" . $safe_name . "\n");
+			fwrite($makefile, "\t@gcc -c -O" . $opt_level . " -lm -Wall Trains/Generated/" . $safe_name . ".c -o Objects/" . $safe_name . "\n");
 			fwrite($makefile, "\n");
 		}
 		else {
@@ -135,7 +137,7 @@ if(is_file("Gates/gates.csv")) {
 			$headers[] = "Gates/Generated/" . $safe_name . ".h";
 			fwrite($makefile, "Objects/" . $safe_name . ": Gates/Generated/" . $safe_name . ".c Generic/step.h\n");
 			fwrite($makefile, "\t@echo Building " . $gate["Name"] . "...\n");
-			fwrite($makefile, "\t@gcc -c -O2 -lm -Wall Gates/Generated/" . $safe_name . ".c -o Objects/" . $safe_name . "\n");
+			fwrite($makefile, "\t@gcc -c -O" . $opt_level . " -lm -Wall Gates/Generated/" . $safe_name . ".c -o Objects/" . $safe_name . "\n");
 			fwrite($makefile, "\n");
 		}
 		else {
@@ -212,7 +214,7 @@ fclose($runnable);
 
 fwrite($makefile, "runnable: runnable.c Generic/step.h\n");
 fwrite($makefile, "\t@echo Building Runnable...\n");
-fwrite($makefile, "\t@gcc -O2 -lm -Wall runnable.c ");
+fwrite($makefile, "\t@gcc -O" . $opt_level . " -lm -Wall runnable.c ");
 foreach($items as $item) {
 	fwrite($makefile, "Objects/" . $item . " ");
 }
