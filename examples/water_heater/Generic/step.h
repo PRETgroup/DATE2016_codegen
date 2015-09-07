@@ -1,0 +1,2 @@
+#define STEP_SIZE 0.0001
+#define SIMULATION_TIME 100
