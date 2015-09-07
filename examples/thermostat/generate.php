@@ -1,6 +1,7 @@
 <?php
 
-$opt_level = "2";
+$opt_level = "0";
+$dir = getcwd();
 
 function CSVToArray($fp) {
 	$headers = Array();
@@ -88,7 +89,7 @@ if(is_file("Thermostats/thermostats.csv")) {
 			$headers[] = "Thermostats/Generated/" . $safe_name . ".h";
 			fwrite($makefile, "Objects/" . $safe_name . ": Thermostats/Generated/" . $safe_name . ".c Generic/step.h\n");
 			fwrite($makefile, "\t@echo Building " . $thermostat["Name"] . "...\n");
-			fwrite($makefile, "\t@gcc -c -O" . $opt_level . " -lm -Wall Thermostats/Generated/" . $safe_name . ".c -o Objects/" . $safe_name . "\n");
+			fwrite($makefile, "\t@cl /c /O" . $opt_level . " Thermostats/Generated/" . $safe_name . ".c /Fo" . $dir . "\\Objects\\" . $safe_name . "\n");
 			fwrite($makefile, "\n");
 		}
 		else {
@@ -103,7 +104,28 @@ fwrite($runnable, "#include <stdint.h>\n");
 fwrite($runnable, "#include <stdlib.h>\n");
 fwrite($runnable, "#include <stdio.h>\n");
 fwrite($runnable, "#include <string.h>\n");
-fwrite($runnable, "#include <sys/time.h>\n");
+fwrite($runnable, "#include <stdint.h> // portable: uint64_t   MSVC: __int64
+#include <Windows.h>
+
+	
+int gettimeofday(struct timeval * tp, struct timezone * tzp)
+{
+    // Note: some broken versions only have 8 trailing zero's, the correct epoch has 9 trailing zero's
+    static const uint64_t EPOCH = ((uint64_t) 116444736000000000ULL);
+
+    SYSTEMTIME  system_time;
+    FILETIME    file_time;
+    uint64_t    time;
+	
+	GetSystemTime( &system_time );
+    SystemTimeToFileTime( &system_time, &file_time );
+    time =  ((uint64_t)file_time.dwLowDateTime )      ;
+    time += ((uint64_t)file_time.dwHighDateTime) << 32;
+
+    tp->tv_sec  = (long) ((time - EPOCH) / 10000000L);
+    tp->tv_usec = (long) (system_time.wMilliseconds * 1000);
+    return 0;
+}\n");
 fwrite($runnable, "\n");
 fwrite($runnable, "#include \"Generic/step.h\"\n");
 foreach($headers as $header) {
@@ -165,11 +187,11 @@ fclose($runnable);
 
 fwrite($makefile, "runnable: runnable.c Generic/step.h\n");
 fwrite($makefile, "\t@echo Building Runnable...\n");
-fwrite($makefile, "\t@gcc -O" . $opt_level . " -lm -Wall runnable.c ");
+fwrite($makefile, "\t@cl /O" . $opt_level . " runnable.c ");
 foreach($items as $item) {
-	fwrite($makefile, "Objects/" . $item . " ");
+	fwrite($makefile, "Objects/" . $item . ".obj ");
 }
-fwrite($makefile, "-o runnable\n");
+fwrite($makefile, "/Fe\n");
 fwrite($makefile, "\n");
 
 fwrite($makefile, "build: ");
