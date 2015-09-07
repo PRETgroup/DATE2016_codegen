@@ -164,12 +164,12 @@ Given the \ac{ODE} for $v_x$ in state $\mathbf{q_1}$ of the Heart Cell \ac{HA} d
 The forward Euler equivalent for this ODE is shown in Equation~\ref{eq:euler_equiv} where $\delta$ is the time-step size and $v^\prime_x$ represents the value of $v_x$ after the current iteration.
 
 \begin{equation}
-\dot{v_x} = a^1_x v_x + \beta_x g(\vec{v})
+\dot{v_x} = C_{4} v_x + C_{7} g(\vec{v})
 \label{eq:ode}
 \end{equation}
 
 \begin{equation}
-v^\prime_x = v_x + \delta * (a^1_x v_x + \beta_x g(\vec{v}))
+v^\prime_x = v_x + \delta * (C_{4} v_x + C_{7} g(\vec{v}))
 \label{eq:euler_equiv}
 \end{equation}
 
