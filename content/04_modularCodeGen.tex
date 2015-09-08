@@ -1,9 +1,8 @@
 \section{Modular code generation}
 \label{sec:codeGen}
 
-In this section we present our approach for modular code generation from
-a network of \acp{HA}. 
-An overview of the solution is presented in Figure~\ref{fig:overview} and the two steps are outlined in detail below in Sections \ref{sec:shaGeneration} and \ref{sec:backendCodeGeneration}.
+In this section we present our approach for modular code generation from a network of \acp{HA}. 
+An overview of the solution is presented in Figure~\ref{fig:overview}, with the first of the two steps being outlined in Section~\ref{sec:shaGeneration}, and the second step in Section~\ref{sec:backendCodeGeneration} below.
 
 
 
@@ -17,3 +16,16 @@ Secondly, we describe step $2$ of the compilation process from Figure~\ref{fig:c
 	\item composition
 	\item Proof for Determinism (still holds ?)
 \end{itemize}
+
+\begin{figure}
+	\centering
+	\input{figures/cellFSM}
+	\caption{\acf{FSM} of a heart cell \label{fig:heartCellFSM}}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\input{figures/cellComposition}
+	\caption{Synchronous composition of multiple heart cells \label{fig:heartCellComposition}}
+\end{figure}

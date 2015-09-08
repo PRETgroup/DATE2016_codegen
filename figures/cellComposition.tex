@@ -1,0 +1,37 @@
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+semithick,scale=0.9, transform shape]
+\tikzstyle{every state}=[circle,rounded corners,
+minimum height = 1.2cm, text width=1.2cm, text
+centered, fill=blue!20,draw=none,text=black,
+draw,line width=0.3mm]
+
+\node[state] (IO)  { $I/O$ };
+
+\path[<-, dashed] (IO.90) edge node[above, align=center, shift={(0.6,0)}] {
+	initial
+} ++(0cm,1cm);
+
+\node[state]
+(Cell1) [below right=0.37cm and 0.9cm of IO] 	 {$Cell1$};
+
+\node[state]
+(Cell2) [below left=1.28cm and -0.33cm of Cell1] 	 {$Cell2$};
+
+\node[state]
+(Cell33) [below left=0.37cm and 0.9cm of IO] 	 {$Cell33$};
+
+\node[state]
+(Cell32) [below right=1.28cm and -0.33cm of Cell33] 	 {$Cell32$};
+
+
+\path[->] (IO.0) edge[out=0,in=108] (Cell1.108);
+
+\path[->] (Cell1.-72) edge[out=-72,in=36] (Cell2.36);
+
+\path[->, dotted] (Cell2.-144) edge[out=-144,in=-36] (Cell32.-36);
+
+\path[->] (Cell32.-216) edge[out=-216,in=-108] (Cell33.-108);
+
+\path[->] (Cell33.-288) edge[out=-288,in=-180] (IO.-180);
+
+\end{tikzpicture}
