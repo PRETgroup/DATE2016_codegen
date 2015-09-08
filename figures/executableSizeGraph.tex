@@ -7,7 +7,8 @@
 		anchor=north,
 		legend columns=-1
 	},
-	ylabel={Memory Requirement (MB)},
+	ylabel={Executable Size (KB)},
+	ymin=0,
 	symbolic x coords={TSN, NHC, WH, MTG, NP},
 	xtick=data,
 	nodes near coords,
@@ -16,23 +17,33 @@
 
 %Simulink
 \addplot coordinates {
-	(TSN,0)
-	(NHC,200)
-	(WH,0)
-	(MTG,0)
-	(NP,0)
+	(TSN,190)
+	(NHC,320)
+	(WH,226)
+	(MTG,188)
+	(NP,212)
 };
 
-%Piha
+%Piha (O0)
 \addplot coordinates {
-	(TSN,0)
-	(NHC,1.3)
-	(WH,0)
-	(MTG,0)
-	(NP,0)
+	(TSN,131)
+	(NHC,323)
+	(WH,163)
+	(MTG,130)
+	(NP,174)
 };
 
-\legend{\simulink, \ourTool}
+%Piha (O2)
+\addplot coordinates {
+	(TSN,96)
+	(NHC,128)
+	(WH,98)
+	(MTG,97)
+	(NP,98)
+};
+
+
+\legend{\simulink, \ourTool (O0), \ourTool (O2)}
 
 \end{axis}
 \end{tikzpicture}
