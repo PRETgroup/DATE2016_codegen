@@ -9,13 +9,8 @@ An overview of the solution is presented in Figure~\ref{fig:overview}, with the 
 \subsection{Backend code generation}
 \label{sec:backendCodeGeneration}
 
-Secondly, we describe step $2$ of the compilation process from Figure~\ref{fig:compilingHA}. Once a network of \acp{SHA} has been created,...
-
-\begin{itemize}
-	\item code generation
-	\item composition
-	\item Proof for Determinism (still holds ?)
-\end{itemize}
+Here we describe step $2$ of the compilation process from Figure~\ref{fig:overview}.
+Once a network of \acp{SHA} has been created, code needs to be generated to describe the functionality of each \ac{SHA}.
 
 \begin{figure}
 	\centering
@@ -23,9 +18,28 @@ Secondly, we describe step $2$ of the compilation process from Figure~\ref{fig:c
 	\caption{\acf{FSM} of a heart cell \label{fig:heartCellFSM}}
 \end{figure}
 
+In order to facilitate code generation, each \ac{SHA} is transformed into a simple Mealy \ac{FSM} where each step of the program requires a transition be taken.
+This process involves creating self loops on each state in $Loc$, where the invariant in $Inv$ becomes the guard of the transition, and the \acs{ODE} in $Switness$ become the outputs of the transition.
+The corresponding \ac{FSM} for the \ac{SHA} in Figure~\ref{fig:heartCellSHA} is shown in Figure~\ref{fig:heartCellFSM}.
+
+Each of these \acp{FSM} are then transformed into C code which contains an \emph{Initialisation Function} corresponding to the $Init$ of the \ac{FSM}, and a \emph{Run Function} which, given an existing state, performs a single transition and updates any signals that may have changed.
+
+
+\subsection{Parallel Composition}
+\label{sec:composition}
 
 \begin{figure}
 	\centering
 	\input{figures/cellComposition}
 	\caption{Synchronous composition of multiple heart cells \label{fig:heartCellComposition}}
 \end{figure}
+
+In order to compose each of the \acp{FSM} together, we take inspiration from the concepts of Synchronous Languages such as SL\cite{SlLanguage}.
+The concept of Ticks and Reactions are carried over, whereby each \ac{FSM} performs only a single step (``tick'') until all \acp{FSM} have completed a step (``reaction'') and the process can repeat.
+In order to deal with data dependencies, we also implement the concept of \emph{pre} whereby the value of all inputs to each \ac{FSM} are not updated with new values until the end of that reaction.
+The concept of \emph{pre} also enables \ourTool to simplify the process of handling cyclic \acp{ODE} (an issue that other tools do not consider\cite{kim2003modular}) by causing the dependencies to refer to previous values.
+
+The implementation of this in \ourTool is done by creating a round-robin scheduler which executes one tick of each \ac{FSM} in series, followed by I/O synchronisation at the end of each reaction.
+This idea is illustrated in Figure~\ref{fig:heartCellComposition}.
+This concept is amenable to further scheduling algorithms that need not be sequential in nature.
+\ourTool can be extended to support parallel computation by executing different \acp{FSM} on separate threads, with synchronisation between threads occurring at the end of each reaction.
