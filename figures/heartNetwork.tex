@@ -1,0 +1,123 @@
+\begin{tikzpicture}[->,>=stealth',semithick,scale=0.9, transform shape]
+
+\tikzstyle{every state}=[fill=blue!20,circle,minimum size=0.1cm]
+
+\tikzset{
+	atrialCell/.style={
+		fill=green!20,
+		circle,
+		minimum size=0.1cm,
+		draw,
+		line width=0.2mm
+	}
+}
+
+\tikzset{
+	ventricularCell/.style={
+		fill=blue!20,
+		circle,
+		minimum size=0.1cm,
+		draw,
+		line width=0.2mm
+	}
+}
+
+\tikzset{
+	autorhythmicCell/.style={
+		fill=yellow!20,
+		circle,
+		minimum size=0.1cm,
+		draw,
+		line width=0.2mm
+	}
+}
+
+\draw node[atrialCell](SA) {};
+
+\node[atrialCell](CT) [below left=0.3cm and 0.5cm of SA] {};
+\node[atrialCell](CT1) [below left=0.5cm and 0cm of CT] {};
+
+\node[atrialCell](BB) [below right=-0.1cm and 0.5cm of SA] {};
+\node[atrialCell](LA) [below right=-0.1cm and 0.5cm of BB] {};
+\node[atrialCell](LA1) [below right=-0.1cm and 0.5cm of LA] {};
+
+\node[atrialCell](RA) [below left=0.4cm and -0.1cm of SA] {};
+\node[atrialCell](RA1) [below left=0.5cm and 0cm of RA] {};
+\node[atrialCell](CS) [below left=0.5cm and -0.3cm of RA1] {};
+
+\node[atrialCell](OS) [below right=0.4cm and 0.2cm of SA] {};
+\node[atrialCell](Fast) [below left=0.4cm and -0.1cm of OS] {};
+\node[atrialCell](Fast1) [below right=0.4cm and -0.1cm of Fast] {};
+\node[atrialCell](Slow) [below right=0.2cm and 0.3cm of OS] {};
+\node[atrialCell](Slow1) [below right=0.4cm and -0.1cm of Slow] {};
+\node[atrialCell](AV) [below right=0.2cm and 0.3cm of Fast1] {};
+
+\node[ventricularCell](His) [right=0.3cm of AV] {};
+\node[ventricularCell](His1) [below right=-0.1cm and 0.3cm of His] {};
+\node[ventricularCell](His2) [below right=0.3cm and -0.1cm of His1] {};
+
+\node[ventricularCell](RBB) [below left=0.4cm and 0.1cm of His2] {};
+\node[ventricularCell](RBB1) [below right=0.4cm and -0.1cm of RBB] {};
+\node[ventricularCell](RVA) [below right=0.4cm and -0.1cm of RBB1] {};
+
+\node[ventricularCell](LBB) [below right=0.4cm and 0.2cm of His2] {};
+\node[ventricularCell](LBB1) [below right=0.4cm and -0.1cm of LBB] {};
+\node[ventricularCell](LVA) [below right=0.4cm and -0.1cm of LBB1] {};
+
+\node[ventricularCell](LVS) [above right=0.3cm and 0.3cm of LVA] {};
+\node[ventricularCell](LVS1) [above left=0.4cm and -0.1cm of LVS] {};
+\node[ventricularCell](CSLV) [above left=0.4cm and -0.1cm of LVS1] {};
+
+\node[ventricularCell](LV) [above right=0.1cm and 1.0cm of LVA] {};
+\node[ventricularCell](LV1) [above left=1.8cm and -0.1cm of LV] {};
+
+\node[ventricularCell](RVS) [above left=0.2cm and 0.6cm of RVA] {};
+\node[ventricularCell](RVS1) [above left=0.4cm and -0.1cm of RVS] {};
+
+\node[ventricularCell](RV) [above left=-0.1cm and 1.2cm of RVA] {};
+\node[ventricularCell](RV1) [above left=0.9cm and 0.8cm of RV] {};
+
+\path[-] (SA) edge (BB);
+\path[-] (BB) edge (LA);
+\path[-] (LA) edge (LA1);
+
+\path[-] (SA) edge (CT);
+\path[-] (CT) edge (CT1);
+
+\path[-] (SA) edge (RA);
+\path[-] (RA) edge (RA1);
+\path[-] (RA1) edge (CS);
+
+\path[-] (SA) edge (OS);
+\path[-] (OS) edge (Fast);
+\path[-] (Fast) edge (Fast1);
+\path[-] (OS) edge (Slow);
+\path[-] (Slow) edge (Slow1);
+\path[-] (Fast1) edge (AV);
+\path[-] (Slow1) edge (AV);
+
+\path[-] (AV) edge (His);
+\path[-] (His) edge (His1);
+\path[-] (His1) edge (His2);
+\path[-] (His2) edge (RBB);
+\path[-] (RBB) edge (RBB1);
+\path[-] (RBB1) edge (RVA);
+\path[-] (His2) edge (LBB);
+\path[-] (LBB) edge (LBB1);
+\path[-] (LBB1) edge (LVA);
+\path[-] (RVA) edge (LVA);
+
+\path[-] (RVA) edge (RVS);
+\path[-] (RVS) edge (RVS1);
+
+\path[-] (RVA) edge (RV);
+\path[-] (RV) edge (RV1);
+
+\path[-] (LVA) edge (LVS);
+\path[-] (LVS) edge (LVS1);
+\path[-] (LVS1) edge (CSLV);
+
+\path[-] (LVA) edge (LV);
+\path[-] (LV) edge (LV1);
+
+\end{tikzpicture}
