@@ -14,12 +14,12 @@ The human heart (see Figure~\ref{fig:actionPotential})
  is an organ that pumps blood throughout the body.
 It achieves this by regularly contracting an relaxing the muscles
 which are orchestrated by a flow of electrical signals through the heart.
-The signal is primarily generated automatically by the Sinoatrial~(SA) node.
+The signal is primarily generated automatically by the \ac{SA} node.
 First, the signal travels through left and right atrium, contracting 
 the muscles and pushing the blood into ventricles.
  
 Second, to ensure the both ventricles are filled, 
-the Atrioventicular (AV) node introduces critical delay 
+the \ac{AV} node introduces critical delay 
 in the conduction system.   
 Finally, the electrical signal propagates through 
 both ventricles. This contracts the muscles and pumps the blood out.
@@ -47,7 +47,7 @@ The voltage behaviour can be described in four stages.
 					 of the action potential curve will be shorter.
 	
 \end{enumerate} 
- For more details on understanding action potential please refer to~\cite{chen14}.\\
+ For more details on understanding \acp{AP} please refer to~[X].
 
 \noindent \textbf{Abstract model.}
 The human heart has over two trillion cells. For analytical purposes, a
@@ -55,8 +55,7 @@ model consisting  a network of  $32$ nodes is presented in literature
 and is used for testing off-the-shelf pacemakers~\cite{chen14,zhihao12}.
 The abstracted electrical conduction system consisting  of 
 nodes and paths is presented in Figure~\ref{fig:heartNetwork}.
-The functionality of each node is described using \acf{HA} in Section~\ref{sec:HA}. The path model simply models the delay 
-of the electrical signals.
+The functionality of each node is described using \acf{HA} in Section~\ref{sec:HA} and then using \acf{SHA} in Section~\ref{sec:SHA}.
 Later in Section~\ref{sec:codeGen}, we use the abstract network model 
 to illustrate our modular code generation.
 

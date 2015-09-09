@@ -1,20 +1,20 @@
 {
 	\centering
-	\subfigure[The four stages of action potential
-	]{
+	\subfigure[The four stages of an \acf{AP}]{
 		\framebox[0.31\textwidth]{
 			\input{./figures/actionPotential.tex}
 			\label{fig:actionPotential}
 		}
 	} % HA
-	\subfigure[\label{fig:heart} SA node is the natural pacemaker of a heart ]{
+	\subfigure[\label{fig:heart} Diagram of the heart. The \acf{SA} node is the natural pacemaker of a heart]{
           \framebox[0.31\textwidth]{
 				\includegraphics[width=0.30\linewidth]{figures/heart}
 		} %framebox
 	}% SHA
-	\subfigure[\label{fig:heartNetwork} {An abstracted model of the conduction system as a network of $33$~nodes and conduction pathways. }]{ 
+	\subfigure[An abstracted model of the conduction system as a network of $33$~nodes and conduction pathways in the Atria (Green) and Ventricles (Blue)]{ 
           \framebox[0.31\textwidth]{
-			\includegraphics[width=0.30\linewidth,keepaspectratio]{figures/heartNetwork}
+          	\input{./figures/heartNetwork.tex}
+          	\label{fig:heartNetwork} 
 	  } %framebox
 	}% code gen
 
