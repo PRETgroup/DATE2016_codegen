@@ -1,5 +1,5 @@
 % Define block styles
-\tikzstyle{fileS} = [rectangle, draw, fill=gray!20, 
+\tikzstyle{fileS} = [rectangle, draw, fill=red!20, 
 text width=4em, text centered, minimum height=3em]
 \tikzstyle{process} = [rectangle, draw, fill=blue!15, 
 text width=9em, text centered, rounded corners, minimum height=4em]
@@ -10,12 +10,12 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 % Place nodes
 
 %-----------------------------------------------------------------------
-\node [fileS] (HA1) {HA ($Def.~\ref{def:ha}$)};
+\node [fileS,fill=red!10] (HA1) {HA ($Def.~\ref{def:ha}$)};
 \node[right of = HA1, node distance = 1.3cm](PAR){\Large $||$};
-\node [fileS,right of = PAR, node distance = 1.3cm] (HA2) 
+\node [fileS,,fill=red!10,right of = PAR, node distance = 1.3cm] (HA2) 
 	{HA ($Def.~\ref{def:ha}$)};	
 \node[below of = PAR, node distance=1.3cm, text width=3.7cm, text centered]
-	(TNHA){Network of HA\\ {($Def.~\ref{def:nha}$)}};
+	(TNHA){Network of HA};
 \node[draw, thick, inner sep=0.3cm, fit=(HA1) (HA2) (TNHA)] (NHA) {};
 
 \node[draw, dashed, inner sep=0.3cm,
@@ -28,12 +28,12 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 
 
 %Network of SHA
-\node [fileS,above right  = -0.8cm and 0.8cm of  GSHA] (SHA1) {\ac{SHA} ($Def.~X$)};
+\node [fileS, fill=red!20, above right  = -0.8cm and 0.8cm of  GSHA] (SHA1) {\ac{SHA} ($Def.~\ref{def:sha}$)};
 \node[right of = SHA1, node distance = 1.3cm](PAR2){\Large $||$};
-\node [fileS,right of = PAR2, node distance = 1.3cm] (SHA2) 
-{\ac{SHA} ($Def.~X$)};	
+\node [fileS,,fill=red!20,right of = PAR2, node distance = 1.3cm] (SHA2) 
+{\ac{SHA} ($Def.~\ref{def:sha}$)};	
 \node[below of = PAR2, node distance=1.3cm, text width=3.7cm, text centered]
-(TNSHA){Network of SHA\\ (Def.~Y)};
+(TNSHA){Network of SHA};
 \node[draw, thick, inner sep=0.3cm, fit=(SHA1) (SHA2) (TNSHA)] (NSHA) {};
 
 \node[draw, dashed, inner sep=0.2cm,
@@ -46,12 +46,12 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 
 
 
-\node [fileS, right  = 1.8cm  of  HA2] (FSM1) {FSM ($Def.~X$)};
+\node [fileS, fill=red!30, right  = 1.8cm  of  HA2] (FSM1) {FSM ($Def.~X$)};
 \node[right of = FSM1, node distance = 1.3cm](SEQ){\Large $;$};
-\node [fileS,right of = SEQ, node distance = 1.3cm] (FSM2) 
+\node [fileS,,fill=red!30,right of = SEQ, node distance = 1.3cm] (FSM2) 
 {FSM ($Def.~X$)};	
 \node[below of = SEQ, node distance=1.3cm, text width=3.7cm, text centered]
-(TCC){Generated C code\\ (Def.~Y)};
+(TCC){Generated C code};
 \node[draw, thick, inner sep=0.3cm, fit=(FSM1) (FSM2) (TCC)] (CC) {};
 
 \node[label={[label distance=0cm]60:Section~\ref{sec:codeGen}}, 
