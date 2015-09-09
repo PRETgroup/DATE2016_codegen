@@ -1,26 +1,28 @@
 \section{Introduction}
 
-Numerous cases of death and injuries due to malfunction of 
-cyber-physical devices such as  pacemakers have been reported.
+Pacemakers are safety-critical cyber-physical devices 
+that control the pacing of a heart.
 In 1990-2000, close to 200,000 pacemakers have been recalled
 due to software related failures~\cite{alemzadeh13}.
  One reason that these malfunctions
 arise is due to the lack of proper validation.
-Unlike the ideas of hardware-in-the-loop testing [ref],
+Unlike the ideas of hardware-in-the-loop testing
+  also known as \emph {emulation}~\cite{patel2015survey},
 it is not possible to test on actual heart.
 Further, unlike the hardware that is almost identical 
 during mass production, each individual heart is different.
 Thus there is a need to develop a virtual heart that is tailored
-to an individual person and achieves
- personalised healthcare~\cite{Trayanova2014}. This idea can be extended 
+to an individual person and achieve
+ personalised healthcare~\cite{Trayanova2014}. 
+ This idea can be extended 
 to a network of human organs, resulting in a virtual human.
 
 Typically these biological  models are  developed by biomedical engineers.
 They mimic the heart's working at the
 molecular level~\cite{Trayanova2014}. 
-To simulate one heart beat takes severely hours, if not days~[].
+To simulate one heart beat takes severely hours, if not days.
 These models are very computationally intensive and 
-are not for real-time emulation,
+are not suitable for real-time emulation,
 which is required for closed-loop testing of time-critical 
 controllers such as cardiac pacemakers.
 Further, the models are 
@@ -39,14 +41,14 @@ functional and timing properties.
 The continuous dynamics of a plant (e.g., heart) and
  the discrete behaviour of a controller (e.g., pacemaker) 
  results in so called hybrid systems. 
- These are often formally described using Hybrid Automata~\cite{alur2015principles,raskin05,chen201487}.
+ These are often formally described using \acf{HA}~\cite{alur2015principles,raskin05,chen201487}.
  However, these are non-deterministic and are problematic
  for generating constructive models.
  A more abstract deterministic model will enable us to
  develop constructive/synthesisable models~\cite{Lee2014}. Also, 
  it is easier to draw trusted conclusions from simulations
  of deterministic models. Based on the
- well-known synchronous approach~[], 
+ well-known synchronous approach~\cite{benveniste03}, 
  we present a deterministic semantics for \ac{HA} and show
  constructive models in this paper.
 
@@ -67,8 +69,10 @@ There are many solutions for code generation from \acf{HA}...
    to the widely used Simulink\textsuperscript{\textregistered}
    simulation framework, see Section~\ref{sec:benchmarking}.
    
- An overview of the proposed approach is presented
- in Figure~\ref{fig:overview}.
+ An overview of the proposed modular code generation approach is presented
+ in Figure~\ref{fig:overview}. Given a network
+ of \ac{HA}, a discretised abstraction called \ac{SHA} are generated.
+ Finally, executable code (captured using FSMs)  is generated for emulation.
  
  \begin{figure}[bthp]
  	\centering
