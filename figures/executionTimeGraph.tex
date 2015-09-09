@@ -1,16 +1,19 @@
 \begin{tikzpicture}
 \begin{axis}[
 	ybar,
-	enlargelimits=0.15,
+	enlarge y limits={upper, value=0.1},
+	enlarge x limits=0.15,
 	legend style={
 		at={(0.5,-0.15)},
 		anchor=north,
 		legend columns=-1
 	},
-	ylabel={Execution time (ms)},
+	ylabel={Execution Time (ms)},
+	ymin=10e0,
 	symbolic x coords={TSN, NHC, WH, MTG, NP},
 	xtick=data,
 	ymode=log,
+	log basis y=10,
 	nodes near coords,
 	nodes near coords align={vertical},
 ]
