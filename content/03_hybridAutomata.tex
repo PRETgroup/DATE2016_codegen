@@ -4,12 +4,12 @@
 
 
 \acf{HA} is ideal for describing 
-Cyber-physical systems. It is very expressive, non-deterministic  
+\ac{CPS}. It is very expressive, non-deterministic  
 and has been successfully used for 
 capturing the behaviour of a plant in control systems.
 However, to avoid non-determinism 
 some constraints need to be imposed s.t. it is possible to  
-generate synthesisable  code~\cite{Lee2014}. 
+generate synthesizable code~\cite{Lee2014}. 
 In this section, we give an example of an \ac{HA}, formal definition  along with the required restrictions.
 
 %In this section, 
@@ -52,11 +52,11 @@ and illustrate using Figure~\ref{fig:heartCellHA}.\newline
 	 $HA = \langle Loc, X, \Sigma, Init, Inv, Flow,$ $ Jump \rangle$ where
 	%Locations
 	$Loc=\{q_0,q_1,q_2,q_3\}$ is a set of locations.
-	$X=\{v,v_x,v_y,v_z\}$ is a set of continuous variables.
+	$X=\{v,v_x,v_y,v_z,\theta\}$ is a set of continuous variables.
 	$\Sigma=\Sigma_I \cup \Sigma_O \cup \{\iSignal\}$ is a set of
 	 input, output, and internal events.
-	$Init=\{(q_0,v): v\leq V_T\}$ is the initial condition.
-	$Inv=\{(q_3,v): v\geq V_R\}$ is the invariant.
+	$Init=\{(q_0,v): v < V_T\}$ is the initial condition.
+	$Inv=\{(q_3,v): v > V_R\}$ is the invariant.
 	$Flow=\{(q_0,v_x): C_1 v_x\}$ specifies the continuous flow rate.
 	$Jump=\{(q_n, q_m): signal, cond, update\}$: describes the discrete
 	transition from $q_n$ and $q_m$ is enabled when $signal$ is 
@@ -81,7 +81,7 @@ Section~\ref{sec:DTTS}
 
 \subsection{Definition of \acf{SHA}}
 \label{sec:defSHA}
-A \ac{SHA} is a discreatised  abstraction of the corresponding \ac{HA}. 
+An \ac{SHA} is a discretized  abstraction of the corresponding \ac{HA}. 
 It inherits all the
 components of a \ac{HA} except that $Flow$ predicates are replaced by a
 composite witness function $Switness$.
@@ -101,12 +101,11 @@ the \ac{SHA} using Definition~\ref{def:sha} and illustrate using Figure~\ref{fig
 		\item $Step = \delta \in \mathbb{R}^+$: This specifies the duration of the synchronous instant,  duration between 
 		two samples.
 		\item
-		$Switness: Loc \times \mathbb{N} \times \mathbb{R} \times
-		\mathbb{R}^m \rightarrow \mathbb{R}^m$:
-		is the witness function that returns the valuation of all the
-		continuous variables at any valid time step $k$ in a given location
-		$l$. It also takes as input the time step $\delta$ and the initial
-		value from which execution begins in the location.
+		$Switness: Loc \times \mathbb{R} \times
+		\mathbb{R}^m \rightarrow \mathbb{R}^n$:
+		is the witness function that returns the new values of all the
+		continuous variables for a given location $l$.
+		It also takes as input the time step $\delta$ and the current values of all variables $X$
 	\end{itemize}
 	\label{def:sha}
 \end{definition}

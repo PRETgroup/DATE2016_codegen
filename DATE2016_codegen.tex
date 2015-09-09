@@ -69,7 +69,14 @@
 
 
 \begin{abstract}
+Real-time emulation of a plant is often desirable to facilitate the testing of controllers under realistic conditions.
+Plants which exhibit continuous dynamics can be well modelled through the use of \acf{HA}, and so code generation from \ac{HA} that is suitable for real-time emulation is desirable.
+In the case of plants which are modelled by a network of \acp{HA}, such code generation must be able to emulate the entire overall system through parallel composition.
 
+In this paper, we propose a new tool (named \ourTool) for the modular code generation from \ac{HA} that is amenable to use in both the real-time emulation or simulation of plants.
+We illustrate the suitability of this approach through the running example of a human heart, where real-time emulation is desired for the verification of cardiac pacemakers.
+We compare the proposed approach to \simulink, a tool commonly used in the modelling of plants, to show that we are able to generate code that is on average 54\% smaller while executing 9.8 times faster.
+We finish by showing the scalability of our approach in order to illustrate its potential in allowing real-time emulation of complex \ac{HA} networks.
 \end{abstract}
 
 
