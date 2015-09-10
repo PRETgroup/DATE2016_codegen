@@ -8,9 +8,9 @@
 and has been successfully used for 
 capturing the behaviour of a plant in control systems.
 However, to avoid non-determinism 
-some constraints need to be imposed s.t. it is possible to  
+some constraints need to be imposed so that it is possible to  
 generate synthesizable code~\cite{Lee2014}. 
-In this section, we give an example of an \ac{HA}, formal definition  along with the required restrictions.
+In this section, we give an example of an \ac{HA}, the formal definition, along with the required restrictions.
 
 %In this section, 
 %we define a restricted \ac{HA} and then propose a discrete abstraction
@@ -28,15 +28,15 @@ In this section, we give an example of an \ac{HA}, formal definition  along with
 \caption{\acf{HA} of a heart cell \label{fig:heartCellHA}}
 \end{figure}
 
-HA shown in Figure~\ref{fig:heartCellHA} captures the 
+The HA shown in Figure~\ref{fig:heartCellHA} captures the 
 behaviour of the four stages of action potential  shown in Figure~\ref{fig:actionPotential}.
 The first stage (\ac{RP}), the continuous behaviour is captured 
 by location~$q_0$. (ADD MORE DESCRIPTION ABOUT THE CELL).
 
-For our hybrid automata model, we need to be able to 
-describe  input signals (denoted using symbol~$?$), 
-output signals (denoted using symbol~$!s$) 
-and internal signals ($\iSignal$). 
+For our \ac{HA} model, we need to be able to 
+describe  input signals, 
+output signals, 
+and internal signals. 
 Further,
 the signals can be classified as either 
 \emph{pure} signals (absent, or present) or
@@ -49,7 +49,7 @@ and illustrate using Figure~\ref{fig:heartCellHA}.\newline
 
 \begin{definition}[Hybrid Automata]
 	\label{def:ha}
-	 $HA = \langle Loc, X, \Sigma, Init, Inv, Flow,$ $ Jump \rangle$ where
+	 $HA = \langle Loc, X, \Sigma, Init, Inv, Flow, Jump \rangle$ where
 	%Locations
 	$Loc=\{q_0,q_1,q_2,q_3\}$ is a set of locations.
 	$X=\{v,v_x,v_y,v_z,\theta\}$ is a set of continuous variables.
@@ -59,10 +59,10 @@ and illustrate using Figure~\ref{fig:heartCellHA}.\newline
 	$Inv=\{(q_3,v): v > V_R\}$ is the invariant.
 	$Flow=\{(q_0,v_x): C_1 v_x\}$ specifies the continuous flow rate.
 	$Jump=\{(q_n, q_m): signal, cond, update\}$: describes the discrete
-	transition from $q_n$ and $q_m$ is enabled when $signal$ is 
-	present and the $cond$ evaluates to true and $update$
-	some variable during this transition.
-	Further, to reduce non-determinism, we must ensure that
+	transition from $q_n$ and $q_m$ which is enabled when $signal$ is 
+	present and the $cond$ evaluates to true, perfoms and $update$
+	during this transition.
+	Further, to remove non-determinism, we must ensure that
 	for all locations there does not exist more than one 
 	active $Jump$ transition.
 \end{definition}
@@ -74,38 +74,43 @@ The network can be described as $HA_1 || \dots || HA_m$.
 \section{Synchronous Hybrid Automata}
 \label{sec:SHA}
  
-Before we present step~1 of Figure~\ref{fig:overview},
-in Section~\ref{sec:defSHA} define the discrete form of \ac{HA}, 
-called \acf{SHA} and present its deterministic semantics in 
-Section~\ref{sec:DTTS}
+Before presenting step~1 of Figure~\ref{fig:overview},
+we define the numerical form of \ac{HA}, 
+called \acf{SHA}.
 
 \subsection{Definition of \acf{SHA}}
 \label{sec:defSHA}
-An \ac{SHA} is a discretized  abstraction of the corresponding \ac{HA}. 
+
+\begin{figure}
+	\centering
+	\input{figures/cellSHA}
+	\caption{\acf{SHA} of a heart cell \label{fig:heartCellSHA}}
+\end{figure}
+
+An \ac{SHA} is an  abstraction of the corresponding \ac{HA}. 
 It inherits all the
-components of a \ac{HA} except that $Flow$ predicates are replaced by a
-composite witness function $Switness$.
-$Switness(l,k, \delta, i)=v_{k,l,i}$, which returns the evaluation of
-the witness function in location $l$ at time step $k$.
+components of an \ac{HA} except that $Flow$ predicates are replaced by numerical equations $Snumeric$.
+$Snumeric(l,\delta,X)=v_{l,X}$, which returns the new values of
+continuous variables in location $l$ after one iteration of step size $\delta$ given the previous values of all variables $X$.
 We now formalise
-the \ac{SHA} using Definition~\ref{def:sha} and illustrate using Figure~\ref{fig:heartCellSHA}.
+the \ac{SHA} using Definition~\ref{def:sha} and illustrate it using Figure~\ref{fig:heartCellSHA}.
 
 
 
 \begin{definition}
-	Given a 
-	$HA = \langle Loc, X, \Sigma, Init,$ $ Inv, Flow, Jump \rangle$ a \ac{SHA} corresponding to
+	Given an
+	$HA = \langle Loc, X, \Sigma, Init, Inv, Flow, Jump \rangle$ an \ac{SHA} corresponding to
 	this \ac{HA} is \newline
-	$SHA = \langle Loc,  \Sigma, Init, Inv, Switness, Jump, Step \rangle$ where:
+	$SHA = \langle Loc,  \Sigma, Init, Inv, Snumeric, Jump, Step \rangle$ where:
 	\begin{itemize}
 		\item $Step = \delta \in \mathbb{R}^+$: This specifies the duration of the synchronous instant,  duration between 
 		two samples.
 		\item
-		$Switness: Loc \times \mathbb{R} \times
+		$Snumeric: Loc \times \mathbb{R} \times
 		\mathbb{R}^m \rightarrow \mathbb{R}^n$:
-		is the witness function that returns the new values of all the
+		is the numerical equations that returns the new values of all the
 		continuous variables for a given location $l$.
-		It also takes as input the time step $\delta$ and the current values of all variables $X$
+		It also takes as input the time step $\delta$ and the current values of all variables $X$.
 	\end{itemize}
 	\label{def:sha}
 \end{definition}
@@ -113,52 +118,6 @@ the \ac{SHA} using Definition~\ref{def:sha} and illustrate using Figure~\ref{fig
 Given  $m$   number of \acp{SHA} in a network.
 The network can be described as $SHA_1 || \dots || SHA_m$.
 
-\begin{figure}
-	\centering
-	\input{figures/cellSHA}
-	\caption{\acf{SHA} of the heart cell \label{fig:heartCellSHA}}
-\end{figure}
-
-\subsection{Deterministic semantics of \ac{SHA}}
-\label{sec:DTTS}
-Deterministic semantics of a \ac{SHA} is provided as a \acf{DTTS} in
-Definition~\ref{def:dtts}. We assume that all transitions of a \acf{DTTS}
-trigger relative to the ticks of the logical clock of the synchronous
-program.
-
-\begin{definition}
-	The semantics of a \newline
-	$SHA = \langle Loc,  \Sigma, Init, Inv, Switness, Jump, Step \rangle$
-	 is a 
-	$DTTS = \langle Q, Q^0, \Sigma, \rightarrow \rangle$ where
-	
-	\begin{itemize}
-		\item The state-space is $Q$, where any state is of the form
-		$(l, v, i, k)$ where $l$ is a location, $i$ is the initial valuation
-		of the variables when execution begins in the location and $v$ is
-		the valuation at the $k$-th instant.
-		\item $Q^0 \subseteq Q$ where every $q^0 \in Q^0$ is of the form
-		$(l, v^0, i, k)$ such that $v$ satisfies $Init(l)$.
-		\item Transitions are of two types:
-		\begin{itemize}
-			\item \emph{Inter-location transitions} that lead to a change in location:
-			These are of the form
-			$(l, v, i, k) \stackrel{\sigma} \rightarrow (l', v', i', 0)$ if
-			$(l, v, i, k) \in Q$, $(l', v', i', 0) \in Q$,
-			$e=(l \stackrel{\sigma} \rightarrow l') \in Edge$ and $(v, v')$
-			satisfy $Jump(e)$.
-			\item \emph{Intra-location transitions} made during the execution in
-			a given mode / location: These are of the form
-			$(l, v, i, k) \rightarrow (l, v', i, k+1)$ if
-			$(l, v, i, k) \in Q$, $(l, v', i, k+1) \in Q$, $(v, v')$ satisfy
-			$Inv(l)$, $Switness(l,k,\delta,i)=v$ and $Switness(l,k+1,\delta,i)=v'$.
-		\end{itemize}
-		
-			\item Restriction: Inter-location transitions always have \emph{higher} priority
-			over {Intra-location transitions}. This avoids the non-determinism.
-	\end{itemize}
-	\label{def:dtts}
-\end{definition}
 
 \subsection{Generation of a network of \ac{SHA}}
 \label{sec:shaGeneration}
@@ -166,7 +125,7 @@ program.
 This section describes step $1$ of the compilation process from Figure~\ref{fig:overview}.
 This step involves converting all of the \acp{ODE} in each of the \acp{HA} into their forward Euler equivalent methods.
 
-Given the \ac{ODE} for $v_x$ in state $\mathbf{q_1}$ of the Heart Cell \ac{HA} defined in Figure~\ref{fig:heartCellHA} (reproduced in Equation~\ref{eq:ode}), the forward Euler method is applied on each iteration in order to calculate $v_x$ numerically.
+Given the \ac{ODE} for $\dot{v_x}$ in state $\mathbf{q_1}$ of the Heart Cell \ac{HA} defined in Figure~\ref{fig:heartCellHA} (reproduced in Equation~\ref{eq:ode}), the forward Euler method is applied on each iteration in order to calculate $v_x$ numerically.
 The forward Euler equivalent for this ODE is shown in Equation~\ref{eq:euler_equiv} where $\delta$ is the time-step size and $v^\prime_x$ represents the value of $v_x$ after the current iteration.
 
 \begin{equation}
@@ -175,7 +134,7 @@ The forward Euler equivalent for this ODE is shown in Equation~\ref{eq:euler_equ
 \end{equation}
 
 \begin{equation}
-v^\prime_x = v_x + \delta * (C_{4} v_x + C_{7} g(\vec{v}))
+v^\prime_x = v_x + \delta \times (C_{4} v_x + C_{7} g(\vec{v}))
 \label{eq:euler_equiv}
 \end{equation}
 

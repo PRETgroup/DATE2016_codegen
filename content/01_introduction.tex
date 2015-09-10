@@ -6,10 +6,10 @@ In 1990-2000, close to 200,000 pacemakers have been recalled
 due to software related failures~\cite{alemzadeh13}.
  One reason that these malfunctions
 arise is due to the lack of proper validation.
-Unlike the ideas of hardware-in-the-loop testing
+Unlike the ideas of hardware-in-the-loop testing,
 also known as \emph {emulation}~\cite{patel2015survey},
-it is not possible to test on actual heart.
-Further, unlike the hardware that is almost identical 
+it is not possible to test on an actual heart.
+Further, unlike the hardware which is almost identical 
 during mass production, each individual heart is different.
 Thus there is a need to develop a virtual heart that is tailored
 to an individual person and achieve
@@ -20,27 +20,27 @@ to a network of human organs, resulting in a virtual human.
 Typically these biological  models are  developed by biomedical engineers.
 They mimic the heart's working at the
 molecular level~\cite{Trayanova2014}. 
-To simulate one heart beat takes severely hours, if not days.
+To simulate one heart beat takes several hours, if not days.
 These models are very computationally intensive and 
 are not suitable for real-time emulation,
 which is required for closed-loop testing of time-critical 
 controllers such as cardiac pacemakers.
 Further, the models are 
- very precise resulting in sophisticated models that 
+ very complex and hence 
  are not amenable for  formal verification. 
 Thus, there is a need to develop abstract models 
 by computer systems engineers that  
 (1)  \emph{capture the behaviour} of the heart (plant) 
 from a pacemaker's (controller's) point of view,
-allows for (2) \emph{real-time emulation} of the heart 
+(2) \emph{allows for real-time emulation} of the heart 
 such that it is possible for closed-loop simulation and
-is amenable for (3) \emph{formal verification} of 
+(3) \emph{are amenable for formal verification} of 
 functional and timing properties.
 
 
-The continuous dynamics of a plant (e.g., heart) and
- the discrete behaviour of a controller (e.g., pacemaker) 
- results in so called hybrid systems. 
+The continuous dynamics of a plant (e.g. heart) and
+ the discrete behaviour of a controller (e.g. pacemaker) 
+ result in so called hybrid systems. 
  These are often formally described using \acf{HA}~\cite{alur2015principles,raskin05,chen201487}.
  However, these are non-deterministic and are problematic
  for generating constructive models.
@@ -64,7 +64,7 @@ There are many solutions for code generation from \acf{HA}...
    
  An overview of the proposed modular code generation approach is presented
  in Figure~\ref{fig:overview}. Given a network
- of \ac{HA}, a discretized abstraction called \ac{SHA} are generated.
+ of \acp{HA}, a discretized abstraction called \ac{SHA} are generated.
  Finally, executable code (captured using \acp{FSM}) is generated for emulation.
  
  \begin{figure}[bthp]
@@ -80,8 +80,8 @@ There are many solutions for code generation from \acf{HA}...
 (1) We propose a \emph{deterministic semantics} for \acf{HA}, see Section~\ref{sec:HA}.
 (2) A \emph{scalable modular code generation} approach 
 to aid real-time emulation of a plant, see Section~\ref{sec:codeGen}.
-(3) We quantitatively evaluate the efficacy of the 
-proposed approach by comparing  
+(3) We \emph{quantitatively evaluate} the efficacy of the 
+proposed approach through comparisons  
 to the widely used \simulink
 simulation framework, see Section~\ref{sec:benchmarking}.
  

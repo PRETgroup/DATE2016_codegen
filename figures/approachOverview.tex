@@ -46,10 +46,10 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 
 
 
-\node [fileS, fill=red!30, right  = 1.8cm  of  HA2] (FSM1) {FSM ($Def.~X$)};
+\node [fileS, fill=red!30, right  = 1.8cm  of  HA2] (FSM1) {FSM};
 \node[right of = FSM1, node distance = 1.3cm](SEQ){\Large $;$};
 \node [fileS,,fill=red!30,right of = SEQ, node distance = 1.3cm] (FSM2) 
-{FSM ($Def.~X$)};	
+{FSM};	
 \node[below of = SEQ, node distance=1.3cm, text width=3.7cm, text centered]
 (TCC){Generated C code};
 \node[draw, thick, inner sep=0.3cm, fit=(FSM1) (FSM2) (TCC)] (CC) {};
