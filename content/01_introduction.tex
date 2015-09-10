@@ -1,6 +1,6 @@
 \section{Introduction}
 
-Pacemakers are safety-critical cyber-physical devices 
+Pacemakers are safety-critical \acp{CPS} 
 that control the pacing of a heart.
 In 1990-2000, close to 200,000 pacemakers have been recalled
 due to software related failures~\cite{alemzadeh13}.
@@ -53,18 +53,16 @@ The continuous dynamics of a plant (e.g. heart) and
  constructive models in this paper.
 
 
-There are many solutions for code generation from \acf{HA}...
-\begin{itemize}
-	\item Upenn timed automata
-	\item Simulink
-	\item ....
-\end{itemize}
- 
+Traditional \ac{CPS} design uses commercial tools such as \simulink for plant simulation and emulation.
+However, such designs do not preserve formal semantics of the models and are more verbose to describe.
+Academic tools for code generation from \ac{HA} models such as Ptolemy~\cite{ptolemaeus2014system} and Z\'{e}lus~\cite{bourke13zelus}.
+While these tools preserve the formal semantics, their reliance on dynamic numerical solvers makes them unsuitable for real-time emulation of plants.
+Such tools are capable of expressing the full non-deterministic nature of \acp{HA} rather than the deterministic subset described here.
 
    
  An overview of the proposed modular code generation approach is presented
  in Figure~\ref{fig:overview}. Given a network
- of \acp{HA}, a discretized abstraction called \ac{SHA} are generated.
+ of \acp{HA}, a numerical abstraction called \ac{SHA} are generated.
  Finally, executable code (captured using \acp{FSM}) is generated for emulation.
  
  \begin{figure}[bthp]

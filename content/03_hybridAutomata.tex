@@ -12,12 +12,6 @@ some constraints need to be imposed so that it is possible to
 generate synthesizable code~\cite{Lee2014}. 
 In this section, we give an example of an \ac{HA}, the formal definition, along with the required restrictions.
 
-%In this section, 
-%we define a restricted \ac{HA} and then propose a discrete abstraction
-%called \acf{SHA} which is based on the
-%synchronous approach~\cite{benveniste03}.
-%Finally, we propose a deterministic semantics for \ac{SHA}.
-
 
 
 \subsection{Example of \acf{HA} }
@@ -28,10 +22,13 @@ In this section, we give an example of an \ac{HA}, the formal definition, along 
 \caption{\acf{HA} of a heart cell \label{fig:heartCellHA}}
 \end{figure}
 
-The HA shown in Figure~\ref{fig:heartCellHA} captures the 
-behaviour of the four stages of action potential  shown in Figure~\ref{fig:actionPotential}.
-The first stage (\ac{RP}), the continuous behaviour is captured 
-by location~$q_0$. (ADD MORE DESCRIPTION ABOUT THE CELL).
+The HA shown in Figure~\ref{fig:heartCellHA} captures the behaviour of the four stages of \ac{AP} shown in Figure~\ref{fig:actionPotential}.
+For the first stage (\ac{RP}), the continuous behaviour is captured by location $q_0$.
+When an external stimulus ($g(\vec{v})$) is present the cell transitions to location $q_1$ (\ac{UP}).
+Once the cell is stimulated it begins its \ac{ERP} phase (captured by location $q_2$).
+The final location, $q_3$, represents the \ac{RRP} stage.
+Each of the parameters $C_1$ through $C_{15}$, represent values that configure the morphology of the \ac{AP}.
+Further parameters $V_T$, $V_O$, and $V_R$ determine the height of the \ac{AP} and transitions between locations of the \ac{HA} to further modify the morphology.
 
 For our \ac{HA} model, we need to be able to 
 describe  input signals, 
@@ -117,6 +114,48 @@ the \ac{SHA} using Definition~\ref{def:sha} and illustrate it using Figure~\ref{
 
 Given  $m$   number of \acp{SHA} in a network.
 The network can be described as $SHA_1 || \dots || SHA_m$.
+
+
+%\subsection{Deterministic semantics of \ac{SHA}}
+%\label{sec:DTTS}
+%Deterministic semantics of a \ac{SHA} is provided as a \acf{DTTS} in
+%Definition~\ref{def:dtts}. We assume that all transitions of a \acf{DTTS}
+%trigger relative to the ticks of the logical clock of the synchronous
+%program.
+%
+%\begin{definition}
+%	The semantics of a \newline
+%	$SHA = \langle Loc,  \Sigma, Init, Inv, Switness, Jump, Step \rangle$
+%	 is a 
+%	$DTTS = \langle Q, Q^0, \Sigma, \rightarrow \rangle$ where
+%	
+%	\begin{itemize}
+%		\item The state-space is $Q$, where any state is of the form
+%		$(l, v, i, k)$ where $l$ is a location, $i$ is the initial valuation
+%		of the variables when execution begins in the location and $v$ is
+%		the valuation at the $k$-th instant.
+%		\item $Q^0 \subseteq Q$ where every $q^0 \in Q^0$ is of the form
+%		$(l, v^0, i, k)$ such that $v$ satisfies $Init(l)$.
+%		\item Transitions are of two types:
+%		\begin{itemize}
+%			\item \emph{Inter-location transitions} that lead to a change in location:
+%			These are of the form
+%			$(l, v, i, k) \stackrel{\sigma} \rightarrow (l', v', i', 0)$ if
+%			$(l, v, i, k) \in Q$, $(l', v', i', 0) \in Q$,
+%			$e=(l \stackrel{\sigma} \rightarrow l') \in Edge$ and $(v, v')$
+%			satisfy $Jump(e)$.
+%			\item \emph{Intra-location transitions} made during the execution in
+%			a given mode / location: These are of the form
+%			$(l, v, i, k) \rightarrow (l, v', i, k+1)$ if
+%			$(l, v, i, k) \in Q$, $(l, v', i, k+1) \in Q$, $(v, v')$ satisfy
+%			$Inv(l)$, $Switness(l,k,\delta,i)=v$ and $Switness(l,k+1,\delta,i)=v'$.
+%		\end{itemize}
+%		
+%			\item Restriction: Inter-location transitions always have \emph{higher} priority
+%			over {Intra-location transitions}. This avoids the non-determinism.
+%	\end{itemize}
+%	\label{def:dtts}
+%\end{definition}
 
 
 \subsection{Generation of a network of \ac{SHA}}
