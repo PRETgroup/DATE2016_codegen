@@ -1,10 +1,51 @@
 \section{Introduction}
 
 Pacemakers are safety-critical \acp{CPS} 
-that control the pacing of a heart.
-In 1990-2000, close to 200,000 pacemakers have been recalled
-due to software related failures~\cite{alemzadeh13}.
- One reason that these malfunctions
+that control the pacing of a heart for providing therapy for bradycardia.
+Such devices must operate in a fail-safe manner all the time.
+However, between 1990-2000, close to 200,000 pacemakers have been recalled
+due to software related failures~\cite{alemzadeh13}. Considering this,
+ there is a need for the development of better processes for validation and 
+certification of such devices. We propose the well known, and widely 
+used, engineering technique of \emph{emulation}~\cite{patel2015survey}
+ to tackle this problem. Emulation, also known as  hardware-in-the-loop simulation,
+ is used to validate controllers (such as motor controllers) by running them in closed-loop
+with the actual plant (the synchronous motor, for example). 
+However, for emulation of pacemakers, the use of the actual plant (i.e. animal / human organs) is limiting.
+Hence, there is a need for the development of high-fidelity heart models that 
+ can provide the required real-time response to facilitate emulation. Bioengineering heart models~\cite{Trayanova2014}
+ provide excellent model fidelity at the expense of computation time as the simulation of a single heart beat may take 
+several hours. Hence, such models are not suitable for emulation.
+
+Recently, timed automata~\cite{zhihao12} based heart models have been 
+ developed primarily for model checking. These models 
+abstract the continuous dynamics and hence unsuitable for emulation. 
+In contrast to this, \acf{HA}~\cite{alur2015principles, raskin05} is used for modelling the forward conduction system
+of the heart using 33 nodes in~\cite{chen14}. This work is the  starting point 
+for real-time emulation by demonstrating that \simulink can be used for 
+ closed-loop verification of pacemakers. However, this work has limited model 
+fidelity and the limitations of the tool \simulink are inherited by the developed approach.
+\simulink has semantic limitations, as the semantics of composition is unclear.
+Moreover, there is no direct correspondence between the \simulink model and 
+the \ac{HA}  models. Finally, \simulink generated code has scalability issues, due to which 
+the researchers modelled a 33-node conduction system.
+
+We develop an approach by combining node models (which are
+extensions to the models developed by~\cite{chen14}) with 
+ \emph{path models} (in timed automata) to accurately 
+model the conduction delay between nodes. We are, thus, able to 
+model the re-entrant behaviour of the heart. 
+
+For modular code generation, we have developed an approach 
+ based on the well known synchronous languages~\cite{benveniste03}.
+ We formalise a deterministic subset of \ac{HA} called \ac{SHA}.
+ Using the concept of delayed synchronous composition~\cite{boussinot96}, we are then able to
+  produce modular code for each node separately. Such code has both code size and execution time
+benefits for emulation. In addition, such code is based on semantic-preserving 
+code generation, similar in spirit to Ptolemy~\cite{ptolemaeus2014system} and Z\'{e}lus~\cite{bourke13zelus}.
+However, unlike our approach, these rely on dynamic numerical solvers, which is not ideal for emulation of the heart.
+ 
+ \ignore{One reason that these malfunctions
 arise is due to the lack of proper validation.
 Unlike the ideas of hardware-in-the-loop testing,
 also known as \emph {emulation}~\cite{patel2015survey},
@@ -57,13 +98,13 @@ Traditional \ac{CPS} design uses commercial tools such as \simulink for plant si
 However, such designs do not preserve formal semantics of the models and are more verbose to describe.
 Academic tools for code generation from \ac{HA} models such as Ptolemy~\cite{ptolemaeus2014system} and Z\'{e}lus~\cite{bourke13zelus}.
 While these tools preserve the formal semantics, their reliance on dynamic numerical solvers makes them unsuitable for real-time emulation of plants.
-Such tools are capable of expressing the full non-deterministic nature of \acp{HA} rather than the deterministic subset described here.
+Such tools are capable of expressing the full non-deterministic nature of \acp{HA} rather than the deterministic subset described here.}
 
    
- An overview of the proposed modular code generation approach is presented
+ An overview of the proposed approach is presented
  in Figure~\ref{fig:overview}. Given a network
- of \acp{HA}, a numerical abstraction called \ac{SHA} are generated.
- Finally, executable code (captured using \acp{FSM}) is generated for emulation.
+ of \acp{HA} for the nodes and paths of the conduction systems, the \ac{SHA} corresponding to these are generated. \ac{SHA} is an abstraction using the
+synchronous approach to facilitate the generation of executable code (captured using \acp{FSM} for each node).
  
  \begin{figure}[bthp]
  	\centering
@@ -76,10 +117,9 @@ Such tools are capable of expressing the full non-deterministic nature of \acp{H
       
 \textbf{Contributions} of this paper are 
 (1) We propose a \emph{deterministic semantics} for \acf{HA}, see Section~\ref{sec:HA}.
-(2) A \emph{scalable modular code generation} approach 
-to aid real-time emulation of a plant, see Section~\ref{sec:codeGen}.
+We develop the electrical conduction system of the heart as a re-entrant circuit,
+ using the proposed approach, as a case study.
+(2) A \emph{scalable modular code generation} approach is developed, for the first time for \ac{HA} models, (Section~\ref{sec:codeGen}).
 (3) We \emph{quantitatively evaluate} the efficacy of the 
-proposed approach through comparisons  
-to the widely used \simulink
-simulation framework, see Section~\ref{sec:benchmarking}.
+proposed approach relative \simulink (Section~\ref{sec:benchmarking}).
  
