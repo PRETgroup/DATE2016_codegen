@@ -1,4 +1,4 @@
-\section{Background on the Heart }
+\section{Background--the human heart }
 \begin{figure*}[htbp]
 	\centering
 	\input{./figures/heartOverview}
@@ -6,16 +6,18 @@
 	\label{fig:heartOverview}
 \end{figure*}
 
-In this section, using Figure~\ref{fig:heartOverview} we 
+In this section, using Figure~\ref{fig:heartOverview}, we 
 describe the electrical conduction system of the heart.
-
-\noindent \textbf{Heart.}
+%\noindent \textbf{Heart.}
 The human heart (see Figure~\ref{fig:heart})
- is an organ that pumps blood throughout the body.
-It achieves this by regularly contracting and relaxing the muscles
-which are orchestrated by a flow of electrical signals through the heart.
-The signal is primarily generated automatically by the \ac{SA} node.
-First, the signal travels through the left and right atria, contracting 
+ is a biological pump that is essential for blood circulation using its rhythmic 
+pumping activity.
+It achieves this by regularly contracting and relaxing its muscles,
+which is orchestrated through flow of electrical signals along a set of cellular groups called nodes
+and associated paths called its \emph{conduction system}.
+The source of the signal is a natural pace maker in the left ventricle, called the \ac{SA} node,
+which triggers automatically.
+First, this signal travels through the left and right atria, contracting 
 the muscles and pushing the blood into the ventricles.
  
 Second, to ensure both ventricles are filled, 
@@ -26,24 +28,24 @@ both ventricles. This contracts the muscles and pumps the blood out of the heart
 
 
 \noindent \textbf{\acf{AP}.} 
-The propagation of electrical signals at a cellular level 
+The propagation of electrical signals at the cellular / nodal level 
 is described as a change in  voltage 
 across the cell membrane due to ionic flow. Over a period of time, 
-this change is known as an \acf{AP}~\cite{chen14} as shown in Figure~\ref{fig:actionPotential}. 
+this change is depicted as the \acf{AP}~\cite{chen14}, which is shown in Figure~\ref{fig:actionPotential}. 
 The \ac{AP} can be described in four stages.
 \begin{enumerate}
-	\item \acf{RP}: This is the steady state of the cell while awaiting 
+	\item \acf{RP}: This is the steady state, when the node is awaiting 
 					activation by an external stimulus.
 	\item \acf{UP}: When activated by an external stimulus, 
-					the cell depolarises (inward flow of positive ions) and 
+					the node depolarises (inward flow of positive ions) and 
 					contracts the muscles. This depolarisation yields 
 					a stimulus that activates neighbouring cells.
-	\item \acf{ERP}: Once activated, the cell cannot be activated again 
+	\item \acf{ERP}: Once activated, the node cannot be activated again 
 					 due to the recovery process of the ionic channels. 
-					 Any new stimulus will be blocked. 
-	\item \acf{RRP}: During this period, the ionic channels are partially recovered
-					 and the cell can be activated. However, the morphology
-					 of the \ac{AP} will be shorter.
+					 Any new stimulus will be blocked during this refactory period. 
+	\item \acf{RRP}: During this period, the ionic channels have partially recovered
+					 and the cell can be activated again. However, the morphology
+					 of the \ac{AP} will be shorter, in this instance.
 	
 \end{enumerate}
 
