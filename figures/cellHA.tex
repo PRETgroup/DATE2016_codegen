@@ -31,14 +31,14 @@ label={[shift={(-1.5,-2.5)}]\large $\mathbf{q_3}$  }]
 (Q3) [below of=Q0] {$\dot{v_x}=C_{13} v_x f(\theta)$ \\ $\dot{v_y}=C_{14} v_y f(\theta)$ \\ $\dot{v_z}=C_{15} v_z$ \\ $v=v_x - v_y + v_z$};
 
 \path[->] (Q0.10) edge node[align=center] {
+	\footnotesize $\{\tau\}$, \\
 	\footnotesize $\{g(\vec{v_{I}}) \geq V_T\}$, \\
-	\footnotesize $\{\emptyset\}$, \\
 	\footnotesize $\left\{\begin{matrix} v^\prime_x = 0.3v \\ v^\prime_y = 0.0v \\ v^\prime_z = 0.7v \\ \theta^\prime = v / V_T \end{matrix}\right\}$
 } (Q1.170);
 
 \path[->] (Q1.190) edge node[align=center] {
-	\footnotesize $\{g(\vec{v_{I}}) \leq 0\}$, \\
-	\footnotesize $\{v < V_T\}$, \\
+	\footnotesize $\{\tau\}$, \\
+	\footnotesize $\{g(\vec{v_{I}}) \leq 0 \wedge v < V_T$\}, \\
 	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
 } (Q0.350);
 

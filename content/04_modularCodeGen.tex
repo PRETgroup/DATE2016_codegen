@@ -5,21 +5,22 @@ In this section we present our approach for modular code generation from
 a network of \acp{HIOA} as it is implemented in our tool, called
 \ourTool.  An overview of the solution is presented in
 Figure~\ref{fig:overview}, with the first of the two steps being
-outlined previously in Section~\ref{sec:shaGeneration}, and the second
-step in Section~\ref{sec:backendCodeGeneration} below.
-
+outlined previously in Section~\ref{sec:SHA}, and the second step in
+Section~\ref{sec:backendCodeGeneration} below.
 
 
 \subsection{Backend code generation}
 \label{sec:backendCodeGeneration}
 
-Here we describe step $2$ of the compilation process from Figure~\ref{fig:overview}.
-Once a network of \acp{SHIOA} has been created, code needs to be generated to implement the functionality of each \ac{SHIOA}.
+Here we describe step $2$ of the compilation process from
+Figure~\ref{fig:overview}. Once a network of \acp{SHIOA} has been
+created, code needs to be generated to implement the functionality of
+each \ac{SHIOA}.
 
 \begin{figure}
-	\centering
-	\input{figures/cellFSM}
-	\caption{\acf{FSM} of a heart cell \label{fig:heartCellFSM}}
+  \centering
+  \input{figures/cellFSM}
+  \caption{\acf{FSM} of a heart cell \label{fig:heartCellFSM}}
 \end{figure}
 
 In order to facilitate code generation, each \ac{SHIOA} is transformed
@@ -42,9 +43,10 @@ changed.
 \label{sec:composition}
 
 \begin{figure}
-	\centering
-	\input{figures/cellComposition}
-	\caption{Synchronous composition of multiple heart cells \label{fig:heartCellComposition}}
+  \centering
+  \input{figures/cellComposition}
+  \caption{Synchronous composition of multiple heart
+    cells \label{fig:heartCellComposition}}
 \end{figure}
 
 In order to compose each of the \acp{FSM} together, we take inspiration
