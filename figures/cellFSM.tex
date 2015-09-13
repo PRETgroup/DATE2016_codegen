@@ -30,14 +30,14 @@ draw,line width=0.3mm]
 
 %inter-location transitions
 \path[->] (Q0.20) edge[out=20,in=160] node[align=center] {
-  \footnotesize $\{g(\vec{v}) > V_T\}$, \\
+  \footnotesize $\{g(\vec{v_{I}}) > V_T\}$, \\
   \footnotesize
   $\left\{\begin{matrix} v^\prime_x = 0.3v \\ v^\prime_y = 0.0v \\
       v^\prime_z = 0.7v \\ \theta^\prime = v / V_T \end{matrix}\right\}$
 } (Q1.160);
 
 \path[->] (Q1.200) edge[out=200,in=340] node[align=center] {
-	\footnotesize $\{g(\vec{v}) \leq 0 \wedge v < V_T\}$, \\
+	\footnotesize $\{g(\vec{v_{I}}) \leq 0 \wedge v < V_T\}$, \\
 	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
 } (Q0.340);
 
@@ -59,7 +59,7 @@ draw,line width=0.3mm]
 %intra-location transitions
 \path[->] (Q0.180) edge[out=180,in=90,distance=1.5cm] node[align=center,
 shift={(2.5,0.5)}] {
-  \footnotesize $\{v < V_T \wedge g(\vec{v}) \leq V_T\}$, \\
+  \footnotesize $\{v < V_T \wedge g(\vec{v_{I}}) \leq V_T\}$, \\
   \footnotesize $\left\{\begin{matrix}
       v^\prime_x = v_x + \delta C_{1} v_x \\
       v^\prime_y = v_y + \delta C_{2} v_y \\
@@ -70,11 +70,11 @@ shift={(2.5,0.5)}] {
 
 \path[->] (Q1.90) edge[out=90,in=0,distance=1.5cm] node[align=center,
 shift={(-2.5,0.5)}] {
-  \footnotesize $\{v < V_T \wedge g(\vec{v}) > 0\}$, \\
+  \footnotesize $\{v < V_T \wedge g(\vec{v_{I}}) > 0\}$, \\
   \footnotesize $\left\{\begin{matrix}
-      v^\prime_x = v_x + \delta (C_{4} v_x {+} C_{7} g(\vec{v})) \\
-      v^\prime_y = v_y + \delta (C_{5} v_y {+} C_{8} g(\vec{v})) \\
-      v^\prime_z = v_z + \delta (C_{6} v_z {+} C_{9} g(\vec{v})) \\
+      v^\prime_x = v_x + \delta (C_{4} v_x {+} C_{7} g(\vec{v_{I}})) \\
+      v^\prime_y = v_y + \delta (C_{5} v_y {+} C_{8} g(\vec{v_{I}})) \\
+      v^\prime_z = v_z + \delta (C_{6} v_z {+} C_{9} g(\vec{v_{I}})) \\
       v=v^\prime_x - v^\prime_y + v^\prime_z
 	\end{matrix}\right\}$
 } (Q1.0);

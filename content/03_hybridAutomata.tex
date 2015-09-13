@@ -109,13 +109,13 @@ $X_{EI}=\{v_{i}, \forall v_{i} \in \vec{v_{I}}\}$.  $X_{EO}=\{v\}$. An
 example of initial predicate is:
 $Init(l): v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0$. An example edge
 connecting locations $q_{0}$ and $q_{1}$ is represented with the tuple:
-$(q_{0},\tau,\emptyset,q_{1})$. The examples of invariant ($Inv$)
+$(q_{0},\tau,\emptyset,q_{1})$. The example of invariant ($Inv$)
 predicate on location $q_{0}$ is:
 $v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$. The $Jump$ condition on
 the edge connecting locations $q_{0}$ and $q_{1}$ is enabled when the
 predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} is true, and the updated
-variables are shown in Figure~\ref{fig:heartCellHA}. Finally, the $Flow$
-predicate in location $q_{0}$ is the set of ODEs in
+variables are as shown in Figure~\ref{fig:heartCellHA}. Finally, the
+$Flow$ predicate in location $q_{0}$ is the set of ODEs in
 Figure~\ref{fig:heartCellHA}.
 
 
@@ -153,7 +153,7 @@ continuous variables using the forward Euler approach with a
 \emph{constant} step size. Before giving the formal definition of the
 \ac{SHIOA} and describing the compilation procedure, we present the
 procedure to convert each ODE into its equivalent witness function, this
-is the step-1 (c.f. Figure~\ref{fig:overview}) in our modular code
+is the step 1 (c.f. Figure~\ref{fig:overview}) in our modular code
 generation framework.
 
 \subsection{Converting the ODEs into equivalent witness functions}
@@ -168,9 +168,9 @@ by the so called time step denoted by $\delta$
 implementing the Euler function is shown in
 Equation~(\ref{eq:euler_equiv}). This witness function evolves the
 variable $v_{x}$ until some invariant condition $Inv$ on the location
-holds. For the current example, the Equation~(\ref{eq:euler_equiv})
-evolves $v_{x}$ \emph{iteratively} until the invariant condition on
-location $\mathbf{q_{1}}$ holds.
+holds. For the current example, Equation~(\ref{eq:euler_equiv}) evolves
+$v_{x}$ \emph{iteratively} until the invariant condition on location
+$\mathbf{q_{1}}$ holds.
 
 This iterative evolution of the continuous variables at discrete points
 in time is akin to the transitions of logical \emph{tick} of a
@@ -234,7 +234,7 @@ A \ac{SHIOA} is an abstraction of the corresponding \ac{HIOA}.  It
 inherits all the components of a \ac{HIOA} except that the ODEs in the
 $Flow$ predicates are replaced by their individual witness functions
 $Switness$. The
-$Switness(l,\delta,\vec{v}^{\prime}_{l,X_{I}})=\vec{v}^{\prime}_{l,X_{I}}$,
+$Switness(l,\delta,\vec{v}_{l,X_{I}})=\vec{v}^{\prime}_{l,X_{I}}$,
 function returns the new values of continuous variables in location $l$
 after one iteration of step size $\delta$ given the current valuation
 ($\vec{v}^{\prime}_{l,X_{I}}$) of continuous variables in $X_{I}$.  We
@@ -258,7 +258,7 @@ illustrate it using Figure~\ref{fig:heartCellSHA}.
     is the Euler function(s) that returns the new values of all the
     continuous variables for a given location $l$.  It also takes as
     input the time step $\delta$ and the current values of all variables
-    $X_{I}$.
+    in set $X_{I}$.
   \end{itemize}
   \label{def:sha}
 \end{definition}
