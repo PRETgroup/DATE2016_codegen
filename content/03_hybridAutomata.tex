@@ -25,34 +25,33 @@ behaviour of the four stages of \ac{AP} shown in
 Figure~\ref{fig:actionPotential}. Each stage of the \ac{AP} is captured
 with so called locations in the \ac{HIOA}. For the first stage
 (\ac{RP}), the continuous dynamics are captured in location
-$q_0$. \textit{Ordinary Differential Equation} (ODE), for example
-\mbox{$\dot{v_{x}} = C_{1}v_{x}$} capture the continuous evolution of
-the voltage of the node in the location until the location invariant
-$v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$ hold. Provided the external
-stimulus, $g(\vec{v_{I}})$ -- the aggregate voltage from neighboring
-nodes, crosses the threshold $V_{T}$, indicated by the predicate
-\mbox{$g(\vec{v_{I}} \geq V_{T})$} on the edge connecting locations $q_{0}$
-and $q_{1}$. The \ac{HIOA} transitions to location $q_{1}$. During this
-transition; the variables (.e.g, $v^{\prime}_{x}$) are updated. These
+$\mathbf{q_0}$. \textit{Ordinary Differential Equation} (ODEs), for
+example \mbox{$\dot{v_{x}} = C_{1}v_{x}$}, capture the continuous
+evolution of the voltage of the node in location $\mathbf{q_{0}}$ until
+the location invariant $v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$
+holds. Once the external stimulus, $g(\vec{v_{I}})$ -- the aggregate
+voltage from neighboring nodes, crosses the threshold $V_{T}$, indicated
+by the predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} on the edge
+connecting locations $q_{0}$ and $q_{1}$, the \ac{HIOA} transitions to
+location $\mathbf{q_{1}}$ \textit{instantaneously}. During this
+transition; the variables (e.g, $v^{\prime}_{x}$) are updated. These
 updated values of the variables are used as initial conditions for the
 ODEs in the target location.
 
 Once the total voltage of the node ($v$) exceeds the threshold voltage
-$V_{T}$, it begins its \ac{ERP} phase (captured by location $q_2$). The
-final location, $q_3$, represents the \ac{RRP} stage.  The constants
-$C_1$ through to $C_{15}$, configure the morphology of the
-\ac{AP}. Furthermore, parameters $V_T$, $V_O$, and $V_R$ determine the
-height of the \ac{AP} and transitions between locations of the \ac{HIOA}
-that further modify the morphology.
+$V_{T}$, it begins its \ac{ERP} phase (captured by location
+$\mathbf{q_2}$). The final location, $\mathbf{q_3}$, represents the
+\ac{RRP} stage.  The constants $C_1$ through to $C_{15}$, configure the
+morphology of the \ac{AP}. Furthermore, constants $V_T$, $V_O$, and
+$V_R$ determine the height of the \ac{AP} and transitions between
+locations of the \ac{HIOA} that further modify the morphology.
 
 The voltage of any node in the heart effects its neighboring nodes and
 vice-versa. Hence, a means to communicate the voltages of the node to
-its neighbors is needed in any model that has to capture the \ac{AP}. We
-achieve this communication between nodes of the heart using the input
-and output variables and events available in the \ac{HIOA} framework.
-
-We formalise the \ac{HIOA} using Definition~\ref{def:ha} and illustrate
-using Figure~\ref{fig:heartCellHA}.\newline
+its neighbors is needed. We achieve this communication between nodes of
+the heart using the input and output variables and events available in
+the \ac{HIOA} framework. We formalise the \ac{HIOA} using
+Definition~\ref{def:ha}.
 
 
 \begin{definition}
@@ -63,14 +62,17 @@ using Figure~\ref{fig:heartCellHA}.\newline
   \begin{itemize}
   \item $Loc=\{l_1,..,l_n\}$ representing $n$ locations.
   \item $\Sigma_{E} = \Sigma_{EI} \cup \Sigma_{EO}$ is the set of
-    external events. Furthermore,
+    external events. $\Sigma_{EI}$ and $\Sigma_{EO}$ are the set of
+    external input and external output events,
+    respectively. Furthermore,
     \mbox{$\Sigma_{EI} \cap \Sigma_{EO} = \emptyset$}.
   \item $\Sigma=\Sigma_I \cup \Sigma_{E} \cup \{\iSignal\}$ is set of
     event names comprising of input, output and internal
     events. Furthermore, \mbox{$\Sigma_I \cap \Sigma_E = \emptyset$}.
   \item
-    $Edge \subseteq Loc \times (\Sigma_I \cup \Sigma_{EI}) \times
-    2^{\Sigma_{EO}} \times Loc$ are the set of edges between locations.
+    $Edge \subseteq Loc \times \mathcal{B}(\Sigma_I \cup \Sigma_{EI}
+    \cup \{\tau\}) \times 2^{\Sigma_{EO}} \times Loc$
+    are the set of edges between locations.
   \item Three sets for the set of internal continuous variables, their
     rate of change and their updated values represented as follows:
     $X_I=\{x_1,.., x_m\}$, $\dot{X_I}=\{\dot{x_1},.., \dot{x_m}\}$, and
@@ -100,13 +102,21 @@ For the \ac{HIOA} in Figure~\ref{fig:heartCellHA},
 $Loc=\{q_{0},q_{1},q_{2},q_{3}\}$, $\Sigma_{EI} = \emptyset$,
 $\Sigma_{EO}=\emptyset$, and
 $\Sigma=\{\tau\}$. $X=\{\theta,v_{x},v_{y},v_{z},v\}$,
-\mbox{$X=\{\dot{\theta},\dot{v_{x}},\dot{v_{y}},\dot{v_{z}}\}$},
+\mbox{$\dot{X}=\{\dot{\theta},\dot{v_{x}},\dot{v_{y}},\dot{v_{z}}\}$},
 \mbox{$X=\{\theta',{v'_{x}},{v'_{y}},\dot{v'_{z}}\}$}.
 $X_{EI}=\{v_{i}, \forall v_{i} \in \vec{v_{I}}\}$.  $X_{EO}=\{v\}$. An
 example of initial predicate is:
-$Init(l): v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0$. The examples of the
-invariant ($Inv$), flow ($Flow$), and the jump ($Jump$) predicates is as
-mentioned previously.
+$Init(l): v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0$. An example edge
+connecting locations $q_{0}$ and $q_{1}$ is represented with the tuple:
+$(q_{0},\tau,\emptyset,q_{1})$. The examples of invariant ($Inv$)
+predicate on location $q_{0}$ is:
+$v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$. The $Jump$ condition on
+the edge connecting locations $q_{0}$ and $q_{1}$ is enabled when the
+predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} is true, and the updated
+variables are shown in Figure~\ref{fig:heartCellHA}. Finally, the $Flow$
+predicate in location $q_{0}$ is the set of ODEs in
+Figure~\ref{fig:heartCellHA}.
+
 
 % \begin{definition}[Hybrid Automata]
 %   \label{def:ha}
@@ -138,12 +148,12 @@ mentioned previously.
 Every \ac{HIOA} is converted into a so called \ac{SHIOA}, where the ODEs
 in the flow predicates are replaced by their equivalent witness
 functions $Switness$. The witness function computes the evolution of the
-continuous variables the forward Euler approach with a \emph{static}
-step size. Before giving the formal definition of the \ac{SHIOA} and
-describing the compilation procedure, we present the procedure to
-convert each ODE into its equivalent witness function, this is the
-step-1 (c.f. Figure~\ref{fig:overview}) in our modular code generation
-framework.
+continuous variables using the forward Euler approach with a
+\emph{constant} step size. Before giving the formal definition of the
+\ac{SHIOA} and describing the compilation procedure, we present the
+procedure to convert each ODE into its equivalent witness function, this
+is the step-1 (c.f. Figure~\ref{fig:overview}) in our modular code
+generation framework.
 
 \subsection{Converting the ODEs into equivalent witness functions}
 \label{sec:converting-odes-into}
@@ -152,19 +162,20 @@ Given the \ac{ODE} for $\dot{v_x}$ in state $\mathbf{q_1}$ of the heart
 node \ac{HIOA} defined in Figure~\ref{fig:heartCellHA} (reproduced in
 Equation~(\ref{eq:ode})), the forward Euler method computes the next
 value of $v_{x}$ denoted $v'_{x}$ at discrete time instants, separated
-by the so called time step denoted by $\delta$. The witness function for
-$v_{x}$ implementing the Euler method is shown in
+by the so called time step denoted by $\delta$
+($\delta \in \mathbb{R}^{+}$). The witness function for $v_{x}$
+implementing the Euler function is shown in
 Equation~(\ref{eq:euler_equiv}). This witness function evolves the
-variable $v_{x}$ until some invariant condition $Inv$ holds. For the
-current example, the Equation~(\ref{eq:euler_equiv}) evolves $v_{x}$
-\emph{iteratively} until the invariant condition on location
-$\mathbf{q_{1}}$ holds. 
+variable $v_{x}$ until some invariant condition $Inv$ on the location
+holds. For the current example, the Equation~(\ref{eq:euler_equiv})
+evolves $v_{x}$ \emph{iteratively} until the invariant condition on
+location $\mathbf{q_{1}}$ holds.
 
 This iterative evolution of the continuous variables at discrete points
 in time is akin to the transitions of logical \emph{tick} of a
 synchronous program~\cite{benveniste03}. Hence, we term the automata
 resulting after replacing every ODE with its equivalent witness function
-a \ac{SHIOA}.
+a \acf{SHIOA}.
 
 
 \begin{equation}
@@ -219,14 +230,15 @@ a \ac{SHIOA}.
 \end{figure}
 
 A \ac{SHIOA} is an abstraction of the corresponding \ac{HIOA}.  It
-inherits all the components of an \ac{HIOA} except that the ODEs in the
+inherits all the components of a \ac{HIOA} except that the ODEs in the
 $Flow$ predicates are replaced by their individual witness functions
-$Switness$.  $Switness(l,\delta,[\![X_{I}]\!])=\vec{v}_{l,X}$,
+$Switness$.
+$Switness(l,\delta,\vec{v}^{\prime}_{l,X_{I}})=\vec{v}^{\prime}_{l,X_{I}}$,
 which returns the new values of continuous variables in location $l$
-after one iteration of step size $\delta$ given the previous values of
-all continuous variables in $X_{I}$.  We now formalise the \ac{SHIOA}
-using Definition~\ref{def:sha} and illustrate it using
-Figure~\ref{fig:heartCellSHA}.
+after one iteration of step size $\delta$ given the current valuation
+($\vec{v}^{\prime}_{l,X_{I}}$) of continuous variables in $X_{I}$.  We
+now formalise the \ac{SHIOA} using Definition~\ref{def:sha} and
+illustrate it using Figure~\ref{fig:heartCellSHA}.
 
 \begin{definition}
   Given a well formed HIOA $\mathcal{H}$ =
