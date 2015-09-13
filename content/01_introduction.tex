@@ -1,127 +1,151 @@
 \section{Introduction}
 
-Pacemakers are safety-critical \acp{CPS} 
-that control the pacing of a heart for providing therapy for bradycardia.
-Such devices must operate in a fail-safe manner all the time.
-However, between 1990-2000, close to 200,000 pacemakers have been recalled
-due to software related failures~\cite{alemzadeh13}. Considering this,
- there is a need for the development of better processes for validation and 
-certification of such devices. We propose the well known, and widely 
-used, engineering technique of \emph{emulation}~\cite{patel2015survey}
- to tackle this problem. Emulation, also known as  hardware-in-the-loop simulation,
- is used to validate controllers (such as motor controllers) by running them in closed-loop
-with the actual plant (the synchronous motor, for example). 
-However, for emulation of pacemakers, the use of the actual plant (i.e. animal / human organs) is limiting.
-Hence, there is a need for the development of high-fidelity heart models that 
- can provide the required real-time response to facilitate emulation. Bioengineering heart models~\cite{Trayanova2014}
- provide excellent model fidelity at the expense of computation time as the simulation of a single heart beat may take 
-several hours. Hence, such models are not suitable for emulation.
+Pacemakers are safety-critical \acp{CPS} that control the pacing of a
+heart for providing therapy for bradycardia -- abnormally slow pacing of
+the heart.  Such devices must operate in a fail-safe manner all the
+time. However, between 1990-2000, close to 200,000 pacemakers have been
+recalled due to software related
+failures~\cite{alemzadeh13}. Considering this, there is a need for the
+development of better processes for validation and certification of such
+devices. We propose the well known, and widely used, engineering
+technique of \emph{emulation}~\cite{patel2015survey} to tackle this
+problem. Emulation, also known as hardware-in-the-loop simulation, is
+used to validate controllers (such as motor controllers) by running them
+in closed-loop with the actual plant (e.g., the synchronous motor).
+However, for emulation of pacemakers, the use of the actual plant
+(i.e. animal / human organs) is limiting.  Hence, there is a need for
+the development of high-fidelity heart models that can provide the
+required real-time response to facilitate emulation. Bioengineering
+heart models~\cite{Trayanova2014} provide excellent model fidelity at
+the expense of computation time as the simulation of a single heart beat
+may take several hours. Hence, such models are not suitable for
+emulation.
 
-Recently, timed automata~\cite{zhihao12} based heart models have been 
- developed primarily for model checking. These models 
-abstract the continuous dynamics and hence unsuitable for emulation. 
-In contrast to this, \acf{HA}~\cite{alur2015principles, raskin05} is used for modelling the forward conduction system
-of the heart using 33 nodes in~\cite{chen14}. This work is the  starting point 
-for real-time emulation by demonstrating that \simulink can be used for 
- closed-loop verification of pacemakers. However, this work has limited model 
-fidelity and the limitations of the tool \simulink are inherited by the developed approach.
-\simulink has semantic limitations, as the semantics of composition is unclear.
-Moreover, there is no direct correspondence between the \simulink model and 
-the \ac{HA}  models. Finally, \simulink generated code has scalability issues, due to which 
-the researchers modelled a 33-node conduction system.
+Recently, timed automata~\cite{zhihao12} based heart models have been
+developed primarily for model checking. These models abstract the
+continuous dynamics and hence, are unsuitable for emulation.  In
+contrast to this, \acf{HIOA}~\cite{alur2015principles, raskin05} is used
+for modelling the forward conduction system of the heart using 33 nodes
+in~\cite{chen14}. This work is the starting point for real-time
+emulation by demonstrating that \simulink can be used for closed-loop
+verification of pacemakers. However, this work has limited model
+fidelity and the limitations of the tool \simulink are inherited by the
+developed approach.  \simulink has semantic limitations, as the
+semantics of composition is unclear~\cite{need-some-ref}.  Moreover,
+there is no direct correspondence between the \simulink model and the
+\ac{HIOA} models. Finally, \simulink generated code has scalability
+issues, due to which the researchers modelled a 33-node conduction
+system.
 
-We develop an approach by combining node models (which are
-extensions to the models developed by~\cite{chen14}) with 
- \emph{path models} (in timed automata) to accurately 
-model the conduction delay between nodes. We are, thus, able to 
-model the re-entrant behaviour of the heart. 
+We develop an approach by combining node models (which are extensions to
+the models developed by~\cite{chen14}) with \emph{path models} (in timed
+automata) to accurately model the conduction delay between nodes. We
+are, thus, able to model the re-entrant behaviour of the heart.
 
-For modular code generation, we have developed an approach 
- based on the well known synchronous languages~\cite{benveniste03}.
- We formalise a deterministic subset of \ac{HA} called \ac{SHA}.
- Using the concept of delayed synchronous composition~\cite{boussinot96}, we are then able to
-  produce modular code for each node separately. Such code has both code size and execution time
-benefits for emulation. In addition, such code is based on semantic-preserving 
-code generation, similar in spirit to Ptolemy~\cite{ptolemaeus2014system} and Z\'{e}lus~\cite{bourke13zelus}.
-However, unlike our approach, these rely on dynamic numerical solvers, which is not ideal for emulation of the heart.
- 
- \ignore{One reason that these malfunctions
-arise is due to the lack of proper validation.
-Unlike the ideas of hardware-in-the-loop testing,
-also known as \emph {emulation}~\cite{patel2015survey},
-it is not possible to test on an actual heart.
-Further, unlike the hardware which is almost identical 
-during mass production, each individual heart is different.
-Thus there is a need to develop a virtual heart that is tailored
-to an individual person and achieve
-personalised healthcare~\cite{Trayanova2014}. 
-This idea can be extended 
-to a network of human organs, resulting in a virtual human.
+For modular code generation, we have developed an approach based on the
+well known synchronous languages~\cite{benveniste03}.  We formalise a
+{\color{red} deterministic} subset of \ac{HIOA} called Synchronous
+Hybrid Input Output Automata \ac{SHIOA}. Using the concept of delayed
+synchronous composition~\cite{boussinot96}, we are then able to produce
+modular code for each node separately. The generated code is both
+smaller and faster execution times, essential for emulation. In
+addition, such code is based on semantic-preserving code generation,
+similar in spirit to Ptolemy~\cite{ptolemaeus2014system} and
+Z\'{e}lus~\cite{bourke13zelus}.  However, unlike these approaches, the
+presented approach does not depend upon dynamic numerical solvers, which
+are not ideal for the \textit{emulation} of the heart.
 
-Typically these biological  models are  developed by biomedical engineers.
-They mimic the heart's working at the
-molecular level~\cite{Trayanova2014}. 
-To simulate one heart beat takes several hours, if not days.
-These models are very computationally intensive and 
-are not suitable for real-time emulation,
-which is required for closed-loop testing of time-critical 
-controllers such as cardiac pacemakers.
-Further, the models are 
- very complex and hence 
- are not amenable for  formal verification. 
-Thus, there is a need to develop abstract models 
-by computer systems engineers that  
-(1)  \emph{capture the behaviour} of the heart (plant) 
-from a pacemaker's (controller's) point of view,
-(2) \emph{allows for real-time emulation} of the heart 
-such that it is possible for closed-loop simulation and
-(3) \emph{are amenable for formal verification} of 
-functional and timing properties.
+\ignore{One reason that these malfunctions arise is due to the lack of
+  proper validation.  Unlike the ideas of hardware-in-the-loop testing,
+  also known as \emph {emulation}~\cite{patel2015survey}, it is not
+  possible to test on an actual heart.  Further, unlike the hardware
+  which is almost identical during mass production, each individual
+  heart is different.  Thus there is a need to develop a virtual heart
+  that is tailored to an individual person and achieve personalised
+  healthcare~\cite{Trayanova2014}.  This idea can be extended to a
+  network of human organs, resulting in a virtual human.
 
-
-The continuous dynamics of a plant (e.g. heart) and
- the discrete behaviour of a controller (e.g. pacemaker) 
- result in so called hybrid systems. 
- These are often formally described using \acf{HA}~\cite{alur2015principles,raskin05,chen201487}.
- However, these are non-deterministic and are problematic
- for generating constructive models.
- A more abstract deterministic model will enable us to
- develop constructive/synthesizable models~\cite{Lee2014}. Also, 
- it is easier to draw trusted conclusions from simulations
- of deterministic models. Based on the
- well-known synchronous approach~\cite{benveniste03}, 
- we present a deterministic semantics for \ac{HA} and show
- constructive models in this paper.
+  Typically these biological models are developed by biomedical
+  engineers.  They mimic the heart's working at the molecular
+  level~\cite{Trayanova2014}.  To simulate one heart beat takes several
+  hours, if not days.  These models are very computationally intensive
+  and are not suitable for real-time emulation, which is required for
+  closed-loop testing of time-critical controllers such as cardiac
+  pacemakers.  Further, the models are very complex and hence are not
+  amenable for formal verification.  Thus, there is a need to develop
+  abstract models by computer systems engineers that (1) \emph{capture
+    the behaviour} of the heart (plant) from a pacemaker's
+  (controller's) point of view, (2) \emph{allows for real-time
+    emulation} of the heart such that it is possible for closed-loop
+  simulation and (3) \emph{are amenable for formal verification} of
+  functional and timing properties.
 
 
-Traditional \ac{CPS} design uses commercial tools such as \simulink for plant simulation and emulation.
-However, such designs do not preserve formal semantics of the models and are more verbose to describe.
-Academic tools for code generation from \ac{HA} models such as Ptolemy~\cite{ptolemaeus2014system} and Z\'{e}lus~\cite{bourke13zelus}.
-While these tools preserve the formal semantics, their reliance on dynamic numerical solvers makes them unsuitable for real-time emulation of plants.
-Such tools are capable of expressing the full non-deterministic nature of \acp{HA} rather than the deterministic subset described here.}
+  The continuous dynamics of a plant (e.g. heart) and the discrete
+  behaviour of a controller (e.g. pacemaker) result in so called hybrid
+  systems.  These are often formally described using
+  \acf{HIOA}~\cite{alur2015principles,raskin05,chen201487}.  However,
+  these are non-deterministic and are problematic for generating
+  constructive models.  A more abstract deterministic model will enable
+  us to develop constructive/synthesizable models~\cite{Lee2014}. Also,
+  it is easier to draw trusted conclusions from simulations of
+  deterministic models. Based on the well-known synchronous
+  approach~\cite{benveniste03}, we present a deterministic semantics for
+  \ac{HIOA} and show constructive models in this paper.
+
+
+  Traditional \ac{CPS} design uses commercial tools such as \simulink
+  for plant simulation and emulation.  However, such designs do not
+  preserve formal semantics of the models and are more verbose to
+  describe.  Academic tools for code generation from \ac{HIOA} models such
+  as Ptolemy~\cite{ptolemaeus2014system} and
+  Z\'{e}lus~\cite{bourke13zelus}.  While these tools preserve the formal
+  semantics, their reliance on dynamic numerical solvers makes them
+  unsuitable for real-time emulation of plants.  Such tools are capable
+  of expressing the full non-deterministic nature of \acp{HIOA} rather
+  than the deterministic subset described here.}
 
    
- An overview of the proposed approach is presented
- in Figure~\ref{fig:overview}. Given a network
- of \acp{HA} for the nodes and paths of the conduction systems, the \ac{SHA} corresponding to these are generated. \ac{SHA} is an abstraction using the
-synchronous approach to facilitate the generation of executable code (captured using \acp{FSM} for each node).
- 
- \begin{figure}[bthp]
- 	\centering
- 	\scalebox{0.7}{
-	 \input{./figures/approachOverview}
-	}
-	 \caption{Overview of the proposed modular 
-	 	code generation approach \label{fig:overview}}
+An overview of the proposed approach is presented in
+Figure~\ref{fig:overview}. Given a network of \acp{HIOA} for the nodes
+and paths of the conduction system, the corresponding \ac{SHIOA} is
+generated. \ac{SHIOA} is an abstraction using the synchronous approach
+to facilitate the generation of executable code (captured using
+\acp{FSM} for each node).
+
+\begin{figure}[bthp]
+  \centering
+  \scalebox{0.7}{
+    \input{./figures/approachOverview}
+  }
+  \caption{Overview of the proposed modular 
+    code generation approach \label{fig:overview}}
 \end{figure}
       
-\textbf{Contributions} of the paper are:
-(1) We propose a \emph{deterministic semantics} for \acf{HA} (see Section~\ref{sec:HA}).
-We develop the electrical conduction system of the heart as a re-entrant circuit,
- using the proposed approach, as a case study.
-(2) We have developed a \emph{modular code generation} approach, for the first time for \ac{HA} models (Section~\ref{sec:codeGen}), which is also semantic preserving.
-The proposed approach performs code generation using a new synchronous semantics~\cite{benveniste03} of \ac{HA}. More importantly, the developed semantics is not restrictive, unlike~\cite{alur2003generating, kim2003modular} and does not interact with numerical solvers dynamically unlike~\cite{ptolemaeus2014system, bourke13zelus}.
-(3) We \emph{quantitatively evaluate} the efficacy of the 
-proposed approach relative \simulink (Section~\ref{sec:benchmarking}) to demonstrate the scalability of the approach relative to the 
- best known model in published literature~\cite{chen14} to show that code generation is feasible for thousands of nodes of the heart, unlike the 32-node published model. We have also modelled a much more realistic human heart as the modelled system can mimic its re-entrant behaviour.
+\textbf{Contributions} of the paper are: (1) We propose a
+\emph{{\color{red} deterministic} semantics} for \acf{HIOA} (see
+Section~\ref{sec:HA}).  We develop the electrical conduction system of
+the heart as a re-entrant circuit, using the proposed approach, as a
+case study.  (2) We have developed a \emph{modular code generation}
+approach, for the first time for \ac{HIOA} models
+(Section~\ref{sec:codeGen}), which is also semantic preserving.  The
+proposed approach performs code generation using a new synchronous
+semantics~\cite{benveniste03} of \ac{HIOA}. More importantly, the
+developed semantics is not restrictive, unlike~\cite{alur2003generating,
+  kim2003modular} and does not interact with dynamic numerical solvers
+unlike~\cite{ptolemaeus2014system, bourke13zelus}.  (3) We
+\emph{quantitatively evaluate} the efficacy of the proposed approach
+relative \simulink (Section~\ref{sec:benchmarking}) to demonstrate the
+scalability of the approach relative to the best known model in
+published literature~\cite{chen14} to show that code generation is
+feasible for thousands of nodes of the heart, unlike the 32-node
+published model. We have also modelled a much more realistic human heart
+as the modelled system can mimic its re-entrant behaviour.
  
+
+ 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../DATE2016_codegen"
+%%% End:
