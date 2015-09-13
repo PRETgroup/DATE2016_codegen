@@ -28,14 +28,14 @@ with so called locations in the \ac{HIOA}. For the first stage
 $q_0$. \textit{Ordinary Differential Equation} (ODE), for example
 \mbox{$\dot{v_{x}} = C_{1}v_{x}$} capture the continuous evolution of
 the voltage of the node in the location until the location invariant
-$v < V_{T} \wedge g(\vec{v}) \leq V_{T}$ hold. Provided the external
-stimulus, $g(\vec{v})$ -- the aggregate voltage from neighboring nodes,
-crosses the threshold $V_{T}$, indicated by the predicate
-\mbox{$g(\vec{v} \geq V_{T})$} on the edge connecting locations $q_{0}$
+$v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$ hold. Provided the external
+stimulus, $g(\vec{v_{I}})$ -- the aggregate voltage from neighboring
+nodes, crosses the threshold $V_{T}$, indicated by the predicate
+\mbox{$g(\vec{v_{I}} \geq V_{T})$} on the edge connecting locations $q_{0}$
 and $q_{1}$. The \ac{HIOA} transitions to location $q_{1}$. During this
 transition; the variables (.e.g, $v^{\prime}_{x}$) are updated. These
 updated values of the variables are used as initial conditions for the
-ODEs in the target location. 
+ODEs in the target location.
 
 Once the total voltage of the node ($v$) exceeds the threshold voltage
 $V_{T}$, it begins its \ac{ERP} phase (captured by location $q_2$). The
@@ -78,11 +78,12 @@ using Figure~\ref{fig:heartCellHA}.\newline
   \item The set of external continuous variables:
     \mbox{$X_E = X_{EI} \cup X_{EO}$}. Furthermore,
     \mbox{$X_{EI} \cap X_{EO} = \emptyset$}.
-  \item $Init(l)$: Is a predicate whose free variables are from $X$. It
-    specifies the possible valuations of these when the HIOA starts in
-    $l$.
-  \item $Inv(l)$: Is a predicate whose free variables are from $X_I$ and
-    it constrains these when the HIOA resides in $l$.
+  \item $Init(l)$: Is a predicate whose free variables are from
+    $X_{I}$. It specifies the possible valuations of these when the HIOA
+    starts in $l$.
+  \item $Inv(l)$: Is a predicate whose free variables are from
+    \mbox{$X_I \cup X_{E}$} and it constrains these when the HIOA
+    resides in $l$.
   \item $Flow(l)$: Is a predicate whose free variables are from
     $X_I \cup \dot{X_I}$ and it specifies the rate of change of these
     variables when the HIOA resides in $l$.
@@ -99,12 +100,12 @@ For the \ac{HIOA} in Figure~\ref{fig:heartCellHA},
 $Loc=\{q_{0},q_{1},q_{2},q_{3}\}$, $\Sigma_{EI} = \emptyset$,
 $\Sigma_{EO}=\emptyset$, and
 $\Sigma=\{\tau\}$. $X=\{\theta,v_{x},v_{y},v_{z},v\}$,
-\mbox{$X=\{\dot{\theta},\dot{v_{x}},\dot{v_{y}},\dot{v_{z}},\dot{v}\}$},
-\mbox{$X=\{\theta',{v'_{x}},{v'_{y}},\dot{v'_{z}},v'\}$}.
-$X_{EI}=\{v | v \in \forall v \in \vec{v}\}$. $X_{EO}=\emptyset$. An
+\mbox{$X=\{\dot{\theta},\dot{v_{x}},\dot{v_{y}},\dot{v_{z}}\}$},
+\mbox{$X=\{\theta',{v'_{x}},{v'_{y}},\dot{v'_{z}}\}$}.
+$X_{EI}=\{v_{i}, \forall v_{i} \in \vec{v_{I}}\}$.  $X_{EO}=\{v\}$. An
 example of initial predicate is:
 $Init(l): v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0$. The examples of the
-invariant ($Inv$), flow ($flow$), and the jump ($Jump$) predicates is as
+invariant ($Inv$), flow ($Flow$), and the jump ($Jump$) predicates is as
 mentioned previously.
 
 % \begin{definition}[Hybrid Automata]
@@ -134,9 +135,79 @@ mentioned previously.
 \section{\acf{SHIOA}}
 \label{sec:SHA}
 
-Before presenting step~1 of Figure~\ref{fig:overview},
-we define the numerical form of \ac{HIOA}, 
-called \acf{SHIOA}.
+Every \ac{HIOA} is converted into a so called \ac{SHIOA}, where the ODEs
+in the flow predicates are replaced by their equivalent witness
+functions $Switness$. The witness function computes the evolution of the
+continuous variables the forward Euler approach with a \emph{static}
+step size. Before giving the formal definition of the \ac{SHIOA} and
+describing the compilation procedure, we present the procedure to
+convert each ODE into its equivalent witness function, this is the
+step-1 (c.f. Figure~\ref{fig:overview}) in our modular code generation
+framework.
+
+\subsection{Converting the ODEs into equivalent witness functions}
+\label{sec:converting-odes-into}
+
+Given the \ac{ODE} for $\dot{v_x}$ in state $\mathbf{q_1}$ of the heart
+node \ac{HIOA} defined in Figure~\ref{fig:heartCellHA} (reproduced in
+Equation~(\ref{eq:ode})), the forward Euler method computes the next
+value of $v_{x}$ denoted $v'_{x}$ at discrete time instants, separated
+by the so called time step denoted by $\delta$. The witness function for
+$v_{x}$ implementing the Euler method is shown in
+Equation~(\ref{eq:euler_equiv}). This witness function evolves the
+variable $v_{x}$ until some invariant condition $Inv$ holds. For the
+current example, the Equation~(\ref{eq:euler_equiv}) evolves $v_{x}$
+\emph{iteratively} until the invariant condition on location
+$\mathbf{q_{1}}$ holds. 
+
+This iterative evolution of the continuous variables at discrete points
+in time is akin to the transitions of logical \emph{tick} of a
+synchronous program~\cite{benveniste03}. Hence, we term the automata
+resulting after replacing every ODE with its equivalent witness function
+a \ac{SHIOA}.
+
+
+\begin{equation}
+  \dot{v_x} = C_{4} v_x + C_{7} g(\vec{v_{I}})
+  \label{eq:ode}
+\end{equation}
+
+\begin{equation}
+  v^\prime_x = v_x + \delta \times (C_{4} v_x + C_{7} g(\vec{v_{I}}))
+  \label{eq:euler_equiv}
+\end{equation}
+
+% \renewcommand{\algorithmiccomment}[1]{// #1}
+% \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+% \renewcommand{\algorithmicensure}{\textbf{Output:}}
+% \begin{algorithm}[t!]
+%   \begin{algorithmic}[1]
+%     \REQUIRE Network of HIOA has 
+%     \ENSURE Network of SHIOA shas
+%     \FORALL{$ha \in has$} \label{alg:HAsToSHAs:allHAs}
+%     \FORALL{$loc \in ha$}  \label{alg:HAsToSHAs:allLocs}
+%     \FORALL{$ode \in loc$} \label{alg:HAsToSHAs:allODEs}
+%     \STATE $eq \leftarrow create\_euler(ode)$ \label{alg:HAsToSHAs:createEuler}
+%     \STATE $ode \leftarrow eq$ \label{alg:HAsToSHAs:assignOde}
+%     \ENDFOR
+%     \ENDFOR
+%     \ENDFOR
+%     \RETURN this
+%   \end{algorithmic}
+%   \caption{The algorithm to generate a Network of \acp{SHIOA} from a Network of \acp{HIOA}}
+%   \label{alg:HAsToSHAs}
+% \end{algorithm}
+
+% The procedure for performing this conversion across the entire network
+% of \acp{HIOA} to generate a network of \acp{SHIOA} is shown in
+% Algorithm~\ref{alg:HAsToSHAs}.  The algorithm needs to visit every
+% \ac{HIOA} in the network, every location within each \ac{HIOA}, and
+% every \ac{ODE} in each location (lines~\ref{alg:HAsToSHAs:allHAs} -
+% \ref{alg:HAsToSHAs:allODEs}).  For each of these \acp{ODE} the forward
+% Euler equivalent is created in the same manner as described earlier
+% (line~\ref{alg:HAsToSHAs:createEuler}).  Each \ac{ODE} is eventually
+% replaced (line~\ref{alg:HAsToSHAs:assignOde}) by its equivalent
+% numerical solution in order to form the network of \acp{SHIOA}.
 
 \subsection{Definition of \acf{SHIOA}}
 \label{sec:defSHA}
@@ -147,37 +218,41 @@ called \acf{SHIOA}.
   \caption{\acf{SHIOA} of a heart node \label{fig:heartCellSHA}}
 \end{figure}
 
-An \ac{SHIOA} is an  abstraction of the corresponding \ac{HIOA}. 
-It inherits all the
-components of an \ac{HIOA} except that $Flow$ predicates are replaced by numerical equations $Snumeric$.
-$Snumeric(l,\delta,X)=v_{l,X}$, which returns the new values of
-continuous variables in location $l$ after one iteration of step size $\delta$ given the previous values of all variables $X$.
-We now formalise
-the \ac{SHIOA} using Definition~\ref{def:sha} and illustrate it using Figure~\ref{fig:heartCellSHA}.
-
-
+A \ac{SHIOA} is an abstraction of the corresponding \ac{HIOA}.  It
+inherits all the components of an \ac{HIOA} except that the ODEs in the
+$Flow$ predicates are replaced by their individual witness functions
+$Switness$.  $Switness(l,\delta,[\![X_{I}]\!])=\vec{v}_{l,X}$,
+which returns the new values of continuous variables in location $l$
+after one iteration of step size $\delta$ given the previous values of
+all continuous variables in $X_{I}$.  We now formalise the \ac{SHIOA}
+using Definition~\ref{def:sha} and illustrate it using
+Figure~\ref{fig:heartCellSHA}.
 
 \begin{definition}
-  Given an $HIOA = \langle Loc, X, \Sigma, Init, Inv, Flow, Jump \rangle$
-  an \ac{SHIOA} corresponding to this \ac{HIOA} is \newline
-  $SHIOA = \langle Loc, \Sigma, Init, Inv, Snumeric, Jump, Step \rangle$
+  Given a well formed HIOA $\mathcal{H}$ =
+  $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I, X_{EO},
+  X_{EI}, \linebreak Init, Inv, Flow, Jump\rangle$
+  a SHIOA corresponding to this HIOA is $\mathcal{A}$ =
+  $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I,
+  X_{EO},\linebreak X_{EI}, Init, Inv, Witness, Jump, Step\rangle$
   where:
   \begin{itemize}
-  \item $Step = \delta \in \mathbb{R}^+$: This specifies the duration of
-    the synchronous instant, duration between two samples.
+  \item $Step = \delta$ ($\delta \in \mathbb{R}^+$) is the duration of
+    the synchronous instant.
   \item
-    $Snumeric: Loc \times \mathbb{R} \times \mathbb{R}^m \rightarrow
-    \mathbb{R}^n$:
-    is the numerical equations that returns the new values of all the
+    $Switness: Loc \times \mathbb{R} \times \mathbb{R}^{\|X_{I}\|}
+    \rightarrow \mathbb{R}^{\|X_{I}\|}$:
+    is the Euler function(s) that returns the new values of all the
     continuous variables for a given location $l$.  It also takes as
     input the time step $\delta$ and the current values of all variables
-    $X$.
+    $X_{I}$.
   \end{itemize}
   \label{def:sha}
 \end{definition}
 
-Given  $m$   number of \acp{SHIOA} in a network.
-The network can be described as $SHIOA_1 || \dots || SHIOA_m$.
+
+{\color{red} Given $m$ number of \acp{SHIOA} in a network.  The network
+  can be described as $SHIOA_1 || \dots || SHIOA_m$.}
 
 
 % \subsection{Deterministic semantics of \ac{SHIOA}}
@@ -222,63 +297,13 @@ The network can be described as $SHIOA_1 || \dots || SHIOA_m$.
 % \end{definition}
 
 
-\subsection{Generation of a network of \ac{SHIOA}}
-\label{sec:shaGeneration}
+% \subsection{Generation of a network of \ac{SHIOA}}
+% \label{sec:shaGeneration}
 
-This section describes step $1$ of the compilation process from
-Figure~\ref{fig:overview}.  This step involves converting all of the
-\acp{ODE} in each of the \acp{HIOA} into their forward Euler equivalent
-methods.
-
-Given the \ac{ODE} for $\dot{v_x}$ in state $\mathbf{q_1}$ of the Heart
-node \ac{HIOA} defined in Figure~\ref{fig:heartCellHA} (reproduced in
-Equation~\ref{eq:ode}), the forward Euler method is applied on each
-iteration in order to calculate $v_x$ numerically.  The forward Euler
-equivalent for this ODE is shown in Equation~\ref{eq:euler_equiv} where
-$\delta$ is the time-step size and $v^\prime_x$ represents the value of
-$v_x$ after the current iteration.
-
-\begin{equation}
-  \dot{v_x} = C_{4} v_x + C_{7} g(\vec{v})
-  \label{eq:ode}
-\end{equation}
-
-\begin{equation}
-  v^\prime_x = v_x + \delta \times (C_{4} v_x + C_{7} g(\vec{v}))
-  \label{eq:euler_equiv}
-\end{equation}
-
-\renewcommand{\algorithmiccomment}[1]{// #1}
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
-\begin{algorithm}[t!]
-  \begin{algorithmic}[1]
-    \REQUIRE Network of HIOA has 
-    \ENSURE Network of SHIOA shas
-    \FORALL{$ha \in has$} \label{alg:HAsToSHAs:allHAs}
-    \FORALL{$loc \in ha$}  \label{alg:HAsToSHAs:allLocs}
-    \FORALL{$ode \in loc$} \label{alg:HAsToSHAs:allODEs}
-    \STATE $eq \leftarrow create\_euler(ode)$ \label{alg:HAsToSHAs:createEuler}
-    \STATE $ode \leftarrow eq$ \label{alg:HAsToSHAs:assignOde}
-    \ENDFOR
-    \ENDFOR
-    \ENDFOR
-    \RETURN this
-  \end{algorithmic}
-  \caption{The algorithm to generate a Network of \acp{SHIOA} from a Network of \acp{HIOA}}
-  \label{alg:HAsToSHAs}
-\end{algorithm}
-
-The procedure for performing this conversion across the entire network
-of \acp{HIOA} to generate a network of \acp{SHIOA} is shown in
-Algorithm~\ref{alg:HAsToSHAs}.  The algorithm needs to visit every
-\ac{HIOA} in the network, every location within each \ac{HIOA}, and
-every \ac{ODE} in each location (lines~\ref{alg:HAsToSHAs:allHAs} -
-\ref{alg:HAsToSHAs:allODEs}).  For each of these \acp{ODE} the forward
-Euler equivalent is created in the same manner as described earlier
-(line~\ref{alg:HAsToSHAs:createEuler}).  Each \ac{ODE} is eventually
-replaced (line~\ref{alg:HAsToSHAs:assignOde}) by its equivalent
-numerical solution in order to form the network of \acp{SHIOA}.
+% This section describes step $1$ of the compilation process from
+% Figure~\ref{fig:overview}.  This step involves converting all of the
+% \acp{ODE} in each of the \acp{HIOA} into their forward Euler equivalent
+% methods.
 
 
 %%% Local Variables:
