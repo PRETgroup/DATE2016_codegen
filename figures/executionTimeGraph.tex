@@ -8,41 +8,37 @@
 		anchor=north,
 		legend columns=-1
 	},
-	ylabel={Execution Time (ms)},
-	ymin=10e0,
-	symbolic x coords={TSN, NHC, WH, MTG, NP},
+	ylabel={Normalised execution time },
+	ymin=0,
+	symbolic x coords={TSN, NHN, WH, MTG, NP},
 	xtick=data,
-	ymode=log,
-	log basis y=10,
-	nodes near coords,
-	nodes near coords align={vertical},
 ]
 
 %Simulink
 \addplot coordinates {
-	(TSN,721)
-	(NHC,13709)
-	(WH,1353)
-	(MTG,596)
-	(NP,1083)
+	(TSN,1)
+	(NHN,1)
+	(WH,1)
+	(MTG,1)
+	(NP,1)
 };
 
 %Piha (O0)
 \addplot coordinates {
-	(TSN,286)
-	(NHC,1645)
-	(WH,321)
-	(MTG,256)
-	(NP,459)
+	(TSN,0.40)
+	(NHN,0.12)
+	(WH,0.24)
+	(MTG,0.43)
+	(NP,0.42)
 };
 
 %Piha (O2)
 \addplot coordinates {
-	(TSN,119)
-	(NHC,676)
-	(WH,135)
-	(MTG,101)
-	(NP,157)
+	(TSN,0.16)
+	(NHN,0.05)
+	(WH,0.10)
+	(MTG,0.17)
+	(NP,0.15)
 };
 
 \legend{\simulink, \ourTool (O0), \ourTool (O2)}

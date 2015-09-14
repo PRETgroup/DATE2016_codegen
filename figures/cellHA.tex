@@ -1,8 +1,20 @@
+
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,
 node distance=4cm,
-semithick,scale=0.9, transform shape]
+semithick,scale=0.8, transform shape]
 \tikzstyle{every state}=[rectangle,rounded corners,
  minimum height = 1.9cm, text width=3.35cm, text centered, fill=blue!20,draw=none,text=black, draw,line width=0.3mm]
+ \tikzset{
+ 	atrialCell/.style={
+ 		fill=green!20,
+ 		circle,
+ 		minimum size=1.5cm,
+ 		draw,
+ 		line width=0.2mm
+ 	}
+ }
+ 
+
 
 \node[state, 
 label={[shift={(0,0)}]$v < V_T \wedge g(\vec{v_{I}}) \leq V_T$}, 
@@ -59,6 +71,27 @@ label={[shift={(-1.5,-2.5)}]\large $\mathbf{q_3}$  }]
 	\footnotesize $\{v \leq V_R\}$, \\
 	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
 } (Q0);
+
+
+\node[ draw,  inner xsep=1.1cm,inner ysep=2.2cm,
+label={[label distance=0cm]60:~}, 
+fit= (Q0)(Q2)] (BOX) {};
+
+%--------------------------- nodes on top ------------
+\node[atrialCell, above of = Q0, node distance = 4.3cm,
+label={[shift={(1,-0.4)}]\large $v$ },
+label={[shift={(1.1,-1.2)}]\large $v_{I_{0}}$ }]
+(AN1){$Node_1$};
+\node[atrialCell, right of = AN1, node distance = 4cm,
+label={[shift={(-1.1,-0.4)}]\large $v_{I_{0}}$ },
+label={[shift={(-1,-1.2)}]\large $v$ }] 
+(AN2){$Node_2$};
+\draw[->](AN1.30) -- (AN2.150);
+\draw[->](AN2.210) -- (AN1.-30);
+
+
+\draw[-,dashed](AN2.-45) -- (BOX.north east);
+\draw[-,dashed](AN2.230) -- (BOX.north west);
 
 \end{tikzpicture}
 

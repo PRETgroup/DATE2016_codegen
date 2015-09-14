@@ -13,7 +13,6 @@ draw,line width=0.3mm]
 		v_x = 0 \\
 		v_y = 0 \\
 		v_z = 0 \\
-		v = 0 \\
 		\theta = 0
 	\end{matrix}$
 } ++(-1cm,-1cm);
@@ -30,75 +29,75 @@ draw,line width=0.3mm]
 
 %inter-location transitions
 \path[->] (Q0.20) edge[out=20,in=160] node[align=center] {
-  \footnotesize $\{g(\vec{v_{I}}) > V_T\}$, \\
-  \footnotesize
-  $\left\{\begin{matrix} v^\prime_x = 0.3v \\ v^\prime_y = 0.0v \\
-      v^\prime_z = 0.7v \\ \theta^\prime = v / V_T \end{matrix}\right\}$
+  $\frac{\footnotesize \{g(\vec{v_{I}}) > V_T\}}
+  {\footnotesize
+  \left\{\begin{matrix} v^\prime_x = 0.3v \\ v^\prime_y = 0.0v \\
+      v^\prime_z = 0.7v \\ \theta^\prime = v / V_T \end{matrix}\right\}}$
 } (Q1.160);
 
 \path[->] (Q1.200) edge[out=200,in=340] node[align=center] {
-	\footnotesize $\{g(\vec{v_{I}}) \leq 0 \wedge v < V_T\}$, \\
-	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
+	$\frac{\footnotesize \{g(\vec{v_{I}}) \leq 0 \wedge v < V_T\}}
+	{\footnotesize \left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}}$
 } (Q0.340);
 
 \path[->] (Q1) edge node[align=center] {
-	\footnotesize $\{v \geq V_T\}$, \\
-	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
+	$\frac{\footnotesize \{v \geq V_T\}}
+	{\footnotesize \left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}}$
 } (Q2);
 
 \path[->] (Q2) edge node[align=center] {
-	\footnotesize $\{v \geq V_O - 80.1\sqrt{\theta}\}$, \\
-	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
+	$\frac{\footnotesize \{v \geq V_O - 80.1\sqrt{\theta}\}}
+	{\footnotesize \left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}}$
 } (Q3);
 
 \path[->] (Q3) edge node[align=center, shift={(1.8,0)}] {
-	\footnotesize $\{v \leq V_R\}$, \\
-	\footnotesize $\left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}$
+	$\frac{\footnotesize \{v \leq V_R\}}
+	{\footnotesize \left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}}$
 } (Q0);
 
 %intra-location transitions
 \path[->] (Q0.180) edge[out=180,in=90,distance=1.5cm] node[align=center,
 shift={(2.5,0.5)}] {
-  \footnotesize $\{v < V_T \wedge g(\vec{v_{I}}) \leq V_T\}$, \\
-  \footnotesize $\left\{\begin{matrix}
+  $\frac{\footnotesize \{v < V_T \wedge \neg (g(\vec{v_{I}}) \geq V_T)\}}
+  {\footnotesize \left\{\begin{matrix}
       v^\prime_x = v_x + \delta C_{1} v_x \\
       v^\prime_y = v_y + \delta C_{2} v_y \\
       v^\prime_z = v_z + \delta C_{3} v_z \\
       v=v^\prime_x - v^\prime_y + v^\prime_z
-	\end{matrix}\right\}$
+	\end{matrix}\right\}}$
 } (Q0.90);
 
 \path[->] (Q1.90) edge[out=90,in=0,distance=1.5cm] node[align=center,
 shift={(-2.5,0.5)}] {
-  \footnotesize $\{v < V_T \wedge g(\vec{v_{I}}) > 0\}$, \\
-  \footnotesize $\left\{\begin{matrix}
+  $\frac{\footnotesize \{v < V_T \wedge \neg (g(\vec{v_{I}}) \leq V_T)\}}
+  {\footnotesize \left\{\begin{matrix}
       v^\prime_x = v_x + \delta (C_{4} v_x {+} C_{7} g(\vec{v_{I}})) \\
       v^\prime_y = v_y + \delta (C_{5} v_y {+} C_{8} g(\vec{v_{I}})) \\
       v^\prime_z = v_z + \delta (C_{6} v_z {+} C_{9} g(\vec{v_{I}})) \\
       v=v^\prime_x - v^\prime_y + v^\prime_z
-	\end{matrix}\right\}$
+	\end{matrix}\right\}}$
 } (Q1.0);
 
 \path[->] (Q2.0) edge[out=0,in=-90,distance=1.5cm] node[align=center,
 shift={(-2.5,-0.5)}] {
-  \footnotesize $\{v < V_O - 80.1 \sqrt{\theta}\}$, \\
-  \footnotesize $\left\{\begin{matrix}
+  $\frac{\footnotesize \{v < V_O - 80.1 \sqrt{\theta}\}}
+  {\footnotesize \left\{\begin{matrix}
       v^\prime_x = v_x + \delta C_{10} v_x \\
       v^\prime_y = v_y + \delta C_{11} v_y \\
       v^\prime_z = v_z + \delta C_{12} v_z \\
       v=v^\prime_x - v^\prime_y + v^\prime_z
-	\end{matrix}\right\}$
+	\end{matrix}\right\}}$
 } (Q2.-90);
 
 \path[->] (Q3.-90) edge[out=-90,in=180,distance=1.5cm]
 node[align=center, shift={(2.5,-0.5)}] {
-  \footnotesize $\{v > V_R\}$, \\
-  \footnotesize $\left\{\begin{matrix}
+  $\frac{\footnotesize \{v > V_R\}}
+  {\footnotesize \left\{\begin{matrix}
       v^\prime_x = v_x + \delta C_{13} v_x \\
       v^\prime_y = v_y + \delta C_{14} v_y \\
       v^\prime_z = v_z + \delta C_{15} v_z \\
       v=v^\prime_x - v^\prime_y + v^\prime_z
-	\end{matrix}\right\}$
+	\end{matrix}\right\}}$
 } (Q3.180);
 
 \end{tikzpicture}

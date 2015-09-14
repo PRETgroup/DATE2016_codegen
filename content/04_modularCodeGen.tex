@@ -2,6 +2,7 @@
 \label{sec:codeGen}
 
 In this section we present our approach for modular code generation from
+<<<<<<< HEAD
 a network of \acp{SHIOA} as it is implemented in our tool, called
 \ourTool. An overview of the solution is presented in
 Figure~\ref{fig:overview}, with the first of the two steps being
@@ -9,70 +10,90 @@ outlined previously in Section~\ref{sec:SHA}, and the second step in
 Section~\ref{sec:backendCodeGeneration} below. We first describe code
 generation for a single \ac{SHIOA}, followed by the the modular linking
 technique given a network of \acp{SHIOA}.
+=======
+a network of \acp{HIOA} as it is implemented in our tool, called
+\ourTool.  An overview of the solution is presented in 
+Figure~\ref{fig:overview}. Firstly, we present how each \ac{ODE} is converted 
+to its numerical equivalent in Section~\ref{sec:converting-odes-into} followed 
+by the abstraction of the generated code through the use of a Mealy \ac{FSM} in 
+Section~\ref{sec:backendCodeGeneration}.
+
+\subsection{Converting the \acp{ODE} into equivalent witness functions}
+\label{sec:converting-odes-into}
+
+Given the \ac{ODE} for $\dot{v_x}$ in state $\mathbf{q_0}$ of the heart
+node \ac{HIOA} defined in Figure~\ref{fig:heartCellHA} (reproduced in
+Equation~(\ref{eq:ode})), the forward Euler method computes the next
+value of $v_{x}$ (denoted $v'_{x}$) at discrete time instants, separated
+by the so called time step $\delta$
+($\delta \in \mathbb{R}^{+}$). The witness function for $v_{x}$
+implementing the forward Euler method is shown in
+Equation~(\ref{eq:euler_equiv}). This witness function evolves the
+variable $v_{x}$ until some invariant condition $Inv$ on the location
+holds. For the current example, Equation~(\ref{eq:euler_equiv}) evolves
+$v_{x}$ \emph{iteratively} until the invariant condition on location
+$\mathbf{q_{0}}$ ($v < V_{T}$) holds.
+
+
+\begin{equation}
+  \dot{v_x} = C_{1} v_x
+  \label{eq:ode}
+\end{equation}
+
+\begin{equation}
+  v^\prime_x = v_x + \delta \times (C_{1} v_x)
+  \label{eq:euler_equiv}
+\end{equation}
+
+
+This iterative evolution of the continuous variables at discrete points
+in time is akin to transitions on a logical \emph{tick} of a
+synchronous program~\cite{benveniste03}. A likeness that we will exploit when 
+composing multiple \ac{HIOA} together in Section~\ref{sec:composition}.
+>>>>>>> 7778523e6dabfdeca0d0390b21d0c9ec129ad2ac
 
 \subsection{Backend code generation from a single \ac{SHIOA}}
 \label{sec:backendCodeGeneration}
 
+<<<<<<< HEAD
+=======
+Here we describe step $1$ of the compilation process from 
+Figure~\ref{fig:overview}.
+
+>>>>>>> 7778523e6dabfdeca0d0390b21d0c9ec129ad2ac
 \begin{figure}
   \centering
   \input{figures/cellFSM}
   \caption{\acf{FSM} of a heart cell \label{fig:heartCellFSM}. We ignore
-    the $\tau$ event in the FSM, because it always evaluates to $true$.}
+    the $\tau$ event in the \ac{FSM}, because it always evaluates to $true$.}
 \end{figure}
 
-In order to facilitate code generation, each \ac{SHIOA} is transformed
-into a simple Mealy \ac{FSM} (such as that shown in
-Figure~\ref{fig:heartCellFSM}) where each step of the program requires a
-transition be taken.  This process involves creating self loops on each
-state in $Loc$, where the invariant in $Inv$ becomes the guard of the
-transition, and the \acs{ODE} in $Switness$ become the outputs of the
-transition.  The corresponding \ac{FSM} for the \ac{SHIOA} from
-Figure~\ref{fig:heartCellSHA} is shown in Figure~\ref{fig:heartCellFSM}.
+In order to facilitate code generation, each \ac{HIOA} is transformed into a 
+simple Mealy \ac{FSM} (such as that shown in Figure~\ref{fig:heartCellFSM}) 
+where each iteration of the program requires a transition be taken.  Each 
+inter-location edge $e$ corresponds to a transition between the same two states 
+with condition equal to its input events $\wedge$ $Jump(e)$ and output equal to 
+its output events $\wedge$ $Update(e)$ {\color{red} Where are Updates in the 
+HIOA def?}.
 
-Each of these \acp{FSM} are then transformed into C code which contains
-an \emph{Initialisation Function} corresponding to the $Init$ of the
-\ac{FSM}, and a \emph{Run Function} which, given an existing state,
-performs a single transition and updates any signals that may have
-changed.
+In order to replicate the continuous evolution of variables within locations we 
+create self transitions on each state in $Loc$, where the invariant in $Inv$ 
+becomes the condition of the transition, and the witness functions for each of 
+the \acs{ODE} described in Section~\ref{sec:converting-odes-into} become the 
+output of the transition. However, to ensure that the generated \ac{FSM} does 
+not ignore any controller inputs the self transition of each state must be of 
+the lowest priority.  This is accomplished by changing the condition to be 
+conjuncted with the negation of the disjunction of all conditions of egress 
+transitions from the state, i.e. $Inv(l) \wedge \neg (Cond(trans_{0}) \vee 
+\dots \vee Cond(trans_{n})$.  For example, in state $\mathbf{q_0}$ the 
+invariant $v < V_{T}$ will become a self transition with a condition of $v < 
+V_{T} \wedge \neg (g(\vec{v_{I}}) \geq V_{T})$ in the generated \ac{FSM}.
 
+The final corresponding \ac{FSM} for the \ac{HIOA} from 
+Figure~\ref{fig:heartCellHA} is shown in Figure~\ref{fig:heartCellFSM}.
 
-\subsection{Parallel Composition}
-\label{sec:composition}
-
-\begin{figure}
-  \centering
-  \input{figures/cellComposition}
-  \caption{Synchronous composition of multiple heart
-    cells \label{fig:heartCellComposition}}
-\end{figure}
-
-In order to compose each of the \acp{FSM} together, we take inspiration
-from the concepts of Synchronous Languages such as SL~\cite{SlLanguage}.
-The concept of Ticks and Reactions are carried over, whereby each
-\ac{FSM} performs only a single step (``tick'') until all \acp{FSM} have
-completed a step (``reaction'') and the process can repeat.  In order to
-deal with data dependencies, we also implement the concept of \emph{pre}
-whereby the value of all inputs to each \ac{FSM} are not updated with
-new values until the end of that reaction.  The concept of \emph{pre}
-also enables \ourTool to simplify the process of handling cyclic
-\acp{ODE} (an issue that other tools do not
-consider~\cite{kim2003modular}) by causing the dependencies to refer to
-previous, rather than current, values.
-
-The implementation of this in \ourTool is done by creating a round-robin
-scheduler which executes one tick of each \ac{FSM} in series, followed
-by I/O synchronisation at the end of each reaction.  Such I/O
-synchronisation deals with the emission of all outputs from the system,
-the intake of all inputs to the system, and the transfer of signals
-between \acp{FSM} in the network.  This idea is illustrated in
-Figure~\ref{fig:heartCellComposition}.  This concept is amenable to
-further scheduling algorithms that need not be sequential in nature.
-\ourTool can be extended to support parallel computation by executing
-different \acp{FSM} on separate threads, with synchronisation between
-threads occurring at the end of each reaction.
-
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "../DATE2016_codegen"
-%%% End:
+Each of these \acp{FSM} are then transformed into C code which contains an 
+\emph{Initialisation Function} corresponding to the $Init$ of the \ac{FSM}, and 
+a \emph{Run Function} which, given an existing state $l$ and values for all 
+variables $X$ and events $\Sigma$, performs a single transition and updates any 
+variables or events that may have changed.

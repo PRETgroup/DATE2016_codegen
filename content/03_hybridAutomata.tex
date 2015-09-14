@@ -17,7 +17,7 @@ formal definition and an informal description of the semantics of
 \begin{figure}
   \centering
   \input{figures/cellHA}
-  \caption{\acf{HIOA} of a heart node \label{fig:heartCellHA}}
+  \caption{Top of the figure shows the interactio between two heart nodes. Each node is defined as a \acf{HIOA} \label{fig:heartCellHA}}
 \end{figure}
 
 The \ac{HIOA} shown in Figure~\ref{fig:heartCellHA} captures the
@@ -139,55 +139,24 @@ Figure~\ref{fig:heartCellHA}.
 %   active $Jump$ transition.
 % \end{definition}
 
-{\color{red} Given $m$ number of \acp{HIOA} in a network.  The network
-  can be described as $HIOA_1 || \dots || HIOA_m$.}
+%{\color{red} Given $m$ number of \acp{HIOA} in a network.  The network
+%  can be described as $HIOA_1 || \dots || HIOA_m$.}
 
 
-\section{\acf{SHIOA}}
-\label{sec:SHA}
+%\section{\acf{SHIOA}}
+%\label{sec:SHA}
 
-Every \ac{HIOA} is converted into a so called \ac{SHIOA}, where the ODEs
-in the flow predicates are replaced by their equivalent witness
-functions $Switness$. The witness function computes the evolution of the
-continuous variables using the forward Euler approach with a
-\emph{constant} step size. Before giving the formal definition of the
-\ac{SHIOA} and describing the compilation procedure, we present the
-procedure to convert each ODE into its equivalent witness function, this
-is the step 1 (c.f. Figure~\ref{fig:overview}) in our modular code
-generation framework.
-
-\subsection{Converting the ODEs into equivalent witness functions}
-\label{sec:converting-odes-into}
-
-Given the \ac{ODE} for $\dot{v_x}$ in state $\mathbf{q_1}$ of the heart
-node \ac{HIOA} defined in Figure~\ref{fig:heartCellHA} (reproduced in
-Equation~(\ref{eq:ode})), the forward Euler method computes the next
-value of $v_{x}$ denoted $v'_{x}$ at discrete time instants, separated
-by the so called time step denoted by $\delta$
-($\delta \in \mathbb{R}^{+}$). The witness function for $v_{x}$
-implementing the Euler function is shown in
-Equation~(\ref{eq:euler_equiv}). This witness function evolves the
-variable $v_{x}$ until some invariant condition $Inv$ on the location
-holds. For the current example, Equation~(\ref{eq:euler_equiv}) evolves
-$v_{x}$ \emph{iteratively} until the invariant condition on location
-$\mathbf{q_{1}}$ holds.
-
-This iterative evolution of the continuous variables at discrete points
-in time is akin to the transitions of logical \emph{tick} of a
-synchronous program~\cite{benveniste03}. Hence, we term the automata
-resulting after replacing every ODE with its equivalent witness function
-a \acf{SHIOA}.
+%Every \ac{HIOA} is converted into a so called \ac{SHIOA}, where the ODEs
+%in the flow predicates are replaced by their equivalent witness
+%functions $Switness$. The witness function computes the evolution of the
+%continuous variables using the forward Euler approach with a
+%\emph{constant} step size. Before giving the formal definition of the
+%\ac{SHIOA} and describing the compilation procedure, we present the
+%procedure to convert each ODE into its equivalent witness function, this
+%is the step 1 (c.f. Figure~\ref{fig:overview}) in our modular code
+%generation framework.
 
 
-\begin{equation}
-  \dot{v_x} = C_{4} v_x + C_{7} g(\vec{v_{I}})
-  \label{eq:ode}
-\end{equation}
-
-\begin{equation}
-  v^\prime_x = v_x + \delta \times (C_{4} v_x + C_{7} g(\vec{v_{I}}))
-  \label{eq:euler_equiv}
-\end{equation}
 
 % \renewcommand{\algorithmiccomment}[1]{// #1}
 % \renewcommand{\algorithmicrequire}{\textbf{Input:}}
@@ -221,51 +190,51 @@ a \acf{SHIOA}.
 % replaced (line~\ref{alg:HAsToSHAs:assignOde}) by its equivalent
 % numerical solution in order to form the network of \acp{SHIOA}.
 
-\subsection{Definition of \acf{SHIOA}}
-\label{sec:defSHA}
+%\subsection{Definition of \acf{SHIOA}}
+%\label{sec:defSHA}
 
-\begin{figure}
-  \centering
-  \input{figures/cellSHA}
-  \caption{\acf{SHIOA} of a heart node \label{fig:heartCellSHA}}
-\end{figure}
+%\begin{figure}
+%  \centering
+%  \input{figures/cellSHA}
+%  \caption{\acf{SHIOA} of a heart node \label{fig:heartCellSHA}}
+%\end{figure}
 
-A \ac{SHIOA} is an abstraction of the corresponding \ac{HIOA}.  It
-inherits all the components of a \ac{HIOA} except that the ODEs in the
-$Flow$ predicates are replaced by their individual witness functions
-$Switness$. The
-$Switness(l,\delta,\vec{v}_{l,X_{I}})=\vec{v}^{\prime}_{l,X_{I}}$,
-function returns the new values of continuous variables in location $l$
-after one iteration of step size $\delta$ given the current valuation
-($\vec{v}^{\prime}_{l,X_{I}}$) of continuous variables in $X_{I}$.  We
-now formalise the \ac{SHIOA} using Definition~\ref{def:sha} and
-illustrate it using Figure~\ref{fig:heartCellSHA}.
+%A \ac{SHIOA} is an abstraction of the corresponding \ac{HIOA}.  It
+%inherits all the components of a \ac{HIOA} except that the ODEs in the
+%$Flow$ predicates are replaced by their individual witness functions
+%$Switness$. The
+%$Switness(l,\delta,\vec{v}_{l,X_{I}})=\vec{v}^{\prime}_{l,X_{I}}$,
+%function returns the new values of continuous variables in location $l$
+%after one iteration of step size $\delta$ given the current valuation
+%($\vec{v}^{\prime}_{l,X_{I}}$) of continuous variables in $X_{I}$.  We
+%now formalise the \ac{SHIOA} using Definition~\ref{def:sha} and
+%illustrate it using Figure~\ref{fig:heartCellSHA}.
 
-\begin{definition}
-  Given a well formed HIOA $\mathcal{H}$ =
-  $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I, X_{EO},
-  X_{EI}, \linebreak Init, Inv, Flow, Jump\rangle$
-  a SHIOA corresponding to this HIOA is $\mathcal{A}$ =
-  $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I,
-  X_{EO},\linebreak X_{EI}, Init, Inv, Witness, Jump, Step\rangle$
-  where:
-  \begin{itemize}
-  \item $Step = \delta$ ($\delta \in \mathbb{R}^+$) is the duration of
-    the synchronous instant.
-  \item
-    $Switness: Loc \times \mathbb{R} \times \mathbb{R}^{\|X_{I}\|}
-    \rightarrow \mathbb{R}^{\|X_{I}\|}$:
-    is the Euler function(s) that returns the new values of all the
-    continuous variables for a given location $l$.  It also takes as
-    input the time step $\delta$ and the current values of all variables
-    in set $X_{I}$.
-  \end{itemize}
-  \label{def:sha}
-\end{definition}
+%\begin{definition}
+%  Given a well formed HIOA $\mathcal{H}$ =
+%  $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I, X_{EO},
+%  X_{EI}, \linebreak Init, Inv, Flow, Jump\rangle$
+%  a SHIOA corresponding to this HIOA is $\mathcal{A}$ =
+%  $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I,
+%  X_{EO},\linebreak X_{EI}, Init, Inv, Witness, Jump, Step\rangle$
+%%  where:
+%  \begin{itemize}
+%  \item $Step = \delta$ ($\delta \in \mathbb{R}^+$) is the duration of
+%    the synchronous instant.
+% \item
+%    $Switness: Loc \times \mathbb{R} \times \mathbb{R}^{\|X_{I}\|}
+%    \rightarrow \mathbb{R}^{\|X_{I}\|}$:
+%    is the Euler function(s) that returns the new values of all the
+%    continuous variables for a given location $l$.  It also takes as
+%    input the time step $\delta$ and the current values of all variables
+%    in set $X_{I}$.
+%  \end{itemize}
+%  \label{def:sha}
+%\end{definition}
 
 
-{\color{red} Given $m$ number of \acp{SHIOA} in a network.  The network
-  can be described as $SHIOA_1 || \dots || SHIOA_m$.}
+%{\color{red} Given $m$ number of \acp{SHIOA} in a network.  The network
+%  can be described as $SHIOA_1 || \dots || SHIOA_m$.}
 
 
 % \subsection{Deterministic semantics of \ac{SHIOA}}
