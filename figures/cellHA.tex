@@ -1,7 +1,7 @@
 
 \begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,
 node distance=4cm,
-semithick,scale=0.9, transform shape]
+semithick,scale=0.8, transform shape]
 \tikzstyle{every state}=[rectangle,rounded corners,
  minimum height = 1.9cm, text width=3.35cm, text centered, fill=blue!20,draw=none,text=black, draw,line width=0.3mm]
  \tikzset{
@@ -78,9 +78,13 @@ label={[label distance=0cm]60:~},
 fit= (Q0)(Q2)] (BOX) {};
 
 %--------------------------- nodes on top ------------
-\node[atrialCell, above of = Q0, node distance = 4.3cm] 
+\node[atrialCell, above of = Q0, node distance = 4.3cm,
+label={[shift={(1,-0.4)}]\large $v$ },
+label={[shift={(1.1,-1.2)}]\large $v_{I_{0}}$ }]
 (AN1){$Node_1$};
-\node[atrialCell, right of = AN1, node distance = 4cm] 
+\node[atrialCell, right of = AN1, node distance = 4cm,
+label={[shift={(-1.1,-0.4)}]\large $v_{I_{0}}$ },
+label={[shift={(-1,-1.2)}]\large $v$ }] 
 (AN2){$Node_2$};
 \draw[->](AN1.30) -- (AN2.150);
 \draw[->](AN2.210) -- (AN1.-30);
