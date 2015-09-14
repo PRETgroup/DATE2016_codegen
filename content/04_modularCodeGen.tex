@@ -2,7 +2,6 @@
 \label{sec:codeGen}
 
 In this section we present our approach for modular code generation from
-<<<<<<< HEAD
 a network of \acp{SHIOA} as it is implemented in our tool, called
 \ourTool. An overview of the solution is presented in
 Figure~\ref{fig:overview}, with the first of the two steps being
@@ -10,13 +9,6 @@ outlined previously in Section~\ref{sec:SHA}, and the second step in
 Section~\ref{sec:backendCodeGeneration} below. We first describe code
 generation for a single \ac{SHIOA}, followed by the the modular linking
 technique given a network of \acp{SHIOA}.
-=======
-a network of \acp{HIOA} as it is implemented in our tool, called
-\ourTool.  An overview of the solution is presented in 
-Figure~\ref{fig:overview}. Firstly, we present how each \ac{ODE} is converted 
-to its numerical equivalent in Section~\ref{sec:converting-odes-into} followed 
-by the abstraction of the generated code through the use of a Mealy \ac{FSM} in 
-Section~\ref{sec:backendCodeGeneration}.
 
 \subsection{Converting the \acp{ODE} into equivalent witness functions}
 \label{sec:converting-odes-into}
@@ -50,17 +42,10 @@ This iterative evolution of the continuous variables at discrete points
 in time is akin to transitions on a logical \emph{tick} of a
 synchronous program~\cite{benveniste03}. A likeness that we will exploit when 
 composing multiple \ac{HIOA} together in Section~\ref{sec:composition}.
->>>>>>> 7778523e6dabfdeca0d0390b21d0c9ec129ad2ac
 
 \subsection{Backend code generation from a single \ac{SHIOA}}
 \label{sec:backendCodeGeneration}
 
-<<<<<<< HEAD
-=======
-Here we describe step $1$ of the compilation process from 
-Figure~\ref{fig:overview}.
-
->>>>>>> 7778523e6dabfdeca0d0390b21d0c9ec129ad2ac
 \begin{figure}
   \centering
   \input{figures/cellFSM}
