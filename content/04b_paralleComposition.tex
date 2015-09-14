@@ -1,0 +1,35 @@
+
+\section{Parallel Composition}
+\label{sec:composition}
+
+%\begin{figure}
+%  \centering
+%  \input{figures/cellComposition}
+%  \caption{Synchronous composition of multiple heart
+%    cells \label{fig:heartCellComposition}}
+%\end{figure}
+
+In order to compose each of the \acp{FSM} together, we take inspiration
+from the concepts of Synchronous Languages such as SL~\cite{SlLanguage}.
+The concept of Ticks and Reactions are carried over, whereby each
+\ac{FSM} performs only a single step (``tick'') until all \acp{FSM} have
+completed a step (``reaction'') and the process can repeat.  In order to
+deal with data dependencies, we also implement the concept of \emph{pre}
+whereby the value of all inputs to each \ac{FSM} are not updated with
+new values until the end of that reaction.  The concept of \emph{pre}
+also enables \ourTool to simplify the process of handling cyclic
+\acp{ODE} (an issue that other tools do not
+consider~\cite{kim2003modular}) by causing the dependencies to refer to
+previous, rather than current, values.
+
+The implementation of this in \ourTool is done by creating a round-robin
+scheduler which executes one tick of each \ac{FSM} in series, followed
+by I/O synchronisation at the end of each reaction.  Such I/O
+synchronisation deals with the emission of all outputs from the system,
+the intake of all inputs to the system, and the transfer of signals
+between \acp{FSM} in the network.  This idea is illustrated in
+Figure~\ref{fig:heartCellComposition}.  This concept is amenable to
+further scheduling algorithms that need not be sequential in nature.
+\ourTool can be extended to support parallel computation by executing
+different \acp{FSM} on separate threads, with synchronisation between
+threads occurring at the end of each reaction.

@@ -9,6 +9,50 @@ outlined previously in Section~\ref{sec:SHA}, and the second step in
 Section~\ref{sec:backendCodeGeneration} below.
 
 
+%Every \ac{HIOA} is converted into a so called \ac{SHIOA}, where the ODEs
+%in the flow predicates are replaced by their equivalent witness
+%functions $Switness$. The witness function computes the evolution of the
+%continuous variables using the forward Euler approach with a
+%\emph{constant} step size. Before giving the formal definition of the
+%\ac{SHIOA} and describing the compilation procedure, we present the
+%procedure to convert each ODE into its equivalent witness function, this
+%is the step 1 (c.f. Figure~\ref{fig:overview}) in our modular code
+%generation framework.
+
+\subsection{Converting the ODEs into equivalent witness functions}
+\label{sec:converting-odes-into}
+
+Given the \ac{ODE} for $\dot{v_x}$ in state $\mathbf{q_1}$ of the heart
+node \ac{HIOA} defined in Figure~\ref{fig:heartCellHA} (reproduced in
+Equation~(\ref{eq:ode})), the forward Euler method computes the next
+value of $v_{x}$ denoted $v'_{x}$ at discrete time instants, separated
+by the so called time step denoted by $\delta$
+($\delta \in \mathbb{R}^{+}$). The witness function for $v_{x}$
+implementing the Euler function is shown in
+Equation~(\ref{eq:euler_equiv}). This witness function evolves the
+variable $v_{x}$ until some invariant condition $Inv$ on the location
+holds. For the current example, Equation~(\ref{eq:euler_equiv}) evolves
+$v_{x}$ \emph{iteratively} until the invariant condition on location
+$\mathbf{q_{1}}$ holds.
+
+This iterative evolution of the continuous variables at discrete points
+in time is akin to the transitions of logical \emph{tick} of a
+synchronous program~\cite{benveniste03}. Hence, we term the automata
+resulting after replacing every ODE with its equivalent witness function
+a \acf{SHIOA}.
+
+
+\begin{equation}
+\dot{v_x} = C_{4} v_x + C_{7} g(\vec{v_{I}})
+\label{eq:ode}
+\end{equation}
+
+\begin{equation}
+v^\prime_x = v_x + \delta \times (C_{4} v_x + C_{7} g(\vec{v_{I}}))
+\label{eq:euler_equiv}
+\end{equation}
+
+
 \subsection{Backend code generation}
 \label{sec:backendCodeGeneration}
 
@@ -40,43 +84,4 @@ performs a single transition and updates any signals that may have
 changed.
 
 
-\subsection{Parallel Composition}
-\label{sec:composition}
 
-\begin{figure}
-  \centering
-  \input{figures/cellComposition}
-  \caption{Synchronous composition of multiple heart
-    cells \label{fig:heartCellComposition}}
-\end{figure}
-
-In order to compose each of the \acp{FSM} together, we take inspiration
-from the concepts of Synchronous Languages such as SL~\cite{SlLanguage}.
-The concept of Ticks and Reactions are carried over, whereby each
-\ac{FSM} performs only a single step (``tick'') until all \acp{FSM} have
-completed a step (``reaction'') and the process can repeat.  In order to
-deal with data dependencies, we also implement the concept of \emph{pre}
-whereby the value of all inputs to each \ac{FSM} are not updated with
-new values until the end of that reaction.  The concept of \emph{pre}
-also enables \ourTool to simplify the process of handling cyclic
-\acp{ODE} (an issue that other tools do not
-consider~\cite{kim2003modular}) by causing the dependencies to refer to
-previous, rather than current, values.
-
-The implementation of this in \ourTool is done by creating a round-robin
-scheduler which executes one tick of each \ac{FSM} in series, followed
-by I/O synchronisation at the end of each reaction.  Such I/O
-synchronisation deals with the emission of all outputs from the system,
-the intake of all inputs to the system, and the transfer of signals
-between \acp{FSM} in the network.  This idea is illustrated in
-Figure~\ref{fig:heartCellComposition}.  This concept is amenable to
-further scheduling algorithms that need not be sequential in nature.
-\ourTool can be extended to support parallel computation by executing
-different \acp{FSM} on separate threads, with synchronisation between
-threads occurring at the end of each reaction.
-
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "../DATE2016_codegen"
-%%% End:
