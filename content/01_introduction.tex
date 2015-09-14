@@ -37,14 +37,15 @@ there is no direct correspondence between the \simulink model and the
 issues, due to which the researchers modelled a 33-node conduction
 system.
 
-We develop an approach by combining node models (which are extensions to
-the models developed by~\cite{chen14}) with \emph{path models} (in timed
-automata) to accurately model the conduction delay between nodes. We
-are, thus, able to model the re-entrant behaviour of the heart.
+%We develop an approach by combining node models (which are extensions to
+%the models developed by~\cite{chen14}) with \emph{path models} (in timed
+%automata) to accurately model the conduction delay between nodes. We
+%are, thus, able to model the re-entrant behaviour of the heart.
 
+{\color{red}[PARA. Needs to be updated]} 
 For modular code generation, we have developed an approach based on the
 well known synchronous languages~\cite{benveniste03}.  We formalise a
-{\color{red} deterministic} subset of \ac{HIOA} called Synchronous
+ subset of \ac{HIOA} called Synchronous
 Hybrid Input Output Automata \ac{SHIOA}. Using the concept of delayed
 synchronous composition~\cite{boussinot96}, we are then able to produce
 modular code for each node separately. The generated code is both
@@ -107,11 +108,17 @@ are not ideal for the \textit{emulation} of the heart.
 
    
 An overview of the proposed approach is presented in
-Figure~\ref{fig:overview}. Given a network of \acp{HIOA} for the nodes
-and paths of the conduction system, the corresponding \ac{SHIOA} is
-generated. \ac{SHIOA} is an abstraction using the synchronous approach
-to facilitate the generation of executable code (captured using
-\acp{FSM} for each node).
+Figure~\ref{fig:overview}. It has two steps.
+(1) Given a network of \acp{HIOA} for the heart nodes,
+in Section~\ref{sec:codeGen}, 
+ the corresponding executable code (captured using
+ \acp{FSM} for each node) is generated.
+ (2) Then, in Section~\ref{sec:composition}, parallel composition of 
+ \acp{FSM} is presented.
+%\ac{SHIOA} is generated. \ac{SHIOA} is an 
+% abstraction using the synchronous approach
+%to facilitate the generation of 
+
 
 \begin{figure}[bthp]
   \centering
@@ -123,10 +130,9 @@ to facilitate the generation of executable code (captured using
 \end{figure}
       
 \textbf{Contributions} of the paper are: (1) We propose a
-\emph{{\color{red} deterministic} semantics} for \acf{HIOA} (see
-Section~\ref{sec:HA}).  We develop the electrical conduction system of
-the heart as a re-entrant circuit, using the proposed approach, as a
-case study.  (2) We have developed a \emph{modular code generation}
+new definition for \acf{HIOA} (see
+Section~\ref{sec:HA}) to capture  the electrical conduction system of
+the heart. (2) We have developed a \emph{modular code generation}
 approach, for the first time for \ac{HIOA} models
 (Section~\ref{sec:codeGen}), which is also semantic preserving.  The
 proposed approach performs code generation using a new synchronous
