@@ -10,61 +10,40 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 % Place nodes
 
 %-----------------------------------------------------------------------
-\node [fileS,fill=red!10] (HA1) {HA ($Def.~\ref{def:ha}$)};
-\node[right of = HA1, node distance = 1.3cm](PAR){\Large $||$};
+\node [fileS,fill=red!10] (HA1) {$HIOA_1$ ($Def.~\ref{def:ha}$)};
+\node[right of = HA1, node distance = 1.3cm](PAR){\Large $\dots$};
 \node [fileS,,fill=red!10,right of = PAR, node distance = 1.3cm] (HA2) 
-	{HA ($Def.~\ref{def:ha}$)};	
-\node[below of = PAR, node distance=1.3cm, text width=3.7cm, text centered]
-	(TNHA){Network of HA};
-\node[draw, thick, inner sep=0.3cm, fit=(HA1) (HA2) (TNHA)] (NHA) {};
+	{$HIOA_2$ ($Def.~\ref{def:ha}$)};	
+%\node[below of = PAR, node distance=1.3cm, text width=3.7cm, text centered]
+%	(TNHA){Network of HA};
+%\node[draw, thick, inner sep=0.3cm, fit=(HA1) (HA2)] (NHA) {};
 
 \node[draw, dashed, inner sep=0.3cm,
-	label={[label distance=0cm]60:Section~\ref{sec:HA}}, 
-	fit= (NHA)] (S1) {};
+	label={[label distance=0cm]90:Section~\ref{sec:HA}}, 
+	fit= (HA1) (HA2)] (S1) {};
 %-----------------------------------------------------------------------
 
 
-\node [process, below left = 2cm and -2.9cm of NHA, node distance = 4.2cm] (GSHA) {Generate a network of \ac{SHA} (step~1, Sec~\ref{sec:shaGeneration})};
+%\node [process, below  of = PAR, node distance = 2.2cm] (GSHA) {Generate FSM (step~1, Sec~\ref{sec:shaGeneration})};
 
+%-----------------------------------------------------------------------
+\node [fileS, below of = HA1, fill=red!20, node distance = 3.3cm] 
+(FSM1) {$FSM_1$ ($Def.~\ref{def:ha}$)};
+\node[right of = FSM1, node distance = 1.3cm](PAR){\Large $\dots$};
+\node [fileS,,fill=red!20,right of = PAR, node distance = 1.3cm] (FSM2) 
+{$FSM_2$ ($Def.~\ref{def:ha}$)};	
 
-%Network of SHA
-\node [fileS, fill=red!20, above right  = -0.8cm and 0.8cm of  GSHA] (SHA1) {\ac{SHA} ($Def.~\ref{def:sha}$)};
-\node[right of = SHA1, node distance = 1.3cm](PAR2){\Large $||$};
-\node [fileS,,fill=red!20,right of = PAR2, node distance = 1.3cm] (SHA2) 
-{\ac{SHA} ($Def.~\ref{def:sha}$)};	
-\node[below of = PAR2, node distance=1.3cm, text width=3.7cm, text centered]
-(TNSHA){Network of SHA};
-\node[draw, thick, inner sep=0.3cm, fit=(SHA1) (SHA2) (TNSHA)] (NSHA) {};
+\node[draw, dashed, inner sep=0.3cm,
+label={[label distance=0cm]90:Section~\ref{sec:HA}}, 
+fit= (FSM1) (FSM2)] (S2) {};
 
-\node[draw, dashed, inner sep=0.2cm,
-	label={[label distance=0cm]60:Section~\ref{sec:SHA}}, 
-	fit= (GSHA)(NSHA)] (S2) {};
-%--------------------------------------------------------------------------------
+%-----------------------------------------------------------------------
+\node [fileS,,fill=blue!20, text width=8em, below of = PAR, node distance = 3.3cm] (PC) 
+{$FSM_1 || FSM_2$ };
+\node[ dashed, inner sep=0.1cm,
+label={[label distance=0cm]90:Section~\ref{sec:HA}}, 
+fit= (PC)] (S3) {};
 
-\node [process, text width=5em, right of = NSHA, node distance = 4cm] 
-	(GFSM) {Generate code (step~2, Sec~\ref{sec:codeGen})};
-
-
-
-\node [fileS, fill=red!30, right  = 1.8cm  of  HA2] (FSM1) {FSM};
-\node[right of = FSM1, node distance = 1.3cm](SEQ){\Large $;$};
-\node [fileS,,fill=red!30,right of = SEQ, node distance = 1.3cm] (FSM2) 
-{FSM};	
-\node[below of = SEQ, node distance=1.3cm, text width=3.7cm, text centered]
-(TCC){Generated C code};
-\node[draw, thick, inner sep=0.3cm, fit=(FSM1) (FSM2) (TCC)] (CC) {};
-
-\node[label={[label distance=0cm]60:Section~\ref{sec:codeGen}}, 
-fit= (CC)] (S3) {};
-
-\path[draw, dashed, inner sep=0.3cm,] 
-	([yshift=2mm, xshift=-2mm]CC.north west)--
-	([yshift=2mm, xshift=2mm]CC.north east)--
-	([yshift=-2mm, xshift=2mm] GFSM.south east)--
-	([yshift=-2mm, xshift=-2mm]GFSM.south west)--
-    ([yshift=-2mm, xshift=-2mm] GFSM.north west |- CC.south)-- 
-    ([yshift=-2mm, xshift=-2mm]CC.south west)--
-    ([yshift=2mm, xshift=-2mm]CC.north west);
 
 %\node[draw, dashed, inner sep=0.2cm,
 %	label={[label distance=0cm]60:Section~\ref{sec:SHA}}, 
@@ -72,9 +51,13 @@ fit= (CC)] (S3) {};
 
 %--------------------------------------------------------------------------------
 %edges
-\draw [line] (NHA.south-|GSHA.north) -- (GSHA);
-\draw [line] (GSHA) -- (GSHA-|NSHA.west);
-\draw [line] (NSHA) -- (NSHA-|GFSM.west);
-\draw [line] (GFSM) -- (GFSM|-CC.south);
+\draw [line] (HA1.south) -- (FSM1) node[midway, left]
+{Step~1:  Code generation};
+\draw [line] (HA2.south) -- (FSM2);
+\draw [line] (FSM1) -- (FSM1|-PC.north) node[midway, left]
+{Step~2:  Parallel composition};
+\draw [line] (FSM2) -- (FSM2|-PC.north);
+%\draw [line] (NSHA) -- (NSHA-|GFSM.west);
+%\draw [line] (GFSM) -- (GFSM|-CC.south);
 
 \end{tikzpicture}    
