@@ -57,9 +57,9 @@ In order to facilitate code generation, each \ac{HIOA} is transformed into a
 simple Mealy \ac{FSM} (such as that shown in Figure~\ref{fig:heartCellFSM}) 
 where each iteration of the program requires a transition be taken.  Each 
 inter-location edge $e$ corresponds to a transition between the same two states 
-with condition equal to its input events $\wedge$ $Jump(e)$ and output equal to 
-its output events $\wedge$ $Update(e)$ {\color{red} Where are Updates in the 
-HIOA def?}.
+with condition equal to its input events conjuncted with the conditions in 
+$Jump(e)$, and output equal to its output events combined with the updates 
+present in $Jump(e)$.
 
 In order to replicate the continuous evolution of variables within locations we 
 create self transitions on each state in $Loc$, where the invariant in $Inv$ 
@@ -78,7 +78,8 @@ The final corresponding \ac{FSM} for the \ac{HIOA} from
 Figure~\ref{fig:heartCellHA} is shown in Figure~\ref{fig:heartCellFSM}.
 
 Each of these \acp{FSM} are then transformed into C code which contains an 
-\emph{Initialisation Function} corresponding to the $Init$ of the \ac{FSM}, and 
-a \emph{Run Function} which, given an existing state $l$ and values for all 
-variables $X$ and events $\Sigma$, performs a single transition and updates any 
-variables or events that may have changed.
+\emph{Initialisation Function} corresponding to the $Init$ of the \ac{FSM} as 
+well as the setting of the initial state, and a \emph{Run Function} which, 
+given an existing state $l$ and values for all variables $X$ and events 
+$\Sigma$, performs a single transition and updates any variables or events that 
+may have changed.
