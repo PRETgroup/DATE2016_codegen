@@ -11,14 +11,14 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 
 %-----------------------------------------------------------------------
 \node [fileS,fill=red!10] (HA1) {$HIOA_1$ ($Def.~\ref{def:ha}$)};
-\node[right of = HA1, node distance = 1.3cm](PAR){\Large $\dots$};
-\node [fileS,,fill=red!10,right of = PAR, node distance = 1.3cm] (HA2) 
+\node[below of = HA1, node distance = 1.3cm](PAR){\Large $\dots$};
+\node [fileS,fill=red!10,below of = PAR, node distance = 1.3cm] (HA2) 
 	{$HIOA_2$ ($Def.~\ref{def:ha}$)};	
 %\node[below of = PAR, node distance=1.3cm, text width=3.7cm, text centered]
 %	(TNHA){Network of HA};
 %\node[draw, thick, inner sep=0.3cm, fit=(HA1) (HA2)] (NHA) {};
 
-\node[draw, dashed, inner sep=0.3cm,
+\node[draw, dashed, inner sep=0.2cm,
 	label={[label distance=0cm]90:Section~\ref{sec:HA}}, 
 	fit= (HA1) (HA2)] (S1) {};
 %-----------------------------------------------------------------------
@@ -27,18 +27,18 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 %\node [process, below  of = PAR, node distance = 2.2cm] (GSHA) {Generate FSM (step~1, Sec~\ref{sec:shaGeneration})};
 
 %-----------------------------------------------------------------------
-\node [fileS, below of = HA1, fill=red!20, node distance = 3.3cm] 
-(FSM1) {$FSM_1$ ($Def.~\ref{def:ha}$)};
-\node[right of = FSM1, node distance = 1.3cm](PAR){\Large $\dots$};
-\node [fileS,,fill=red!20,right of = PAR, node distance = 1.3cm] (FSM2) 
-{$FSM_2$ ($Def.~\ref{def:ha}$)};	
+\node [fileS, right of = HA1, fill=red!20, text width=4.6em, node distance = 4.3cm] 
+(FSM1) {$FSM_1$ ($Sec.~\ref{sec:converting-odes-into}$)};
+\node[below of = FSM1, node distance = 1.3cm](PAR){\Large $\dots$};
+\node [fileS,,fill=red!20,below of = PAR, text width=4.6em, node distance = 1.3cm] (FSM2) 
+{$FSM_2$ ($Sec.~\ref{sec:converting-odes-into}$)};	
 
-\node[draw, dashed, inner sep=0.3cm,
+\node[draw, dashed, inner sep=0.2cm,
 label={[label distance=0cm]90:Section~\ref{sec:codeGen}}, 
 fit= (FSM1) (FSM2)] (S2) {};
 
 %-----------------------------------------------------------------------
-\node [fileS,,fill=blue!20, text width=8em, below of = PAR, node distance = 3.3cm] (PC) 
+\node [fileS,,fill=blue!20, text width=8em, right of = PAR, node distance = 4.7cm] (PC) 
 {$FSM_1 || FSM_2$ };
 \node[ dashed, inner sep=0.1cm,
 label={[label distance=0cm]90:Section~\ref{sec:composition}}, 
@@ -51,13 +51,12 @@ fit= (PC)] (S3) {};
 
 %--------------------------------------------------------------------------------
 %edges
-\draw [line] (HA1.south) -- (FSM1) node[midway, left]
+\draw [line] (HA1) -- (FSM1) node[midway, below,text width=2cm]
 {Step~1:  Code generation};
-\draw [line] (HA2.south) -- (FSM2);
-\draw [line] (FSM1) -- (FSM1|-PC.north) node[midway, left]
+\draw [line] (HA2) -- (FSM2);
+\draw [line] (FSM1) -| (PC.150) node[ pos=0.4, above, text width=2cm]
 {Step~2:  Parallel composition};
-\draw [line] (FSM2) -- (FSM2|-PC.north);
-%\draw [line] (NSHA) -- (NSHA-|GFSM.west);
-%\draw [line] (GFSM) -- (GFSM|-CC.south);
+\draw [line] (FSM2) -| (PC.210);
+
 
 \end{tikzpicture}    
