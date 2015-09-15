@@ -72,9 +72,8 @@ conjuncted with the negation of the disjunction of all conditions of egress
 transitions from the state, i.e. $Inv(l) \wedge \neg (Cond(trans_{0}) \vee 
 \dots \vee Cond(trans_{n})$.  For example, in state $\mathbf{q_0}$ the 
 invariant $v < V_{T}$ will become a self transition with a condition of $v < 
-V_{T} \wedge \neg (g(\vec{v_{I}}) \geq V_{T})$ in the generated \ac{FSM}.
-
-The final corresponding \ac{FSM} for the \ac{HIOA} from 
+V_{T} \wedge \neg (g(\vec{v_{I}}) \geq V_{T})$ in the generated \ac{FSM}.  The 
+final corresponding \ac{FSM} for the \ac{HIOA} from 
 Figure~\ref{fig:heartCellHA} is shown in Figure~\ref{fig:heartCellFSM}.
 
 Each of these \acp{FSM} are then transformed into C code which contains an 
