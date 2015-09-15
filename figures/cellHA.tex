@@ -73,12 +73,12 @@ label={[shift={(-1.5,-2.5)}]\large $\mathbf{q_3}$  }]
 } (Q0);
 
 
-\node[ draw,  inner xsep=1.1cm,inner ysep=2.2cm,
+\node[ draw,   inner xsep=1.1cm, inner ysep=2.2cm,
 label={[label distance=0cm]60:~}, 
 fit= (Q0)(Q2)] (BOX) {};
 
 %--------------------------- nodes on top ------------
-\node[atrialCell, above of = Q0, node distance = 4.3cm,
+\node[atrialCell, above of = Q0, xshift=2.5cm, node distance = 4.3cm,
 label={[shift={(1,-0.4)}]\large $v$ },
 label={[shift={(1.1,-1.2)}]\large $v_{I_{0}}$ }]
 (AN1){$Node_1$};
@@ -92,6 +92,16 @@ label={[shift={(-1,-1.2)}]\large $v$ }]
 
 \draw[-,dashed](AN2.-45) -- (BOX.north east);
 \draw[-,dashed](AN2.230) -- (BOX.north west);
+
+%---------------- pacemaker I/O ------------
+\node[ draw,  rounded corners=2mm, inner xsep=0.7cm,inner ysep=0.4cm,
+label={[label distance=0cm]60:~}, 
+fit= (AN1)(AN2)] (BOX2) {};
+
+\draw[<-, thick](BOX2.170) -- node[above, shift={(-0.8,0.1)}] {\footnotesize input stimulus ($v_p$)} ++(-1cm,0cm);
+
+\draw[->, thick](BOX2.190) -- node[above, shift={(-0.8,0.1)}] {\footnotesize output trace ($v_s$)} ++(-1cm,0cm);
+
 
 \end{tikzpicture}
 
