@@ -44,7 +44,23 @@ nature.  \ourTool can be extended to support parallel computation by executing
 different \acp{FSM} on separate threads (whether logical or physical), with 
 synchronisation between threads occurring at the end of each reaction.
 
-\subsection{Mapping between \acp{HIOA}}
+\subsection{Mapping between \acp{FSM}}
 \label{sec:mapping}
-% Need to explain the mapping function \lambda : X_E -> X_E
 
+While the execution semantics of the network of \acp{FSM} were covered in the 
+previous section, the interactions between each \ac{FSM} were not.  We define 
+the following:
+\begin{itemize}
+	\item There exists a set of continuous variable inputs from all \acp{FSM} 
+	globally $X_{GI}$, and a set of continuous variable outputs from all 
+	\acp{FSM} globally $X_{GO}$.
+	\item There exists a mapping function $\lambda(x_i) : x_o$ who takes as 
+	input one of $X_{GI}$ and returns as output one of $X_{GO}$.
+\end{itemize}
+
+Such a mapping function indicates that the value of the continuous variable 
+input $x_i$ should be updated with the value from the continuous variable 
+output $x_o$ at the end of each synchronous tick, ie. during the \emph{I/O 
+Synchronisation Stage}.  Each input $x_i$ may only be mapped to at most one 
+output from $X_{GO}$, however multiple inputs from $X_{GI}$ may be mapped to 
+the same output $x_o$.
