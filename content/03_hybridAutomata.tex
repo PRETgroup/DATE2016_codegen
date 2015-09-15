@@ -23,7 +23,13 @@ formal definition and an informal description of the semantics of
 The \ac{HIOA} shown in Figure~\ref{fig:heartCellHA} captures the
 behaviour of the four stages of \ac{AP} shown in
 Figure~\ref{fig:actionPotential}. Each stage of the \ac{AP} is captured
-with so called locations in the \ac{HIOA}. For the first stage
+with so called locations in the \ac{HIOA}. 
+The curve-fitting technique was used to model the 
+morphology of the action potential using three continuous 
+variables ($v_x$, $v_y$, and $v_z$)~\cite{StonyBrookRef}. 
+The dynamic response of the action potential to secondary excitations is captured by the variable $\theta$. 
+
+For the first stage
 (\ac{RP}), the continuous dynamics are captured in location
 $\mathbf{q_0}$. \textit{Ordinary Differential Equation} (ODEs), for
 example \mbox{$\dot{v_{x}} = C_{1}v_{x}$}, capture the continuous
