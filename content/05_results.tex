@@ -37,7 +37,7 @@ comparison between \ourTool and \simulink:
 \end{description}
 
 The experiments were evaluated using an Intel~i7-4790 processor with
-8~GB RAM on Windows~7.
+$8$GB RAM on Windows~$7$.
 
 
 \subsection{Scalability}
@@ -63,16 +63,18 @@ obvious feature being that no data is recorded for \simulink for
 complexities greater than $297$ nodes.  \simulink imposes an inbuilt
 requirement that the generated code use less than $2$GB of memory. This
 discontinuity represents the point after which the memory usage exceeds
-this limit.\footnote{\simulink memory usage at a $297$ node network is
-  $1.8$GB.}  \ourTool, on the other hand, is able to continue past this
+this limit.\footnote{\simulink memory usage at a $297$ node network is 
+$1.8$GB.}  \ourTool, on the other hand, is able to continue past this
 point.
 
 These results also illustrate that \ourTool has a smaller increase in
 Execution Time as network size increases meaning that it is able to
 maintain real-time with a model roughly $5$ times larger ($200$ nodes vs
-$40$ nodes) than \simulink.  It is also of note that the change in
-gradient of \ourTool around the $200$ node mark is due to the memory
-usage exceeding the L$3$ cache size ($8$MB in our CPU).
+$40$ nodes) than \simulink.  This aspect is highlighted using the line at 
+$10$~seconds - the point at which the simulated time is equal to the execution 
+time.  It is also of note that the change in gradient of \ourTool around the 
+$200$ node mark is due to the memory usage exceeding the L$3$ cache size ($8$MB 
+in our CPU).
 
 
 \subsection{Diversity}
