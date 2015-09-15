@@ -5,7 +5,7 @@
 We present a set of experiments to evaluate the efficacy of the proposed
 modular code generation tool (\ourTool) with \simulink.  In the first 
 experiment, we evaluate the \emph{scalability} of \ourTool and \simulink as the 
-number of cells in the \ac{NHN} model increases.  In the second experiment, we 
+number of nodes in the \ac{NHN} model increases.  In the second experiment, we 
 select benchmarks that span across different application domains such as 
 medical, physics, and industrial automation to illustrate the \emph{diversity} 
 of the proposed approach.  We compare each of these benchmarks against 
@@ -52,26 +52,26 @@ The experiments were evaluated using an Intel~i7-4790 processor with
 
 For the purposes of this experiment we aim to validate the scalability of
 \ourTool through the running example of the \ac{NHN} whilst comparing it
-to \simulink.  Code was generated for varying network sizes ($33$ cells,
-$66$ cells, $99$ cells, etc.) and the execution time recorded.  The
+to \simulink.  Code was generated for varying network sizes ($33$ nodes,
+$66$ nodes, $99$ nodes, etc.) and the execution time recorded.  The
 experimental set-up was the same as described in
 Section~\ref{sec:experimentalSetUp}, ie. $1$ million iterations at a
 $0.01$ millisecond step size.
 
 The results are shown in Figure~\ref{fig:scalability}, with the most
 obvious feature being that no data is recorded for \simulink for
-complexities greater than $297$ cells.  \simulink imposes an inbuilt
+complexities greater than $297$ nodes.  \simulink imposes an inbuilt
 requirement that the generated code use less than $2$GB of memory. This
 discontinuity represents the point after which the memory usage exceeds
-this limit.\footnote{\simulink memory usage at a $297$ cell network is
+this limit.\footnote{\simulink memory usage at a $297$ node network is
   $1.8$GB.}  \ourTool, on the other hand, is able to continue past this
 point.
 
 These results also illustrate that \ourTool has a smaller increase in
 Execution Time as network size increases meaning that it is able to
-maintain real-time with a model roughly $5$ times larger ($200$ cells vs
-$40$ cells) than \simulink.  It is also of note that the change in
-gradient of \ourTool around the $200$ cell mark is due to the memory
+maintain real-time with a model roughly $5$ times larger ($200$ nodes vs
+$40$ nodes) than \simulink.  It is also of note that the change in
+gradient of \ourTool around the $200$ node mark is due to the memory
 usage exceeding the L$3$ cache size ($8$MB in our CPU).
 
 
