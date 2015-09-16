@@ -17,24 +17,22 @@ of the proposed approach.  We compare each of these benchmarks against
 The following aspects were considered in order to achieve a fair
 comparison between \ourTool and \simulink:
 
-\begin{description}[\IEEEsetlabelwidth{Step Size}\IEEEusemathlabelsep]
-\item[\textbf{Solver}] To reflect the synchronous execution model, we
+\textbf{Solver}: To reflect the synchronous execution model, we
   used a discrete numerical solver with a fixed step in \simulink,
   namely \texttt{ode1} (Forward Euler).
   
-\item[\textbf{Step Size}] For all benchmarks the step size in \simulink
+\textbf{Step Size}: For all benchmarks the step size in \simulink
   is fixed to $0.01$~milliseconds.  The same step size is also used in
   \ourTool, $\delta = 0.01$~milliseconds.
   
-\item[\textbf{Time}] All benchmarks were simulated for $10$~seconds of
+\textbf{Time}: All benchmarks were simulated for $10$~seconds of
   simulation time.  Based on a step size of $0.01$~milliseconds this
-  translates to $1$~million iterations.
+  translates to $1$~million iterations in \ourTool.
   
-\item[\textbf{Compiler}] All code was compiled using the \compiler
+\textbf{Compiler}: All code was compiled using the \compiler
   compiler.  \ourTool code was compiled using both no optimisation
   (\texttt{O0}) and \texttt{O2} optimisation.  \simulink code was
   compiled using the automatically generated Makefile.
-\end{description}
 
 The experiments were evaluated using an Intel~i7-4790 processor with
 $8$\,GB RAM on Windows~$7$.
@@ -68,13 +66,13 @@ $1.8$\,GB.}  \ourTool, on the other hand, is able to continue past this
 point.
 
 These results also illustrate that \ourTool has a smaller increase in
-Execution Time as network size increases meaning that it is able to
-maintain real-time with a model roughly $5$~times larger ($200$~nodes vs
-$40$~nodes) than \simulink.  This aspect is highlighted using the line at 
-$10$~seconds - the point at which the simulated time is equal to the execution 
-time.  It is also of note that the change in gradient of \ourTool around the 
-$200$~node mark is due to the memory usage exceeding the L$3$ cache size 
-($8$\,MB in our CPU).
+Execution Time as network size increases. For the real time constraint of 
+$10$~seconds for the benchmark, this means \ourTool is able to emulate a model 
+roughly $5$~times larger ($200$~nodes vs $40$~nodes) than \simulink.  This 
+can be seen through the line at $10$~seconds - the point at which the simulated 
+time is equal to the execution time.  It is also of note that the change in 
+gradient of \ourTool around the $200$~node mark is due to the memory usage 
+exceeding the L$3$ cache size ($8$\,MB in our CPU).
 
 
 \subsection{Diversity}
