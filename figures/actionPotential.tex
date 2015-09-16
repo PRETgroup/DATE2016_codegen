@@ -17,6 +17,34 @@ smooth,
 const plot
 ]
 table [x=t, y=v, col sep=comma] {./figures/actionPotentialData.csv};
+
+\addplot[color=black!90,
+dashed,
+mark=.,
+mark size=2
+] coordinates {
+	(0,30)
+	(240,30)
+};
+
+\addplot[color=black!90,
+dashed,
+mark=.,
+mark size=2
+] coordinates {
+	(0,44.5)
+	(50,44.5)
+};
+
+\addplot[color=black!90,
+dashed,
+mark=.,
+mark size=2
+] coordinates {
+	(0,131.1)
+	(50,131.1)
+};
+
 \end{axis}
 
 \tikzstyle{every state}=[rectangle, text centered, draw=none,text=black, draw,line width=0.3mm]
