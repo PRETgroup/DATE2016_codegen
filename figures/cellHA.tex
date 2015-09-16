@@ -79,7 +79,7 @@ label={[shift={(-1.5,-2.5)}]\large $\mathbf{q_3}$  }]
 } (Q0);
 
 
-\node[ draw,   inner xsep=1.1cm, inner ysep=2.2cm,
+\node[ draw,   inner xsep=1.1cm, inner ysep=1.9cm, shift={(0, 0.35)},
 label={[label distance=0cm]60:~}, 
 fit= (Q0)(Q2)] (BOX) {};
 
@@ -87,11 +87,11 @@ fit= (Q0)(Q2)] (BOX) {};
 \node[atrialCell, above of = Q0, xshift=2.5cm, node distance = 4.3cm,
 label={[shift={(1,-0.4)}]\large $v$ },
 label={[shift={(1.1,-1.2)}]\large $v_{I_{0}}$ }]
-(AN1){$Node_1$};
+(AN1){$N_1$};
 \node[atrialCell, right of = AN1, node distance = 4cm,
 label={[shift={(-1.1,-0.4)}]\large $v_{I_{0}}$ },
 label={[shift={(-1,-1.2)}]\large $v$ }] 
-(AN2){$Node_2$};
+(AN2){$N_2$};
 \draw[->](AN1.30) -- (AN2.150);
 \draw[->](AN2.210) -- (AN1.-30);
 
