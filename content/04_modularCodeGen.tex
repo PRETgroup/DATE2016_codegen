@@ -23,7 +23,9 @@ Equation~(\ref{eq:euler_equiv}). This witness function evolves the
 variable $v_{x}$ until some invariant condition $Inv$ on the location
 holds. For the current example, Equation~(\ref{eq:euler_equiv}) evolves
 $v_{x}$ \emph{iteratively} until the invariant condition on location
-$\mathbf{q_{0}}$ ($v < V_{T}$) holds.
+$\mathbf{q_{0}}$ ($v < V_{T}$) holds.  The initial value for $v_{x}$ is that 
+from $Init$ in the \ac{HIOA} for the first time control enters $\mathbf{q_0}$ 
+and the value from the previous transition's update thereafter.
 
 
 \begin{equation}
@@ -55,29 +57,34 @@ composing multiple \ac{HIOA} together in Section~\ref{sec:composition}.
 
 In order to facilitate code generation, each \ac{HIOA} is transformed into a 
 simple Mealy \ac{FSM} (such as that shown in Figure~\ref{fig:heartCellFSM}) 
-where each iteration of the program requires a transition be taken.  Each 
-inter-location edge $e$ corresponds to a transition between the same two states 
-with condition equal to its input events conjuncted with the conditions in 
-$Jump(e)$, and output equal to its output events combined with the updates 
-present in $Jump(e)$.
+where each iteration of the \ac{FSM} requires a transition be taken.  Two 
+initial steps are performed: (1) for each location in the \ac{HIOA} there is a 
+corresponding state in the \ac{FSM} of the same name and (2) for each 
+inter-location edge $e$ in the \ac{HIOA} there is a corresponding transition $t$
+between the same two states. Each transition $t$ has a condition equal to the 
+input events of $e$ conjuncted with the conditions in $Jump(e)$, and output 
+equal to the output events of $e$ combined with the updates present in 
+$Jump(e)$.
 
 In order to replicate the continuous evolution of variables within locations we 
-create self transitions on each state in $Loc$, where the invariant in $Inv$ 
-becomes the condition of the transition, and the witness functions for each of 
-the \acs{ODE} described in Section~\ref{sec:converting-odes-into} become the 
-output of the transition. However, to ensure that the generated \ac{FSM} does 
-not ignore any controller inputs the self transition of each state must be of 
-the lowest priority.  This is accomplished by changing the condition to be 
-conjuncted with the negation of the disjunction of all conditions of egress 
-transitions from the state, i.e. $Inv(l) \wedge \neg (Cond(trans_{0}) \vee 
-\dots \vee Cond(trans_{n})$.  For example, in state $\mathbf{q_0}$ the 
-invariant $v < V_{T}$ will become a self transition with a condition of $v < 
-V_{T} \wedge \neg (g(\vec{v_{I}}) \geq V_{T})$ in the generated \ac{FSM}.  The 
-final corresponding \ac{FSM} for the \ac{HIOA} from 
-Figure~\ref{fig:heartCellHA} is shown in Figure~\ref{fig:heartCellFSM}.
+create self transitions on each state in the \ac{FSM}. The invariant in $Inv$ 
+from the initial \ac{HIOA} becomes the condition of the transition, and the 
+witness functions for each of the \acs{ODE} described in 
+Section~\ref{sec:converting-odes-into} become the output of the transition. 
+However, to ensure that the generated \ac{FSM} does not ignore any controller 
+inputs the self transition of each state is made to be of a lower priority 
+than all inter-state transitions.  This is accomplished by changing the 
+condition to be conjuncted with the negation of the disjunction of all 
+conditions of egress transitions from the state, i.e. $Cond(self) \wedge \neg 
+(Cond(trans_{0}) \vee \dots \vee Cond(trans_{n})$.  For location $\mathbf{q_0}$ 
+in the \ac{HIOA} the invariant $v < V_{T}$ will become a self transition on 
+state $\mathbf{q_0}$ in the \ac{FSM} with a condition of $v < V_{T} \wedge \neg 
+(g(\vec{v_{I}}) \geq V_{T})$.  The final corresponding \ac{FSM} for the 
+\ac{HIOA} from Figure~\ref{fig:heartCellHA} is shown in 
+Figure~\ref{fig:heartCellFSM}.
 
-Each of these \acp{FSM} are then transformed into C code which contains an 
-\emph{Initialisation Function} corresponding to the $Init$ of the \ac{FSM} as 
+The \acp{FSM} is then transformed into C code which contains an 
+\emph{Initialisation Function} corresponding to the $Init$ of the \ac{HIOA} as 
 well as the setting of the initial state, and a \emph{Run Function} which, 
 given an existing state $l$ and values for all variables $X$ and events 
 $\Sigma$, performs a single transition and updates any variables or events that 
