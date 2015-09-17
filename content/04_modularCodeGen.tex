@@ -3,29 +3,36 @@
 
 In this section we present our approach for modular code generation from
 a network of \acp{HIOA} as it is implemented in our tool, called
-\ourTool.  An overview of the solution is presented in 
-Figure~\ref{fig:overview}. Firstly, we present how each \ac{ODE} is converted 
-to its numerical equivalent in Section~\ref{sec:converting-odes-into} followed 
-by code generation for a single \ac{HIOA} through the use of a Mealy \ac{FSM} 
-in Section~\ref{sec:backendCodeGeneration}.
+\ourTool. It is a two step procedure as presented previously in
+Figure~\ref{fig:overview}. Step 1 generates a \ac{FSM} representation
+for each \ac{HIOA} in the network. In the resultant \ac{FSM} all
+\acp{ODE} are replaced by their so called witness functions, i.e.,
+static numerical solutions. We describe the translation of the \acp{ODE}
+to their equivalent witness functions in
+Section~\ref{sec:converting-odes-into} followed by code generation for a
+single \ac{HIOA} through the use of a Mealy \ac{FSM} in
+Section~\ref{sec:backendCodeGeneration}.
 
 \subsection{Converting the \acp{ODE} into equivalent witness functions}
 \label{sec:converting-odes-into}
 
-Given the \ac{ODE} for $\dot{v_x}$ in state $\mathbf{q_0}$ of the heart
-node \ac{HIOA} defined in Figure~\ref{fig:heartCellHA} (reproduced in
-Equation~(\ref{eq:ode})), the forward Euler method computes the next
-value of $v_{x}$ (denoted $v'_{x}$) at discrete time instants, separated
-by the so called time step $\delta$
-($\delta \in \mathbb{R}^{+}$). The witness function for $v_{x}$
-implementing the forward Euler method is shown in
-Equation~(\ref{eq:euler_equiv}). This witness function evolves the
-variable $v_{x}$ until some invariant condition $Inv$ on the location
-holds. For the current example, Equation~(\ref{eq:euler_equiv}) evolves
-$v_{x}$ \emph{iteratively} until the invariant condition on location
-$\mathbf{q_{0}}$ ($v < V_{T}$) holds.  The initial value for $v_{x}$ is that 
-from $Init$ in the \ac{HIOA} for the first time control enters $\mathbf{q_0}$ 
-and the value from the previous transition's update thereafter.
+Given the \ac{ODE} for $\dot{v_x}$ in location $\mathbf{q_0}$ of the
+heart node, \ac{HIOA} defined in Figure~\ref{fig:heartCellHA}
+(reproduced in Equation~(\ref{eq:ode})), the witness function computes
+the updated value of $v_{x}$ (denoted $v'_{x}$) at discrete time
+instants, separated by the so called time step $\delta$
+($\delta \in \mathbb{R}^{+}$), using the forward Euler method.  
+
+The witness function, for the \ac{ODE} evolving $v_{x}$, implementing
+the forward Euler method is shown in Equation~(\ref{eq:euler_equiv}).
+Equation~(\ref{eq:euler_equiv}) evolves $v_{x}$ \emph{iteratively} until
+the invariant condition on location $\mathbf{q_{0}}$ ($v < V_{T}$)
+holds. The initial value from which $v_{x}$ starts evolving, in
+$\mathbf{q_{0}}$ is either: (1) specified by the programmer in the
+$Init$ predicate or (2) the final value of $v_{x}$ when an instantaneous
+transition is made from location $\mathbf{q_{3}}$ to $\mathbf{q_{0}}$,
+shown as update $v^{\prime}_{x} = v_{x}$, shown the edge connecting
+these location in Figure~\ref{fig:heartCellHA}.
 
 
 \begin{equation}
@@ -38,54 +45,121 @@ and the value from the previous transition's update thereafter.
   \label{eq:euler_equiv}
 \end{equation}
 
-
-This iterative evolution of the continuous variables at discrete points
-in time is akin to transitions on a logical \emph{tick} of a
-synchronous program~\cite{benveniste03}. A likeness that we will exploit when 
-composing multiple \ac{HIOA} together in Section~\ref{sec:composition}.
-
+% This iterative evolution of the continuous variables at discrete points
+% in time is akin to transitions on a logical \emph{tick} of a synchronous
+% program~\cite{benveniste03}. A likeness that we will exploit when
+% composing multiple \ac{HIOA} together in Section~\ref{sec:composition}.
 
 \subsection{Backend code generation for a single \ac{HIOA}}
 \label{sec:backendCodeGeneration}
 
 \begin{figure}
-  \centering
-  \input{figures/cellFSM}
+  \centering \input{figures/cellFSM}
   \caption{\acf{FSM} of a heart node \label{fig:heartCellFSM}. We ignore
-    the $\tau$ event in the \ac{FSM}, because it always evaluates to $true$.}
+    the $\tau$ event in the \ac{FSM}, because it always evaluates to
+    $true$.}
 \end{figure}
 
-In order to facilitate code generation, each \ac{HIOA} is transformed into a 
-simple Mealy \ac{FSM} (such as that shown in Figure~\ref{fig:heartCellFSM}) 
-where each iteration of the \ac{FSM} requires a transition be taken.  Two 
-initial steps are performed: (1) for each location in the \ac{HIOA} there is a 
-corresponding state in the \ac{FSM} of the same name and (2) for each 
-inter-location edge $e$ in the \ac{HIOA} there is a corresponding transition $t$
-between the same two states. Each transition $t$ has a condition equal to the 
-input events of $e$ conjuncted with the conditions in $Jump(e)$, and output 
-equal to the output events of $e$ combined with the updates present in 
-$Jump(e)$.
-
-In order to replicate the continuous evolution of variables within locations we 
-create self transitions on each state in the \ac{FSM}. The invariant in $Inv$ 
-from the initial \ac{HIOA} becomes the condition of the transition, and the 
-witness functions for each of the \acs{ODE} described in 
-Section~\ref{sec:converting-odes-into} become the output of the transition. 
-However, to ensure that the generated \ac{FSM} does not ignore any controller 
-inputs the self transition of each state is made to be of a lower priority 
-than all inter-state transitions.  This is accomplished by changing the 
-condition to be conjuncted with the negation of the disjunction of all 
-conditions of egress transitions from the state, i.e. $Cond(self) \wedge \neg 
-(Cond(trans_{0}) \vee \dots \vee Cond(trans_{n})$.  For location $\mathbf{q_0}$ 
-in the \ac{HIOA} the invariant $v < V_{T}$ will become a self transition on 
-state $\mathbf{q_0}$ in the \ac{FSM} with a condition of $v < V_{T} \wedge \neg 
-(g(\vec{v_{I}}) \geq V_{T})$.  The final corresponding \ac{FSM} for the 
-\ac{HIOA} from Figure~\ref{fig:heartCellHA} is shown in 
+In order to facilitate code generation, each \ac{HIOA} is transformed
+into a simple Mealy \ac{FSM}. The \ac{FSM} generated from the \ac{HIOA}
+in Figure~\ref{fig:heartCellFSM} is shown in
 Figure~\ref{fig:heartCellFSM}.
 
-The \acp{FSM} is then transformed into C code which contains an 
-\emph{Initialisation Function} corresponding to the $Init$ of the \ac{HIOA} as 
-well as the setting of the initial state, and a \emph{Run Function} which, 
-given an existing state $l$ and values for all variables $X$ and events 
-$\Sigma$, performs a single transition and updates any variables or events that 
-may have changed.
+The translation from a single \ac{HIOA} to its \ac{FSM} representation
+is a two step procedure:
+
+\begin{enumerate}
+\item \textit{Translating locations into states}: The first step
+  translates each location in the \ac{HIOA} into a state in the
+  \ac{FSM}. Hence, the set of locations $\{q_{0}, q_{1}, q_{2}, q_{3}\}$
+  have an equivalent named set of states in the generated \ac{FSM}.
+\item \textit{Translating each edge in the \ac{HIOA} to a transition in
+    the \ac{FSM}}: The second step translates each edge ($e$) in the
+  \ac{HIOA} into an equivalent transition ($t$) in the \ac{FSM}. Every
+  transition ($t$) in the \ac{FSM} is of the form:
+  $\frac{guard}{update}$. The $guard$ precedent, is the conjunction of
+  the set $\Sigma_{EI} \cup \{\tau\}$ and the conditions specified in
+  the $Jump$ predicate on edge $e$. The $update$ antecedent are the
+  updates extracted from the $Jump$ predicate on edges. For example, the
+  edge $(q_{0}, \tau, \emptyset, q_{1})$ with the $Jump$ predicate as
+  shown in Figure~\ref{fig:heartCellHA} translated into a transition in
+  the generated \ac{FSM} is
+  $\frac{\tau \wedge g(\vec{v_{I}} \geq V_{T})}{v^{\prime}_{x} = 0.3v,
+    v^{\prime}_{y}=0.0v, v^{\prime}_{z}=0.7v, \theta^{\prime}=v/V_{T}}$
+  also shown in Figure~\ref{fig:heartCellFSM}. Note, that in
+  Figure~\ref{fig:heartCellFSM}, we have ignored the $\tau$ events,
+  because they always evaluate to $true$.
+
+\end{enumerate}
+
+% Two initial steps are performed: (1) for each location in the
+% \ac{HIOA} there is a corresponding state in the \ac{FSM} of the same
+% name and (2) for each inter-location edge $e$ in the \ac{HIOA} there
+% is a corresponding transition $t$ between the same two states. Each
+% transition $t$ has a condition equal to the input events of $e$
+% conjuncted with the conditions in $Jump(e)$, and output equal to the
+% output events of $e$ combined with the updates present in $Jump(e)$.
+
+The aforementioned steps generate an \ac{FSM} that is able to capture
+the instantaneous transitions across locations called
+\textit{inter-location} transitions, but it are unable capture the
+evolution of the continuous variables via the \acp{ODE}. In order to
+replicate the continuous evolution of variables within the locations, we
+create \textit{self-transitions} on each state in the \ac{FSM}. A
+self-transition by definition has the same source and target state,
+e.g., transition from state $q_{0}$ to $q_{0}$ as shown in
+Figure~\ref{fig:heartCellFSM}. The invariant in $Inv$ from the initial
+\ac{HIOA} becomes the guard of the self-transition, and the witness
+functions for each of the \acs{ODE} described in
+Section~\ref{sec:converting-odes-into} become the update of the
+transition.
+
+Inter-location transitions, for each \ac{HIOA}, in a network of
+\ac{HIOA} may be enabled by external inputs (continuous variables from
+set $X_{EI}$ or discrete events from set $\Sigma_{EI}$). For example,
+the edge connecting $q_{0}$ to $q_{1}$, in Figure~\ref{fig:heartCellHA},
+is enabled as soon as the aggregate voltage of neighbouring node
+($g(\vec{v_{I}})$) is greater than or equal to some thresh hold voltage
+$V_{T}$. In order to ensure that such inter-location transitions are
+enabled correctly, we need to enforce that all self-transitions in the
+generated \ac{FSM} are the lowest priority transitions. This is
+accomplished by updating the guard condition of the self-transitions as
+follows:
+\begin{itemize}
+\item
+  $guard \leftarrow guard \wedge \bigwedge_{\forall \sigma \in
+    \Sigma_{EI}} \neg \sigma$
+\end{itemize}
+
+In the \ac{HIOA} of Figure~\ref{fig:heartCellHA},
+$\Sigma_{EI} = \emptyset$, hence, the self-transition guard conditions
+remain the same.
+
+% to be conjuncted with the negation of the disjunction of all conditions
+% of egress transitions from the state, i.e.
+% $Cond(self) \wedge \neg (Cond(trans_{0}) \vee \dots \vee
+% Cond(trans_{n})$.
+% For location $\mathbf{q_0}$ in the \ac{HIOA} the invariant $v < V_{T}$
+% will become a self transition on state $\mathbf{q_0}$ in the \ac{FSM}
+% with a condition of $v < V_{T} \wedge \neg (g(\vec{v_{I}}) \geq V_{T})$.
+% The final corresponding \ac{FSM} for the \ac{HIOA} from
+% Figure~\ref{fig:heartCellHA} is shown in Figure~\ref{fig:heartCellFSM}.
+
+Each of the generated \ac{FSM}, in the network, may be individually
+transformed into a switch case statement in `C'-code, with a
+corresponding \texttt{Initialization} and \texttt{Input-Output}
+functions to initialize the \ac{FSM} and communicate with its
+environment (nodes in case of the network of \ac{HIOA} for the heart),
+respectively.
+
+% The \acp{FSM} is then transformed into C code which contains an
+% \emph{Initialisation Function} corresponding to the $Init$ of the
+% \ac{HIOA} as well as the setting of the initial state, and a \emph{Run
+%   Function} which, given an existing state $l$ and values for all
+% variables $X$ and events $\Sigma$, performs a single transition and
+% updates any variables or events that may have changed.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../DATE2016_codegen"
+%%% End:

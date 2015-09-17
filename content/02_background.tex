@@ -1,27 +1,25 @@
 \section{Background--the human heart }
 
-
 In this section, using Figure~\ref{fig:heartOverview}, we describe the
 electrical conduction system of the heart.
-%\noindent \textbf{Heart.}
+% \noindent \textbf{Heart.}
 The human heart (see Figure~\ref{fig:heart}) is a biological pump that
 is essential for blood circulation using its rhythmic pumping activity.
 It achieves this by regularly contracting and relaxing its muscles,
 which is orchestrated through flow of electrical signals along a set of
 cellular groups called nodes and associated paths called its
-\emph{conduction system}.  The source of the signal is a natural pace
+\emph{conduction system}. The source of the signal is a natural pace
 maker in the left ventricle, called the \ac{SA} node, which triggers
-automatically.  First, this signal travels through the left and right
+automatically. First, this signal travels through the left and right
 atria, contracting the muscles and pushing the blood into the
 ventricles.
- 
+
 Second, to ensure both ventricles are filled, the \ac{AV} node
-introduces critical delay in the conduction system.  Finally, the
+introduces critical delay in the conduction system. Finally, the
 electrical signal propagates through both ventricles. This contracts the
 muscles and pumps the blood out of the heart.
 
-
-\noindent \textbf{\acf{AP}.}  The propagation of electrical signals at
+\noindent \textbf{\acf{AP}.} The propagation of electrical signals at
 the cellular / nodal level is described as a change in voltage across
 the cell membrane due to ionic flow. Over a period of time, this change
 is depicted as the \acf{AP}~\cite{chen14}, which is shown in
@@ -35,27 +33,26 @@ stages.
   muscles. This depolarisation yields a stimulus that activates
   neighbouring nodes.
 \item \acf{ERP}: Once activated, the node cannot be activated again due
-  to the recovery process of the ionic channels.  Any new stimulus will
+  to the recovery process of the ionic channels. Any new stimulus will
   be blocked during this refactory period.
 \item \acf{RRP}: During this period, the ionic channels have partially
   recovered and the node can be activated again. However, the morphology
   of the \ac{AP} will be shorter, in this instance.
-  
+
 \end{enumerate}
 
+\noindent \textbf{Abstract model.} The human heart has over two trillion
+cells. For analytical purposes, a model consisting of a network of $33$
+nodes is presented in literature and is used for testing off-the-shelf
+pacemakers~\cite{chen14,zhihao12}. The abstracted electrical conduction
+system consisting of nodes and paths is presented in
+Figure~\ref{fig:heartNetwork}. The functionality of each node is
+described using \acf{HIOA} in Section~\ref{sec:HA}. {\color{red}
+  [AVINASH: The path model is not presented anywhere in the paper]]The
+  path model describes the conduction delay of the electrical
+  signal. }Later in Section~\ref{sec:codeGen}, we use this network of
+nodes to illustrate our modular code generation.
 
-\noindent \textbf{Abstract model.}  The human heart has over two
-trillion cells. For analytical purposes, a model consisting of a network
-of $33$ nodes is presented in literature and is used for testing
-off-the-shelf pacemakers~\cite{chen14,zhihao12}.  The abstracted
-electrical conduction system consisting of nodes and paths is presented
-in Figure~\ref{fig:heartNetwork}.  The functionality of each node is
-described using \acf{HIOA} in Section~\ref{sec:HA}. The path model
-describes the conduction delay of the electrical signal.  Later in
-Section~\ref{sec:codeGen}, we use this network of nodes to illustrate
-our modular code generation.
-
- 
 
 
 %%% Local Variables:

@@ -1,31 +1,29 @@
 \begin{abstract}
   We study the problem of modular code generation for emulating the
   electrical conduction system of the heart, which is essential for the
-  validation of implantable devices such as pacemakers. For developing
-  such high fidelity models, it is essential to consider the operation
-  of hundreds, if not millions of conduction elements, called
+  validation of implantable devices such as pacemakers. In order to
+  develop high fidelity models, it is essential to consider the
+  operation of hundreds, if not millions of conduction elements, called
   \emph{nodes} of the heart. Published results so far, however, have
-  considered a maximum of 33~nodes, modelled as \acf{HIOA}. The behaviour
-  of this model is captured using the well known commercial tool
-  \simulink. The proposed approach is limiting due to the lack of model
-  fidelity %as well as the lack of modelling the re-entrant nature 
-  of the  conduction system.
+  considered a maximum of 33~nodes, modelled as \acf{HIOA}. The
+  behaviour of this model is captured using the well known commercial
+  tool \simulink. The proposed approach is limiting due to the lack of
+  model fidelity %as well as the lack of modelling the re-entrant nature
+  of the conduction system.
 
   In this paper, we have developed a radically new approach to tackle
   the aforementioned drawbacks. We first develop a semantic preserving
   modular compilation approach for a network of \ac{HIOA}, by proposing
-  to translate them to a network of so called \ac{SHIOA}.  We then
-  demonstrate that a delayed synchronous composition of the cardiac
-  nodes enables%: %(1) capturing the re-entrant nature of the conduction
-  %system and (2) 
-  modular code generation that is both semantic
-  preserving and efficient. In addition to the above example, we have
-  developed several examples from other domains to compare \simulink and
-  the developed tool called \textit{Piha}. The results show that we are
-  able to generate code that is on an average 54\% smaller in binary
-  size while executing 9.8~times faster compared to \simulink.  We have
-  also compared the scalability of the proposed approach relative to
-  \simulink to prove its relative superiority.
+  to translate them to a network of \acp{FSM}. We then demonstrate that
+  a delayed synchronous composition of the cardiac nodes enables modular
+  code generation that is both semantic preserving and efficient. In
+  addition to the above example, we have developed several examples from
+  other domains to compare \simulink and the developed tool called
+  \textit{Piha}. The results show that we are able to generate code that
+  is on an average 54\% smaller in binary size while executing 9.8~times
+  faster, on average, compared to \simulink.  We have also compared the
+  scalability of the proposed approach relative to \simulink to prove
+  its relative superiority.
 
   \ignore{Real-time emulation of a plant is often desirable to
     facilitate the testing of controllers under realistic conditions.
@@ -48,3 +46,9 @@
     the scalability of our approach in order to illustrate its potential
     in allowing real-time emulation of complex \ac{HIOA} networks.}
 \end{abstract}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../DATE2016_codegen"
+%%% End:

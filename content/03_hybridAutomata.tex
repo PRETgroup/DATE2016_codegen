@@ -1,72 +1,75 @@
 \section{Hybrid Automata}
 \label{sec:HA}
 
-
 \acf{HIOA} is ideal for describing \ac{CPS}. It is very expressive,
 non-deterministic and has been successfully used for capturing the
-behaviour of a plant in control systems.  In this section, we use the
+behaviour of a plant in control systems. In this section, we use the
 \ac{HIOA} in Figure~\ref{fig:heartCellHA}, which captures the \ac{AP} in
 Figure~\ref{fig:actionPotential} as a running example to provide a
 formal definition and an informal description of the semantics of
 \ac{HIOA}.
 
-
-
 \subsection{Example of \acf{HIOA} }
 
 \begin{figure}
-  \centering
-  \input{figures/cellHA}
+  \centering \input{figures/cellHA}
   \caption{Top of the figure shows the interaction between two heart nodes 
-  ($N_1$ and $N_2$). Each node is defined as a \acf{HIOA} 
-  \label{fig:heartCellHA}}
+    ($N_1$ and $N_2$). Each node is defined as a \acf{HIOA} 
+    \label{fig:heartCellHA}}
 \end{figure}
 
 The \ac{HIOA} shown in Figure~\ref{fig:heartCellHA} captures the
 behaviour of the four stages of \ac{AP} shown in
 Figure~\ref{fig:actionPotential}. Each stage of the \ac{AP} is captured
-with so called locations in the \ac{HIOA}. 
-The curve-fitting technique was used to model the 
-morphology of the action potential using three continuous 
-variables ($v_x$, $v_y$, and $v_z$) and is based on existing model~\cite{YeESG08}. 
-The dynamic response of the action potential to secondary excitations is captured by the variable~$\theta$. 
+with so called locations in the \ac{HIOA}. The \ac{AP} of every node, in
+the heart, evolves over time, this evolution of the \ac{AP} is captured
+with three \acfp{ODE} evolving three individual variables: $v_{x}$,
+$v_{y}$, and $v_{z}$, respectively. The overall voltage of the \ac{AP}
+is then aggregated into a single variable $v$ as defined
+in~\cite{YeESG08}. The aggregated \ac{AP} voltage $v$ of each node
+effects its neighboring nodes and vice-versa. This effect of the
+neighboring voltages is captured in the \ac{HIOA} via function
+$g(\vec{v_{I}})$, where $\vec{v_{I}}$ represents the \emph{vector} of
+voltages. Finally, the dynamic response of the action potential to
+secondary excitation is captured by the variable~$\theta$.
 
-For the first stage
-(\ac{RP}), the continuous dynamics are captured in location
-$\mathbf{q_0}$. \textit{Ordinary Differential Equation} (ODEs), for
-example \mbox{$\dot{v_{x}} = C_{1}v_{x}$}, capture the continuous
+For the first stage (\ac{RP}), the continuous dynamics are captured in
+location $\mathbf{q_0}$. \textit{Ordinary Differential Equation} (ODEs),
+for example \mbox{$\dot{v_{x}} = C_{1}v_{x}$}, capture the continuous
 evolution of the voltage of the node in location $\mathbf{q_{0}}$ until
-the location invariant $v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$
-holds. Once the external stimulus, $g(\vec{v_{I}})$ -- the aggregate
-voltage from neighboring nodes, crosses the threshold $V_{T}$, indicated
-by the predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} on the edge
-connecting locations $q_{0}$ and $q_{1}$, the \ac{HIOA} transitions to
-location $\mathbf{q_{1}}$ \textit{instantaneously}. During this
-transition; the variables (e.g, $v^{\prime}_{x}$) are updated. These
-updated values of the variables are used as initial conditions for the
-ODEs in the target location.
+the so called location invariant
+$v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$ holds.  Once the external
+stimulus, $g(\vec{v_{I}})$, crosses some threshold $V_{T}$, indicated by
+the predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} on the edge connecting
+locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$, the \ac{HIOA}
+transitions to location $\mathbf{q_{1}}$
+\textit{instantaneously}. During this transition, the variables (e.g,
+$v^{\prime}_{x}$) are updated. These updated values of the variables are
+used as initial conditions from which the variables evolve further via
+the \acp{ODE} in the target location.
 
-Once the total voltage of the node ($v$) exceeds the threshold voltage
+Once the voltage of the node ($v$) exceeds the threshold voltage
 $V_{T}$, it begins its \ac{ERP} phase (captured by location
 $\mathbf{q_2}$). The final location, $\mathbf{q_3}$, represents the
-\ac{RRP} stage.  The constants $C_1$ through to $C_{15}$, configure the
+\ac{RRP} stage. The constants $C_1$ through to $C_{15}$, configure the
 morphology of the \ac{AP}. Furthermore, constants $V_T$, $V_O$, and
 $V_R$ determine the height of the \ac{AP} and transitions between
 locations of the \ac{HIOA} that further modify the morphology.
 
-The voltage of any node in the heart effects its neighboring nodes and
-vice-versa. Hence, a means to communicate the voltages of the node to
-its neighbors is needed. We achieve this communication between nodes of
-the heart using the input and output variables and events available in
-the \ac{HIOA} framework. We formalise the \ac{HIOA} using
-Definition~\ref{def:ha}.
+% The voltage of any node in the heart effects its neighboring nodes and
+% vice-versa. Hence, a means to communicate the voltages of the node to
+% its neighbors is needed. We achieve this communication between nodes of
+% the heart using the input and output variables and events available in
+% the \ac{HIOA} framework. 
 
+
+We formalise the \ac{HIOA} using Definition~\ref{def:ha}.
 
 \begin{definition}
-%\label{def:1}
+  % \label{def:1}
   A \acf{HIOA} \newline $\mathcal{H}$ =
   $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I, X_{EO},
-  X_{EI}, \linebreak Init, Inv, Flow, Jump\rangle$ where
+  X_{EI}, \linebreak Init, Inv, Flow, Up, Jump\rangle$ where
   \begin{itemize}
   \item $Loc=\{l_1,..,l_n\}$ representing $n$ locations.
   \item $\Sigma_{E} = \Sigma_{EI} \cup \Sigma_{EO}$ is the set of
@@ -74,13 +77,11 @@ Definition~\ref{def:ha}.
     external input and external output events,
     respectively. Furthermore,
     \mbox{$\Sigma_{EI} \cap \Sigma_{EO} = \emptyset$}.
-  \item $\Sigma=\Sigma_I \cup \Sigma_{E} \cup \{\iSignal\}$ is set of
-    event names comprising of internal, external and $True$ event,
-    respectively. Furthermore,
-    \mbox{$\Sigma_I \cap \Sigma_E = \emptyset$}.
+  \item $\Sigma=\Sigma_{E} \cup \{\iSignal\}$ is set of event names
+    comprising of external and the $true$ event, respectively.
   \item
-    $Edge \subseteq Loc \times \mathcal{B}(\Sigma_I \cup \Sigma_{EI}
-    \cup \{\tau\}) \times 2^{\Sigma_{EO}} \times Loc$
+    $Edge \subseteq Loc \times \mathcal{B}(\Sigma_{EI} \cup \{\tau\})
+    \times 2^{\Sigma_{EO}} \times Loc$
     are the set of edges between locations.
   \item Three sets for the set of internal continuous variables, their
     rate of change and their updated values represented as follows:
@@ -98,6 +99,8 @@ Definition~\ref{def:ha}.
   \item $Flow(l)$: Is a predicate whose free variables are from
     $X_I \cup \dot{X_I}$ and it specifies the rate of change of these
     variables when the HIOA resides in $l$.
+  \item $Up(l)$: Is a function that assigns to each variable in set
+    $X_{EO}$ a valuation of the variables from the set $X_{I}$.
   \item $Jump(e)$: Is a function that assigns to the edge `$e$' a
     predicate whose free variables are from $X_I \cup X_I' \cup X_E$.
     This predicate specifies when the location switch using `$e$' is
@@ -110,191 +113,186 @@ Definition~\ref{def:ha}.
 For the \ac{HIOA} in Figure~\ref{fig:heartCellHA},
 $Loc=\{q_{0},q_{1},q_{2},q_{3}\}$, $\Sigma_{EI} = \emptyset$,
 $\Sigma_{EO}=\emptyset$, and
-$\Sigma=\{\tau\}$. $X=\{\theta,v_{x},v_{y},v_{z},v\}$,
-\mbox{$\dot{X}=\{\dot{\theta},\dot{v_{x}},\dot{v_{y}},\dot{v_{z}}\}$},
-\mbox{$X=\{\theta',{v'_{x}},{v'_{y}},\dot{v'_{z}}\}$}.
-$X_{EI}=\{v_{i}, \forall v_{i} \in \vec{v_{I}}\}$.  $X_{EO}=\{v\}$. An
+$\Sigma=\{\tau\}$. \mbox{$X_{I}=\{\theta,v_{x},v_{y},v_{z}\}$},
+\mbox{$\dot{X_{I}}=\{\dot{\theta},\dot{v_{x}},\dot{v_{y}},\dot{v_{z}}\}$},
+\mbox{$X^{\prime}_{I}=\{\theta',{v'_{x}},{v'_{y}},\dot{v'_{z}}\}$}.
+$X_{EI}=\{v_{i}| \forall v_{i} \in \vec{v_{I}}\}$. $X_{EO}=\{v\}$. An
 example of initial predicate is:
-$Init(l): v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0 \wedge \theta=0$. An example 
-edge connecting locations $q_{0}$ and $q_{1}$ is represented with the tuple:
-$(q_{0},\tau,\emptyset,q_{1})$. The example of invariant ($Inv$)
-predicate on location $q_{0}$ is:
+$Init(l): v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0 \wedge \theta=0$. An
+example edge connecting locations $q_{0}$ and $q_{1}$ is represented
+with the tuple: $(q_{0},\tau,\emptyset,q_{1})$. The example of invariant
+($Inv$) predicate on location $q_{0}$ is:
 $v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$. The $Jump$ condition on
 the edge connecting locations $q_{0}$ and $q_{1}$ is enabled when the
 predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} is true, and the updated
-variables are as shown in Figure~\ref{fig:heartCellHA}. Finally, the
-$Flow$ predicate in location $q_{0}$ is the set of ODEs in
-Figure~\ref{fig:heartCellHA}.
-
+variables are as shown in Figure~\ref{fig:heartCellHA}. An example of
+the $Up$ predicate is the function $v = v_{x} - v_{y} + v_{z}$ in all
+locations in Figure~\ref{fig:heartCellHA}. Finally, the $Flow$ predicate
+in location $q_{0}$ are the set of \acp{ODE}, in location
+$\mathbf{q_{0}}$ in Figure~\ref{fig:heartCellHA}.
 
 % \begin{definition}[Hybrid Automata]
 %   \label{def:ha}
 %   $HIOA = \langle Loc, X, \Sigma, Init, Inv, Flow, Jump \rangle$ where
-%   % Locations
+%   %   Locations
 %   $Loc=\{q_0,q_1,q_2,q_3\}$ is a set of locations.
 %   $X=\{v,v_x,v_y,v_z,\theta\}$ is a set of continuous variables.
-%   $\Sigma=\Sigma_I \cup \Sigma_O \cup \{\iSignal\}$ is a set of
-%   input, output, and internal events.
-%   $Init=\{(q_0,v): v < V_T\}$ is the initial condition.
-%   $Inv=\{(q_3,v): v > V_R\}$ is the invariant.
+%   $\Sigma=\Sigma_I \cup \Sigma_O \cup \{\iSignal\}$ is a set of input,
+%   output, and internal events.  $Init=\{(q_0,v): v < V_T\}$ is the
+%   initial condition.  $Inv=\{(q_3,v): v > V_R\}$ is the invariant.
 %   $Flow=\{(q_0,v_x): C_1 v_x\}$ specifies the continuous flow rate.
 %   $Jump=\{(q_n, q_m): signal, cond, update\}$: describes the discrete
-%   transition from $q_n$ and $q_m$ which is enabled when $signal$ is 
+%   transition from $q_n$ and $q_m$ which is enabled when $signal$ is
 %   present and the $cond$ evaluates to true, perfoms and $update$
-%   during this transition.
-%   Further, to remove non-determinism, we must ensure that
-%   for all locations there does not exist more than one 
+%   during this transition.  Further, to remove non-determinism, we must
+%   ensure that for all locations there does not exist more than one
 %   active $Jump$ transition.
 % \end{definition}
 
-%{\color{red} Given $m$ number of \acp{HIOA} in a network.  The network
-%  can be described as $HIOA_1 || \dots || HIOA_m$.}
+% {\color{red} Given $m$ number of \acp{HIOA} in a network. The network
+% can be described as $HIOA_1 || \dots || HIOA_m$.}
 
+% \section{\acf{SHIOA}}
+% \label{sec:SHA}
 
-%\section{\acf{SHIOA}}
-%\label{sec:SHA}
-
-%Every \ac{HIOA} is converted into a so called \ac{SHIOA}, where the ODEs
-%in the flow predicates are replaced by their equivalent witness
-%functions $Switness$. The witness function computes the evolution of the
-%continuous variables using the forward Euler approach with a
-%\emph{constant} step size. Before giving the formal definition of the
-%\ac{SHIOA} and describing the compilation procedure, we present the
-%procedure to convert each ODE into its equivalent witness function, this
-%is the step 1 (c.f. Figure~\ref{fig:overview}) in our modular code
-%generation framework.
-
-
+% Every \ac{HIOA} is converted into a so called \ac{SHIOA}, where the
+% ODEs in the flow predicates are replaced by their equivalent witness
+% functions $Switness$. The witness function computes the evolution of
+% the continuous variables using the forward Euler approach with a
+% \emph{constant} step size. Before giving the formal definition of the
+% \ac{SHIOA} and describing the compilation procedure, we present the
+% procedure to convert each ODE into its equivalent witness function,
+% this is the step 1 (c.f. Figure~\ref{fig:overview}) in our modular
+% code generation framework.
 
 % \renewcommand{\algorithmiccomment}[1]{// #1}
 % \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 % \renewcommand{\algorithmicensure}{\textbf{Output:}}
 % \begin{algorithm}[t!]
 %   \begin{algorithmic}[1]
-%     \REQUIRE Network of HIOA has 
-%     \ENSURE Network of SHIOA shas
+%     \REQUIRE Network of HIOA has \ENSURE Network of SHIOA shas
 %     \FORALL{$ha \in has$} \label{alg:HAsToSHAs:allHAs}
-%     \FORALL{$loc \in ha$}  \label{alg:HAsToSHAs:allLocs}
-%     \FORALL{$ode \in loc$} \label{alg:HAsToSHAs:allODEs}
-%     \STATE $eq \leftarrow create\_euler(ode)$ \label{alg:HAsToSHAs:createEuler}
-%     \STATE $ode \leftarrow eq$ \label{alg:HAsToSHAs:assignOde}
+%     \FORALL{$loc \in ha$} \label{alg:HAsToSHAs:allLocs}
+%     \FORALL{$ode \in loc$} \label{alg:HAsToSHAs:allODEs} \STATE
+%     $eq \leftarrow create\_euler(ode)$
+%     \label{alg:HAsToSHAs:createEuler} \STATE $ode \leftarrow
+%     eq$ \label{alg:HAsToSHAs:assignOde}
 %     \ENDFOR
 %     \ENDFOR
 %     \ENDFOR
 %     \RETURN this
 %   \end{algorithmic}
-%   \caption{The algorithm to generate a Network of \acp{SHIOA} from a Network of \acp{HIOA}}
+%   \caption{The algorithm to generate a Network of \acp{SHIOA} from a
+%   Network of \acp{HIOA}}
 %   \label{alg:HAsToSHAs}
 % \end{algorithm}
 
 % The procedure for performing this conversion across the entire network
 % of \acp{HIOA} to generate a network of \acp{SHIOA} is shown in
-% Algorithm~\ref{alg:HAsToSHAs}.  The algorithm needs to visit every
+% Algorithm~\ref{alg:HAsToSHAs}. The algorithm needs to visit every
 % \ac{HIOA} in the network, every location within each \ac{HIOA}, and
 % every \ac{ODE} in each location (lines~\ref{alg:HAsToSHAs:allHAs} -
-% \ref{alg:HAsToSHAs:allODEs}).  For each of these \acp{ODE} the forward
+% \ref{alg:HAsToSHAs:allODEs}). For each of these \acp{ODE} the forward
 % Euler equivalent is created in the same manner as described earlier
-% (line~\ref{alg:HAsToSHAs:createEuler}).  Each \ac{ODE} is eventually
+% (line~\ref{alg:HAsToSHAs:createEuler}). Each \ac{ODE} is eventually
 % replaced (line~\ref{alg:HAsToSHAs:assignOde}) by its equivalent
 % numerical solution in order to form the network of \acp{SHIOA}.
 
-%\subsection{Definition of \acf{SHIOA}}
-%\label{sec:defSHA}
+% \subsection{Definition of \acf{SHIOA}}
+% \label{sec:defSHA}
 
-%\begin{figure}
-%  \centering
-%  \input{figures/cellSHA}
-%  \caption{\acf{SHIOA} of a heart node \label{fig:heartCellSHA}}
-%\end{figure}
+% \begin{figure}
+%   \centering \input{figures/cellSHA}
+%   \caption{\acf{SHIOA} of a heart node \label{fig:heartCellSHA}}
+% \end{figure}
 
-%A \ac{SHIOA} is an abstraction of the corresponding \ac{HIOA}.  It
-%inherits all the components of a \ac{HIOA} except that the ODEs in the
-%$Flow$ predicates are replaced by their individual witness functions
-%$Switness$. The
-%$Switness(l,\delta,\vec{v}_{l,X_{I}})=\vec{v}^{\prime}_{l,X_{I}}$,
-%function returns the new values of continuous variables in location $l$
-%after one iteration of step size $\delta$ given the current valuation
-%($\vec{v}^{\prime}_{l,X_{I}}$) of continuous variables in $X_{I}$.  We
-%now formalise the \ac{SHIOA} using Definition~\ref{def:sha} and
-%illustrate it using Figure~\ref{fig:heartCellSHA}.
+% A \ac{SHIOA} is an abstraction of the corresponding \ac{HIOA}. It
+% inherits all the components of a \ac{HIOA} except that the ODEs in the
+% $Flow$ predicates are replaced by their individual witness functions
+% $Switness$. The
+% $Switness(l,\delta,\vec{v}_{l,X_{I}})=\vec{v}^{\prime}_{l,X_{I}}$,
+% function returns the new values of continuous variables in location
+% $l$ after one iteration of step size $\delta$ given the current
+% valuation ($\vec{v}^{\prime}_{l,X_{I}}$) of continuous variables in
+% $X_{I}$. We now formalise the \ac{SHIOA} using
+% Definition~\ref{def:sha} and illustrate it using
+% Figure~\ref{fig:heartCellSHA}.
 
-%\begin{definition}
-%  Given a well formed HIOA $\mathcal{H}$ =
-%  $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I, X_{EO},
-%  X_{EI}, \linebreak Init, Inv, Flow, Jump\rangle$
-%  a SHIOA corresponding to this HIOA is $\mathcal{A}$ =
-%  $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I,
-%  X_{EO},\linebreak X_{EI}, Init, Inv, Witness, Jump, Step\rangle$
-%%  where:
-%  \begin{itemize}
-%  \item $Step = \delta$ ($\delta \in \mathbb{R}^+$) is the duration of
-%    the synchronous instant.
-% \item
-%    $Switness: Loc \times \mathbb{R} \times \mathbb{R}^{\|X_{I}\|}
-%    \rightarrow \mathbb{R}^{\|X_{I}\|}$:
-%    is the Euler function(s) that returns the new values of all the
-%    continuous variables for a given location $l$.  It also takes as
-%    input the time step $\delta$ and the current values of all variables
-%    in set $X_{I}$.
-%  \end{itemize}
-%  \label{def:sha}
-%\end{definition}
+% \begin{definition}
+%   Given a well formed HIOA $\mathcal{H}$ =
+%   $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I, X_{EO},
+%   X_{EI}, \linebreak Init, Inv, Flow, Jump\rangle$
+%   a SHIOA corresponding to this HIOA is $\mathcal{A}$ =
+%   $\langle Loc, Edge, \Sigma_I, \Sigma_{EO}, \Sigma_{EI}, X_I,
+%   X_{EO},\linebreak X_{EI}, Init, Inv, Witness, Jump, Step\rangle$
+%%   where:
+%   \begin{itemize}
+%   \item $Step = \delta$ ($\delta \in \mathbb{R}^+$) is the duration of
+%     the synchronous instant.
+%   \item
+%     $Switness: Loc \times \mathbb{R} \times \mathbb{R}^{\|X_{I}\|}
+%     \rightarrow \mathbb{R}^{\|X_{I}\|}$:
+%     is the Euler function(s) that returns the new values of all the
+%     continuous variables for a given location $l$. It also takes as
+%     input the time step $\delta$ and the current values of all
+%     variables in set $X_{I}$.
+%   \end{itemize}
+%   \label{def:sha}
+% \end{definition}
 
-
-%{\color{red} Given $m$ number of \acp{SHIOA} in a network.  The network
-%  can be described as $SHIOA_1 || \dots || SHIOA_m$.}
-
+% {\color{red} Given $m$ number of \acp{SHIOA} in a network. The network
+% can be described as $SHIOA_1 || \dots || SHIOA_m$.}
 
 % \subsection{Deterministic semantics of \ac{SHIOA}}
 % \label{sec:DTTS}
 % Deterministic semantics of a \ac{SHIOA} is provided as a \acf{DTTS} in
-% Definition~\ref{def:dtts}. We assume that all transitions of a \acf{DTTS}
-% trigger relative to the ticks of the logical clock of the synchronous
-% program.
+% Definition~\ref{def:dtts}. We assume that all transitions of a
+% \acf{DTTS} trigger relative to the ticks of the logical clock of the
+% synchronous program.
 % 
 % \begin{definition}
 %   The semantics of a \newline
-%   $SHIOA = \langle Loc,  \Sigma, Init, Inv, Switness, Jump, Step \rangle$
-%   is a 
-%   $DTTS = \langle Q, Q^0, \Sigma, \rightarrow \rangle$ where
+%   $SHIOA = \langle Loc, \Sigma, Init, Inv, Switness, Jump, Step
+%   \rangle$
+%   is a $DTTS = \langle Q, Q^0, \Sigma, \rightarrow \rangle$ where
 %   
 %   \begin{itemize}
 %   \item The state-space is $Q$, where any state is of the form
-%     $(l, v, i, k)$ where $l$ is a location, $i$ is the initial valuation
-%     of the variables when execution begins in the location and $v$ is
-%     the valuation at the $k$-th instant.
+%     $(l, v, i, k)$ where $l$ is a location, $i$ is the initial
+%     valuation of the variables when execution begins in the location
+%     and $v$ is the valuation at the $k$-th instant.
 %   \item $Q^0 \subseteq Q$ where every $q^0 \in Q^0$ is of the form
 %     $(l, v^0, i, k)$ such that $v$ satisfies $Init(l)$.
 %   \item Transitions are of two types:
 %     \begin{itemize}
-%     \item \emph{Inter-location transitions} that lead to a change in location:
-%       These are of the form
+%     \item \emph{Inter-location transitions} that lead to a change in
+%       location: These are of the form
 %       $(l, v, i, k) \stackrel{\sigma} \rightarrow (l', v', i', 0)$ if
 %       $(l, v, i, k) \in Q$, $(l', v', i', 0) \in Q$,
 %       $e=(l \stackrel{\sigma} \rightarrow l') \in Edge$ and $(v, v')$
 %       satisfy $Jump(e)$.
-%     \item \emph{Intra-location transitions} made during the execution in
-%       a given mode / location: These are of the form
+%     \item \emph{Intra-location transitions} made during the execution
+%       in a given mode / location: These are of the form
 %       $(l, v, i, k) \rightarrow (l, v', i, k+1)$ if
 %       $(l, v, i, k) \in Q$, $(l, v', i, k+1) \in Q$, $(v, v')$ satisfy
-%       $Inv(l)$, $Switness(l,k,\delta,i)=v$ and $Switness(l,k+1,\delta,i)=v'$.
+%       $Inv(l)$, $Switness(l,k,\delta,i)=v$ and
+%       $Switness(l,k+1,\delta,i)=v'$.
 %     \end{itemize}
 %     
-%			\item Restriction: Inter-location transitions always have \emph{higher} priority
-%     over {Intra-location transitions}. This avoids the non-determinism.
+%			\item Restriction: Inter-location transitions
+%     always have \emph{higher} priority over {Intra-location
+%     transitions}. This avoids the non-determinism.
 %   \end{itemize}
 %   \label{def:dtts}
 % \end{definition}
-
 
 % \subsection{Generation of a network of \ac{SHIOA}}
 % \label{sec:shaGeneration}
 
 % This section describes step $1$ of the compilation process from
-% Figure~\ref{fig:overview}.  This step involves converting all of the
-% \acp{ODE} in each of the \acp{HIOA} into their forward Euler equivalent
-% methods.
-
+% Figure~\ref{fig:overview}. This step involves converting all of the
+% \acp{ODE} in each of the \acp{HIOA} into their forward Euler
+% equivalent methods.
 
 %%% Local Variables:
 %%% mode: latex
