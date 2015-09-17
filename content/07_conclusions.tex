@@ -3,7 +3,7 @@
 While this paper focuses on the example of cardiac pacemakers the proposed code generation for emulation of plant is applicable beyond just the medical domain.
 This is illustrated through the diverse range of benchmarks presented in Section~\ref{sec:diversity}.
 
-We show that our approach for dynamic code generation from \ac{HIOA} can 
+We show that our approach for modular code generation from \ac{HIOA} can 
 provide, on average $9.8$ times faster execution and $54\%$ smaller executables 
 when compared to \simulink.
 We also show that for the \acf{NHN} benchmark our approach is capable of 
@@ -11,7 +11,6 @@ emulation of networks that are $5$ times more complex.
 
 The usage of numerical methods for the solving of \acp{ODE} means our approach is highly dependent on the step size $\delta$ in order for correct emulation.
 Thus, the use of higher order \ac{ODE} solvers (such as Runge-Kutta) may need to be investigated in order to allow the step size $\delta$ to be increased.
-
 While our approach requires the \ac{HIOA} from which code is generated to be 
 deterministic, the emulation of such non-deterministic \ac{HIOA} is something 
 to be investigated.
