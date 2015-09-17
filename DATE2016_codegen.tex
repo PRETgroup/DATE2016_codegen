@@ -3,9 +3,6 @@
 
 \documentclass[conference]{IEEEtran}
 
-
-
-
 \usepackage{acronym}
 
 \usepackage{array}
@@ -43,11 +40,22 @@
 \newtheorem{definition}{Definition}
 
 \input{./content/00_macros.tex}  %Macros/#defs for the paper
+
 \begin{document}
+	
+		\renewcommand\floatpagefraction{.9}
+		\renewcommand\dblfloatpagefraction{.95} % for two column documents
+		\renewcommand\topfraction{.95}
+		\renewcommand\dbltopfraction{.95} % for two column documents
+		\renewcommand\bottomfraction{.95}
+		\renewcommand\textfraction{.1}   
+		\setcounter{totalnumber}{50}
+		\setcounter{topnumber}{50}
+		\setcounter{bottomnumber}{50}
+		
 \input{./content/00_acronyms.tex} 		%acronyms
 	
-\title{Modular code generation for emulating the electrical conduction system of the  human heart 
-\ignore{Modular Code Generation from Hybrid Automata for Plant Emulation} }
+\title{Modular code generation for emulating the electrical conduction system of the  human heart \vspace{-1cm} }
 
 \author{
 	%blind review

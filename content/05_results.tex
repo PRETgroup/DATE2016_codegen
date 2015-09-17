@@ -15,25 +15,23 @@ of the proposed approach.  We compare each of these benchmarks against
 \subsection{Experimental set-up}
 \label{sec:experimentalSetUp}
 The following aspects were considered in order to achieve a fair
-comparison between \ourTool and \simulink:
-
-\textbf{Solver}: To reflect the synchronous execution model, we
+comparison between \ourTool and \simulink. 
+(1) \textbf{Solver}: To reflect the synchronous execution model, we
   used a discrete numerical solver with a fixed step in \simulink,
   namely \texttt{ode1} (Forward Euler).
-  
+(2) 
 \textbf{Step Size}: For all benchmarks the step size in \simulink
   is fixed to $0.01$~milliseconds.  The same step size is also used in
   \ourTool, $\delta = 0.01$~milliseconds.
-  
+(3) 
 \textbf{Time}: All benchmarks were simulated for $10$~seconds of
   simulation time.  Based on a step size of $0.01$~milliseconds this
   translates to $1$~million iterations in \ourTool.
-  
+  (4)
 \textbf{Compiler}: All code was compiled using the \compiler
   compiler.  \ourTool code was compiled using both no optimisation
   (\texttt{O0}) and \texttt{O2} optimisation.  \simulink code was
   compiled using the automatically generated Makefile.
-
 The experiments were evaluated using an Intel~i7-4790 processor with
 $8$\,GB RAM on Windows~$7$.
 
