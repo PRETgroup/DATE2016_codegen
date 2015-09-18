@@ -11,8 +11,8 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 
 %-----------------------------------------------------------------------
 \node [fileS,fill=red!10] (HA1) {$HIOA_1$ ($Def.~\ref{def:ha}$)};
-\node[below of = HA1, node distance = 1.0cm](PAR){\Large $\dots$};
-\node [fileS,fill=red!10,below of = PAR, node distance = 1.0cm] (HA2) 
+\node[below of = HA1, node distance = 0.8cm](PAR){\Large $\dots$};
+\node [fileS,fill=red!10,below of = PAR, node distance = 0.8cm] (HA2) 
 	{$HIOA_2$ ($Def.~\ref{def:ha}$)};	
 %\node[below of = PAR, node distance=1.3cm, text width=3.7cm, text centered]
 %	(TNHA){Network of HA};
@@ -29,8 +29,8 @@ text width=9em, text centered, rounded corners, minimum height=4em]
 %-----------------------------------------------------------------------
 \node [fileS, right of = HA1, fill=red!20, text width=4.6em, node distance = 4.3cm] 
 (FSM1) {$FSM_1$ ($Sec.~\ref{sec:converting-odes-into}$)};
-\node[below of = FSM1, node distance = 1.0cm](PAR){\Large $\dots$};
-\node [fileS,,fill=red!20,below of = PAR, text width=4.6em, node distance = 1.0cm] (FSM2) 
+\node[below of = FSM1, node distance = 0.8cm](PAR){\Large $\dots$};
+\node [fileS,,fill=red!20,below of = PAR, text width=4.6em, node distance = 0.8cm] (FSM2) 
 {$FSM_2$ ($Sec.~\ref{sec:converting-odes-into}$)};	
 
 \node[draw, dashed, inner sep=0.2cm,
@@ -54,9 +54,9 @@ fit= (PC)] (S3) {};
 \draw [line] (HA1) -- (FSM1) node[midway, below,text width=2cm]
 {Step~1:  Code generation};
 \draw [line] (HA2) -- (FSM2);
-\draw [line] (FSM1) -| (PC.150) node[ pos=0.4, above, text width=3cm]
+\draw [line] (FSM1.10) -| (PC.150) node[ pos=0.4, above, text width=3cm]
 {Step~2:  Parallel composition};
-\draw [line] (FSM2) -| (PC.210);
+\draw [line] (FSM2.-10) -| (PC.210);
 
 
 \end{tikzpicture}    
