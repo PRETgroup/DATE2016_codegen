@@ -24,14 +24,14 @@ Figure~\ref{fig:actionPotential}. Each stage of the \ac{AP} is captured
 using locations in the \ac{HIOA}. The \ac{AP} of every node, in
 the heart, evolves over time, this evolution of the \ac{AP} is captured
 with three \acfp{ODE} evolving three individual variables: $v_{x}$,
-$v_{y}$, and $v_{z}$, respectively. The overall voltage of the \ac{AP}
+$v_{y}$, and $v_{z}$. The overall voltage of the \ac{AP}
 is then aggregated into a single variable $v$ as defined
 in~\cite{YeESG08}. The aggregated \ac{AP} voltage $v$ of each node
-effects its neighbouring nodes and vice-versa. This effect of the
-neighbouring voltages is captured in the \ac{HIOA} via function
+affects its neighbouring nodes and vice-versa. This effect of the
+neighbouring voltages is captured in the \ac{HIOA} via a function
 $g(\vec{v_{I}})$, where $\vec{v_{I}}$ represents the \emph{vector} of input
 voltages. This function is shown in Equation~\ref{eq:gFunction} where 
-$k_{i}$ is a constant depending on the neighbour, and $v$ refers to the cell's 
+$k_{i}$ is a constant depending on the neighbour, and $v$ refers to the node's 
 current voltage.  Finally, the dynamic response of the action potential to 
 secondary excitation is captured by the variable~$\theta$.
 
@@ -46,7 +46,7 @@ C_{1}v_{x}$}, capture the continuous evolution of components of $v$ ($v_{x}$,
 $v_{y}$, $v_{z}$) when control resides in location $\mathbf{q_{0}}$ 
 while the location invariant $v < V_{T}$ holds.  Once the external
 stimulus, $g(\vec{v_{I}})$, crosses some threshold $V_{T}$, indicated by
-the predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} on the edge connecting
+the predicate \mbox{$g(\vec{v_{I}}) \geq V_{T}$} on the edge connecting
 locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$, the \ac{HIOA}
 transitions to location $\mathbf{q_{1}}$
 \textit{instantaneously}. During this transition, the variables (e.g,
@@ -57,7 +57,7 @@ the \acp{ODE} in the target location.
 Once the voltage of the node ($v$) exceeds the threshold voltage
 $V_{T}$, it begins its \ac{ERP} phase (captured by location
 $\mathbf{q_2}$). The final location, $\mathbf{q_3}$, represents the
-\ac{RRP} stage. The constants $C_1$ through to $C_{15}$, configure the
+\ac{RRP} stage. The constants $C_1$ through to $C_{15}$ configure the
 morphology of the \ac{AP}. Furthermore, constants $V_T$, $V_O$, and
 $V_R$ determine the height of the \ac{AP} and transitions between
 locations of the \ac{HIOA} to further capture the morphology.
@@ -94,7 +94,8 @@ We formalise the \ac{HIOA} using Definition~\ref{def:ha}.
     $X_I=\{x_1,.., x_m\}$, $\dot{X_I}=\{\dot{x_1},.., \dot{x_m}\}$, and
     $X_I'=\{x_{1}',.., x_{m}'\}$.
   \item The set of external continuous variables:
-    \mbox{$X_E = X_{EI} \cup X_{EO}$}. Furthermore,
+    \mbox{$X_E = X_{EI} \cup X_{EO}$}, where $X_{EI}$ and $X_{EO}$ refer to 
+    input and output variables respectively. Furthermore,
     \mbox{$X_{EI} \cap X_{EO} = \emptyset$}.
   \item $Init(l)$: Is a predicate whose free variables are from
     $X_{I}$. It specifies the possible valuations of these when the HIOA
@@ -126,16 +127,19 @@ $\Sigma=\{\tau\}$. \mbox{$X_{I}=\{\theta,v_{x},v_{y},v_{z}\}$},
 $X_{EI}=\{v_{i}| \forall v_{i} \in \vec{v_{I}}\}$. $X_{EO}=\{v\}$. An
 example of initial predicate is: 
 \mbox{$Init(l): (v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0 \wedge \theta=0)$}. An
-example edge connecting locations $q_{0}$ and $q_{1}$ is represented
+example edge connecting locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$ is 
+represented
 with the tuple: $(q_{0},\tau,\emptyset,q_{1})$. The example of invariant
-($Inv$) predicate on location $q_{0}$ is: $v < V_{T}$. The $Jump$ condition on
-the edge connecting locations $q_{0}$ and $q_{1}$ is enabled when the
-predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} is true, and the updated
+($Inv$) predicate on location $\mathbf{q_{0}}$ is: $v < V_{T}$. The $Jump$ 
+condition on
+the edge connecting locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$ is enabled 
+when the
+predicate \mbox{$g(\vec{v_{I}}) \geq V_{T}$} is true, and the updated
 variables are as shown in Figure~\ref{fig:heartCellHA}. An example of
 the $Up$ predicate is the function $v = v_{x} - v_{y} + v_{z}$ in all
 locations in Figure~\ref{fig:heartCellHA}. Finally, the $Flow$ predicate
-in location $q_{0}$ are the set of \acp{ODE}, in location
-$\mathbf{q_{0}}$ in Figure~\ref{fig:heartCellHA}.
+in location $\mathbf{q_{0}}$ is the set of \acp{ODE}, shown in 
+Figure~\ref{fig:heartCellHA}.
 
 % \begin{definition}[Hybrid Automata]
 %   \label{def:ha}
