@@ -17,8 +17,7 @@ defined as follows:
 
 Such a mapping function indicates that the value of the continuous variable 
 input $x_i$ should be updated with the value from the continuous variable 
-output $x_o$ at the end of each synchronous tick, ie. during the \emph{I/O 
-Synchronisation Stage}.  Each input $x_i$ may only be mapped to at most one 
+output $x_o$.  Each input $x_i$ may only be mapped to at most one 
 output from $X_{GO}$, however multiple inputs from $X_{GI}$ may be mapped to 
 the same output $x_o$.
 
@@ -47,12 +46,13 @@ $\lambda(N_{1}.v_{I_{0}})~:~N_{2}.v$ and $\lambda(N_{2}.v_{I_{0}})~:~N_{1}.v$.
 %\end{figure}
 
 In order to compose the \acp{FSM} together, we take inspiration
-from the synchronous languages SL~\cite{SlLanguage}.  The 
+from the synchronous language SL~\cite{SlLanguage}.  The 
 concept of \emph{ticks} and \emph{reactions} are carried over, whereby each 
 \ac{FSM} performs 
 only a single transition (``tick'') until all other \acp{FSM} have also 
 completed a transition (``reaction'') and the process can repeat.  In order to
-deal with data dependencies, we also implement the concept of \emph{pre}
+deal with data dependencies, we also implement the delayed semantics of 
+\emph{pre}
 whereby the value of all inputs to each \ac{FSM} are not updated with
 new values until the end of each reaction.  This allows for the behaviour of 
 the system to be agnostic to the scheduling order of the individual 

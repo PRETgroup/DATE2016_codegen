@@ -1,4 +1,4 @@
-\begin{tikzpicture}[->,>=stealth',semithick,scale=0.88, transform shape]
+\begin{tikzpicture}[->,>=stealth',semithick,scale=0.81, transform shape]
 
 \tikzstyle{every state}=[fill=blue!20,circle,minimum size=0.1cm]
 
@@ -32,7 +32,7 @@
 	}
 }
 
-\draw node[atrialCell](SA) {};
+\draw node[atrialCell](SA) {\footnotesize SA};
 
 \node[atrialCell](CT) [below left=0.3cm and 0.5cm of SA] {};
 \node[atrialCell](CT1) [below left=0.5cm and 0cm of CT] {};
@@ -50,7 +50,7 @@
 \node[atrialCell](Fast1) [below right=0.4cm and -0.1cm of Fast] {};
 \node[atrialCell](Slow) [below right=0.2cm and 0.3cm of OS] {};
 \node[atrialCell](Slow1) [below right=0.4cm and -0.1cm of Slow] {};
-\node[atrialCell](AV) [below right=0.2cm and 0.3cm of Fast1] {};
+\node[atrialCell](AV) [below right=0.2cm and 0.3cm of Fast1] {\footnotesize AV};
 
 \node[ventricularCell](His) [right=0.3cm of AV] {};
 \node[ventricularCell](His1) [below right=-0.1cm and 0.3cm of His] {};

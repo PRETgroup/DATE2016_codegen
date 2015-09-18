@@ -30,7 +30,7 @@ holds. The initial value from which $v_{x}$ starts evolving, in
 $\mathbf{q_{0}}$ is either: (1) specified by the programmer in the
 $Init$ predicate or (2) the final value of $v_{x}$ when an instantaneous
 transition is made from location $\mathbf{q_{3}}$ or $\mathbf{q_{1}}$ to 
-$\mathbf{q_{0}}$, shown as update $v^{\prime}_{x} = v_{x}$, shown the edge 
+$\mathbf{q_{0}}$, shown as update $v^{\prime}_{x} = v_{x}$ on the edge 
 connecting these locations in Figure~\ref{fig:heartCellHA}.
 
 \setlength{\belowdisplayskip}{-0.5\baselineskip} 
@@ -94,8 +94,8 @@ is a two step procedure:
   shown in Figure~\ref{fig:heartCellHA} translated into a transition in
   the generated \ac{FSM} is
   $\frac{\tau \wedge g(\vec{v_{I}}) \geq V_{T}}{v^{\prime}_{x} = 0.3v,
-    v^{\prime}_{y}=0.0v, v^{\prime}_{z}=0.7v, \theta^{\prime}=v/V_{T}}$
-  also shown in Figure~\ref{fig:heartCellFSM}. Note, that in
+    v^{\prime}_{y}=0.0v, v^{\prime}_{z}=0.7v, \theta^{\prime}=v/V_{T}}$. Note, 
+  that in
   Figure~\ref{fig:heartCellFSM}, we have ignored the $\tau$ events,
   because they always evaluate to $true$.
 
@@ -118,9 +118,9 @@ create \textit{self-transitions} on each state in the \ac{FSM}. A
 self-transition by definition has the same source and target state,
 e.g., transition from state $\mathbf{q_{0}}$ to $\mathbf{q_{0}}$ as shown in
 Figure~\ref{fig:heartCellFSM}. The invariant in $Inv$ from the initial
-\ac{HIOA} becomes the guard of the self-transition, and the witness
-functions for each of the \acs{ODE} described in
-Section~\ref{sec:converting-odes-into} become the update of the
+\ac{HIOA} becomes the \emph{guard} of the self-transition, and the witness
+functions for each of the \acp{ODE} described in
+Section~\ref{sec:converting-odes-into} become the \emph{update} of the
 transition.
 
 Inter-location transitions may be enabled by external inputs (continuous 
@@ -158,8 +158,7 @@ Each of the generated \acp{FSM} in the network may be individually
 transformed into a switch case statement in `C'-code as a \texttt{Step} 
 function, with corresponding \texttt{Initialization} and \texttt{Input-Output}
 functions to initialize the \ac{FSM} and communicate with its
-environment (nodes in the case of the network of \ac{HIOA} for the heart),
-respectively.
+environment, respectively.
 
 % The \acp{FSM} is then transformed into C code which contains an
 % \emph{Initialisation Function} corresponding to the $Init$ of the
