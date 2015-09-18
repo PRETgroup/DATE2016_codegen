@@ -1,15 +1,15 @@
-\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4cm,
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
 semithick,scale=0.9, transform shape]
 \tikzstyle{every state}=[circle,rounded corners,
 minimum height = 1.2cm, text width=1.2cm, text
 centered, fill=blue!20,draw=none,text=black,
 draw,line width=0.3mm]
 
-\clip(-1.7,-7.2) rectangle (7.8,3.2);
+\clip(-1.7,-6.2) rectangle (7.8,3.2);
 
 \node[state] (Q0)  { $q_0$ };
 
-\path[<-, dashed] (Q0.225) edge node[below, align=left, shift={(0,-0.5)}] {
+\path[<-,dashed] (Q0.210) edge node[below, align=left, shift={(0.1,-0.25)}] {
 	\footnotesize initial \\
 	\footnotesize $\begin{matrix}
 		v_x = 0\ \wedge\\
@@ -17,7 +17,7 @@ draw,line width=0.3mm]
 		v_z = 0\ \wedge\\
 		\theta = 0
 	\end{matrix}$
-} ++(-1cm,-1cm);
+} ++(-0.9cm,-0.6cm);
 
 \node[state]
 (Q1) [node distance=5cm, right of=Q0] 	 {$q_1$};
@@ -37,7 +37,7 @@ draw,line width=0.3mm]
       v^\prime_z = 0.7v \\ \theta^\prime = v / V_T \end{matrix}\right\}}$
 } (Q1.160);
 
-\path[->] (Q1.200) edge[out=200,in=340] node[align=center] {
+\path[->] (Q1.200) edge[out=200,in=340] node[align=center,shift={(0.8,0)}] {
 	$\frac{\footnotesize \{g(\vec{v_{I}}) \leq 0 \wedge v < V_T\}}
 	{\footnotesize \left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}}$
 } (Q0.340);
@@ -52,7 +52,7 @@ draw,line width=0.3mm]
 	{\footnotesize \left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}}$
 } (Q3);
 
-\path[->] (Q3) edge node[align=center, shift={(1.8,0)}] {
+\path[->] (Q3) edge node[align=center, shift={(1.9,0)}] {
 	$\frac{\footnotesize \{v \leq V_R\}}
 	{\footnotesize \left\{\begin{matrix} v^\prime_x = v_x \\ v^\prime_y = v_y \\ v^\prime_z = v_z \end{matrix}\right\}}$
 } (Q0);

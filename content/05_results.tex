@@ -1,10 +1,9 @@
 \section{Benchmarking}
 \label{sec:benchmarking}
 
-
 We present a set of experiments to evaluate the efficacy of the proposed
-modular code generation tool (\ourTool) with \simulink.  In the first 
-experiment, we evaluate the \emph{scalability} of \ourTool and \simulink as the 
+modular code generation tool (\ourTool) against \simulink.  In the first 
+experiment, we compare the \emph{scalability} of the two tools as the 
 number of nodes in the \ac{NHN} model increases.  In the second experiment, we 
 select benchmarks that span across different application domains such as 
 medical, physics, and industrial automation to illustrate the \emph{diversity} 
@@ -52,7 +51,9 @@ to \simulink.  Code was generated for varying network sizes ($33$~nodes,
 $66$~nodes, $99$~nodes, etc.) and the execution time recorded.  The
 experimental set-up was the same as described in
 Section~\ref{sec:experimentalSetUp}, ie. $1$~million iterations at a
-$0.01$~millisecond step size.
+$0.01$~millisecond step size.  A correlation co-efficient of $0.9994$ was 
+calculated between the output of \ourTool and \simulink, illustrating its 
+correctness relative to \simulink.
 
 The results are shown in Figure~\ref{fig:scalability}, with the most
 obvious feature being that no data is recorded for \simulink for

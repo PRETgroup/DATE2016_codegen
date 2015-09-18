@@ -5,9 +5,8 @@
 \subsection{Mapping between \acp{FSM}}
 \label{sec:mapping}
 
-While the execution semantics of the network of \acp{FSM} were covered in the 
-previous section, the interactions between each \ac{FSM} were not.  We define 
-the following:
+Given a network of \acp{FSM}, the interactions between each \ac{FSM} are 
+defined as follows:
 \begin{itemize}
 	\item There exists a set of continuous variable inputs from all \acp{FSM} 
 	globally $X_{GI}$, and a set of continuous variable outputs from all 
@@ -47,9 +46,10 @@ $\lambda(N_{1}.v_{I_{0}})~:~N_{2}.v$ and $\lambda(N_{2}.v_{I_{0}})~:~N_{1}.v$.
 %    cells \label{fig:heartCellComposition}}
 %\end{figure}
 
-In order to compose each of the \acp{FSM} together, we take inspiration
+In order to compose the \acp{FSM} together, we take inspiration
 from the concepts of Synchronous Languages such as SL~\cite{SlLanguage}.  The 
-concept of Ticks and Reactions are carried over, whereby each \ac{FSM} performs 
+concept of \emph{ticks} and \emph{reactions} are carried over, whereby each 
+\ac{FSM} performs 
 only a single transition (``tick'') until all other \acp{FSM} have also 
 completed a transition (``reaction'') and the process can repeat.  In order to
 deal with data dependencies, we also implement the concept of \emph{pre}
@@ -57,22 +57,20 @@ whereby the value of all inputs to each \ac{FSM} are not updated with
 new values until the end of each reaction.  This allows for the behaviour of 
 the system to be agnostic to the scheduling order of the individual 
 \acp{FSM}.  This concept also enables us to simplify the process of 
-handling cyclic \acp{ODE} (an issue that other work such as 
-\cite{kim2003modular} do not consider) by causing the dependencies to reference
+handling cyclic \acp{ODE} (an important issue not considered in related 
+work~\cite{kim2003modular}) by causing the dependencies to reference
 previous, rather than current, values.
 
-The implementation of this in \ourTool is done by creating a round-robin
-scheduler which executes one tick of each \ac{FSM} (the \emph{Run Function} 
+\ourTool orchestrates \acp{FSM} through the use of a round-robin
+scheduler.  It executes one tick of each \ac{FSM} (the \texttt{Step} function 
 described in Section~\ref{sec:backendCodeGeneration}) in series, followed by an 
 \emph{I/O Synchronisation Stage} at the end of each reaction.  Such I/O 
 synchronisation deals with the emission of all outputs from the system, the 
 intake of all inputs to the system, and the transfer of signals between 
-\acp{FSM} in the network, the mapping of which is described in  
-Section~\ref{sec:mapping}.  This process continues indefinitely to emulate the 
+\acp{FSM} in the network.  This process continues indefinitely to emulate the 
 dynamics of the system.  In addition, when the system initially starts up it 
-enters an \emph{Initialisation Stage} whereby the \emph{Initalisation Function} 
-for each \ac{FSM} is run before continuing on to the round-robin loop mentioned 
-above.
+enters an \emph{Initialisation Stage} whereby the \texttt{Initialization} 
+function is executed.
 
 Due to the scheduling order agnosticism described earlier, this concept is 
 amenable to further scheduling algorithms that need not be sequential in 

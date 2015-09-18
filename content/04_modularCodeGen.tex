@@ -4,9 +4,8 @@
 In this section we present our approach for modular code generation from
 a network of \acp{HIOA} as it is implemented in our tool, called
 \ourTool. It is a two step procedure as presented previously in
-Figure~\ref{fig:overview}. Step 1 generates a \ac{FSM} representation
-for each \ac{HIOA} in the network. In the resultant \ac{FSM} all
-\acp{ODE} are replaced by their so called witness functions, i.e.,
+Figure~\ref{fig:overview}. Firstly, we create a \ac{FSM} where all \acp{ODE} 
+from the \ac{HIOA} are replaced by their so called witness functions, i.e.,
 static numerical solutions. We describe the translation of the \acp{ODE}
 to their equivalent witness functions in
 Section~\ref{sec:converting-odes-into} followed by code generation for a
@@ -25,14 +24,14 @@ instants, separated by the so called time step $\delta$
 
 The witness function, for the \ac{ODE} evolving $v_{x}$, implementing
 the forward Euler method is shown in Equation~(\ref{eq:euler_equiv}).
-Equation~(\ref{eq:euler_equiv}) evolves $v_{x}$ \emph{iteratively} until
+Equation~(\ref{eq:euler_equiv}) evolves $v_{x}$ \emph{iteratively} while
 the invariant condition on location $\mathbf{q_{0}}$ ($v < V_{T}$)
 holds. The initial value from which $v_{x}$ starts evolving, in
 $\mathbf{q_{0}}$ is either: (1) specified by the programmer in the
 $Init$ predicate or (2) the final value of $v_{x}$ when an instantaneous
-transition is made from location $\mathbf{q_{3}}$ to $\mathbf{q_{0}}$,
-shown as update $v^{\prime}_{x} = v_{x}$, shown the edge connecting
-these location in Figure~\ref{fig:heartCellHA}.
+transition is made from location $\mathbf{q_{3}}$ or $\mathbf{q_{1}}$ to 
+$\mathbf{q_{0}}$, shown as update $v^{\prime}_{x} = v_{x}$, shown the edge 
+connecting these locations in Figure~\ref{fig:heartCellHA}.
 
 \setlength{\belowdisplayskip}{-0.5\baselineskip} 
 \setlength{\belowdisplayshortskip}{-0.5\baselineskip}
@@ -71,7 +70,7 @@ these location in Figure~\ref{fig:heartCellHA}.
 
 In order to facilitate code generation, each \ac{HIOA} is transformed
 into a simple Mealy \ac{FSM}. The \ac{FSM} generated from the \ac{HIOA}
-in Figure~\ref{fig:heartCellFSM} is shown in
+in Figure~\ref{fig:heartCellHA} is shown in
 Figure~\ref{fig:heartCellFSM}.
 
 The translation from a single \ac{HIOA} to its \ac{FSM} representation
@@ -86,14 +85,15 @@ is a two step procedure:
     the \ac{FSM}}: The second step translates each edge ($e$) in the
   \ac{HIOA} into an equivalent transition ($t$) in the \ac{FSM}. Every
   transition ($t$) in the \ac{FSM} is of the form:
-  $\frac{guard}{update}$. The $guard$ precedent, is the conjunction of
+  $\frac{guard}{update}$. The $guard$ precedent is the conjunction of
   the set $\Sigma_{EI} \cup \{\tau\}$ and the conditions specified in
-  the $Jump$ predicate on edge $e$. The $update$ antecedent are the
-  updates extracted from the $Jump$ predicate on edges. For example, the
+  the $Jump$ predicate on edge $e$. The $update$ antecedent is the
+  conjunction of the set $\Sigma_{EO}$ and the update extracted from the $Jump$ 
+  predicate on edge $e$. For example, the
   edge $(q_{0}, \tau, \emptyset, q_{1})$ with the $Jump$ predicate as
   shown in Figure~\ref{fig:heartCellHA} translated into a transition in
   the generated \ac{FSM} is
-  $\frac{\tau \wedge g(\vec{v_{I}} \geq V_{T})}{v^{\prime}_{x} = 0.3v,
+  $\frac{\tau \wedge g(\vec{v_{I}}) \geq V_{T}}{v^{\prime}_{x} = 0.3v,
     v^{\prime}_{y}=0.0v, v^{\prime}_{z}=0.7v, \theta^{\prime}=v/V_{T}}$
   also shown in Figure~\ref{fig:heartCellFSM}. Note, that in
   Figure~\ref{fig:heartCellFSM}, we have ignored the $\tau$ events,
@@ -111,24 +111,24 @@ is a two step procedure:
 
 The aforementioned steps generate an \ac{FSM} that is able to capture
 the instantaneous transitions across locations called
-\textit{inter-location} transitions, but it are unable capture the
+\textit{inter-location} transitions, but is unable to capture the
 evolution of the continuous variables via the \acp{ODE}. In order to
 replicate the continuous evolution of variables within the locations, we
 create \textit{self-transitions} on each state in the \ac{FSM}. A
 self-transition by definition has the same source and target state,
-e.g., transition from state $q_{0}$ to $q_{0}$ as shown in
+e.g., transition from state $\mathbf{q_{0}}$ to $\mathbf{q_{0}}$ as shown in
 Figure~\ref{fig:heartCellFSM}. The invariant in $Inv$ from the initial
 \ac{HIOA} becomes the guard of the self-transition, and the witness
 functions for each of the \acs{ODE} described in
 Section~\ref{sec:converting-odes-into} become the update of the
 transition.
 
-Inter-location transitions, for each \ac{HIOA}, in a network of
-\ac{HIOA} may be enabled by external inputs (continuous variables from
-set $X_{EI}$ or discrete events from set $\Sigma_{EI}$). For example,
-the edge connecting $q_{0}$ to $q_{1}$, in Figure~\ref{fig:heartCellHA},
+Inter-location transitions may be enabled by external inputs (continuous 
+variables from set $X_{EI}$ or discrete events from set $\Sigma_{EI}$). For 
+example, the edge connecting $\mathbf{q_{0}}$ to $\mathbf{q_{1}}$, in 
+Figure~\ref{fig:heartCellHA},
 is enabled as soon as the aggregate voltage of neighbouring node
-($g(\vec{v_{I}})$) is greater than or equal to some thresh hold voltage
+($g(\vec{v_{I}})$) is greater than or equal to some threshold voltage
 $V_{T}$. In order to ensure that such inter-location transitions are
 enabled correctly, we need to enforce that all self-transitions in the
 generated \ac{FSM} are the lowest priority transitions. This is
@@ -154,11 +154,11 @@ remain the same.
 % The final corresponding \ac{FSM} for the \ac{HIOA} from
 % Figure~\ref{fig:heartCellHA} is shown in Figure~\ref{fig:heartCellFSM}.
 
-Each of the generated \ac{FSM}, in the network, may be individually
-transformed into a switch case statement in `C'-code, with a
-corresponding \texttt{Initialization} and \texttt{Input-Output}
+Each of the generated \acp{FSM} in the network may be individually
+transformed into a switch case statement in `C'-code as a \texttt{Step} 
+function, with corresponding \texttt{Initialization} and \texttt{Input-Output}
 functions to initialize the \ac{FSM} and communicate with its
-environment (nodes in case of the network of \ac{HIOA} for the heart),
+environment (nodes in the case of the network of \ac{HIOA} for the heart),
 respectively.
 
 % The \acp{FSM} is then transformed into C code which contains an
