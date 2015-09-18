@@ -2,12 +2,13 @@
 
 Pacemakers are safety-critical \acp{CPS} that control the pacing of a
 heart for providing therapy for bradycardia -- abnormally slow pacing of
-the heart. Such devices must operate in a fail-safe manner all the
-time. However, between 1990-2000, close to 200,000 pacemakers have been
+the heart. %Such devices must operate in a fail-safe manner all the
+%time. 
+Between 1990-2000, close to 200,000 pacemakers have been
 recalled due to software related
 failures~\cite{alemzadeh13}. Considering this, there is a need for the
 development of better processes for validation and certification of such
-devices. We propose the well known, and widely used, engineering
+devices. We propose the well known, engineering
 technique of \emph{emulation}~\cite{patel2015survey} to tackle this
 problem. Emulation, also known as hardware-in-the-loop simulation, is
 used to validate controllers (such as motor controllers) by running them
@@ -18,7 +19,7 @@ development of high-fidelity heart models that can provide the required
 real-time response to facilitate emulation. Bioengineering heart
 models~\cite{Trayanova2014} provide excellent model fidelity at the
 expense of computation time as the simulation of a single heart beat may
-take several hours. Hence, such models are not suitable for emulation.
+take several hours making them not suitable for emulation.
 
 Recently, timed automata~\cite{zhihao12} based heart models have been
 developed primarily for model checking. These models abstract the
