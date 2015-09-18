@@ -1,3 +1,4 @@
+\ignore{
 \begin{table*}
 	\centering
 	\caption{Benchmark descriptions
@@ -36,3 +37,43 @@
 	
  \end{tabular}
  \end{table*}
+}%ignore
+ 
+ \begin{table}
+ 	\scriptsize
+ 	\centering
+ 	\caption{Benchmark descriptions
+ 		\label{tab:benchmarks}}
+ 	\begin{tabular}{ | m{3.5cm}  | c | m{4cm} | } \hline
+ 		\textbf{Benchmarks}
+ 		& \textbf{\#L } 
+ 		& \textbf{Description} \\ \hline
+ 		
+ 		\acf{TSN}  Physics~\cite{Pedro2005}
+ 	
+ 		& $(2^{50})$
+ 		& $50$ thermostats heating multiple rooms to keep them warm\\ \hline
+ 		
+ 		\acf{NHN}
+ 		 Biology~\cite{chen14}
+ 		& $(4^{33})$
+ 		& Captures the electrical conduction system of a heart with $33$ nodes\\ \hline
+ 		
+ 		\acf{WH}
+ 		 Physics~\cite{raskin05}
+ 		& $(4^{50})$
+ 		& Models the heating of water in a series of $50$ tank\\ \hline
+ 		
+ 		\acf{MTG}  
+	 	 Industrial automation~\cite{Costello2013}
+ 		& $(2 \times 3^{30})$
+ 		& Models the behaviour of a gate and $30$ trains at a rail road crossing\\ \hline
+ 		
+ 		\acf{NP}
+ 		 Industrial~automation~\cite{alur2015book}
+ 		& $(3^{30} \times 3^{30})$
+ 		& Switches between two fuel rods in $30$ reactors to avoid a meltdown\\ \hline
+ 		
+ 		
+ 	\end{tabular}
+ \end{table}
