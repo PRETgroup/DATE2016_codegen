@@ -29,9 +29,16 @@ is then aggregated into a single variable $v$ as defined
 in~\cite{YeESG08}. The aggregated \ac{AP} voltage $v$ of each node
 effects its neighbouring nodes and vice-versa. This effect of the
 neighbouring voltages is captured in the \ac{HIOA} via function
-$g(\vec{v_{I}})$, where $\vec{v_{I}}$ represents the \emph{vector} of
-voltages. Finally, the dynamic response of the action potential to
+$g(\vec{v_{I}})$, where $\vec{v_{I}}$ represents the \emph{vector} of input
+voltages. This function is shown in Equation~\ref{eq:gFunction} where 
+$k_{i}$ is a constant depending on the neighbour, and $v$ refers to the cell's 
+current voltage.  Finally, the dynamic response of the action potential to 
 secondary excitation is captured by the variable~$\theta$.
+
+\begin{equation}
+g(\vec{v_{I}}) = \sum_{i} k_{i}(v_{I_{i}} - v)
+\label{eq:gFunction}
+\end{equation}
 
 For the first stage (\ac{RP}), the continuous dynamics are captured in
 location $\mathbf{q_0}$. \acfp{ODE}, for example \mbox{$\dot{v_{x}} = 
