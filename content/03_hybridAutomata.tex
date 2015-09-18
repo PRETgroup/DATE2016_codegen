@@ -82,33 +82,33 @@ We formalise the \ac{HIOA} using Definition~\ref{def:ha}.
     external input and external output events,
     respectively. Furthermore,
     \mbox{$\Sigma_{EI} \cap \Sigma_{EO} = \emptyset$}.
-  \item $\Sigma=\Sigma_{E} \cup \{\iSignal\}$ is set of event names
+  \item $\Sigma=\Sigma_{E} \cup \{\iSignal\}$ is the set of event names
     comprising of external and the $true$ event, respectively.
   \item
     $Edge \subseteq Loc \times \mathcal{B}(\Sigma_{EI} \cup \{\tau\})
     \times 2^{\Sigma_{EO}} \times Loc$
     are the set of edges between locations.
-  \item Three sets for the set of internal continuous variables, their
-    rate of change and their updated values represented as follows:
+  \item There are three sets of internal continuous variables, their
+    rate of change and their updated values are represented as follows:
     $X_I=\{x_1,.., x_m\}$, $\dot{X_I}=\{\dot{x_1},.., \dot{x_m}\}$, and
     $X_I'=\{x_{1}',.., x_{m}'\}$.
   \item The set of external continuous variables:
     \mbox{$X_E = X_{EI} \cup X_{EO}$}, where $X_{EI}$ and $X_{EO}$ refer to 
     input and output variables respectively. Furthermore,
     \mbox{$X_{EI} \cap X_{EO} = \emptyset$}.
-  \item $Init(l)$: Is a predicate whose free variables are from
+  \item $Init(l)$: A predicate whose free variables are from
     $X_{I}$. It specifies the possible valuations of these when the HIOA
     starts in $l$.
-  \item $Inv(l)$: Is a predicate whose free variables are from
+  \item $Inv(l)$: A predicate whose free variables are from
     \mbox{$X_I \cup X_{E}$} and it constrains these when the HIOA
     resides in $l$.
-  \item $Flow(l)$: Is a predicate whose free variables are from
+  \item $Flow(l)$: A predicate whose free variables are from
     $X_I \cup \dot{X_I}$ and it specifies the rate of change of these
     variables when the HIOA resides in $l$.
-  \item $Up(l)$: Is a function that assigns to each variable in set
+  \item $Up(l)$: A function that assigns to each variable in set
     $X_{EO}$ an algebraic expression involving the variables from \mbox{$X_{I} 
     \cup X_{EI}$}.
-  \item $Jump(e)$: Is a function that assigns to the edge `$e$' a
+  \item $Jump(e)$: A function that assigns to the edge `$e$' a
     predicate whose free variables are from $X_I \cup X_I' \cup X_E$.
     This predicate specifies when the location switch using `$e$' is
     possible. It also specifies the updated values of the variables when
@@ -124,7 +124,7 @@ $\Sigma=\{\tau\}$. \mbox{$X_{I}=\{\theta,v_{x},v_{y},v_{z}\}$},
 \mbox{$\dot{X_{I}}=\{\dot{\theta},\dot{v_{x}},\dot{v_{y}},\dot{v_{z}}\}$},
 \mbox{$X^{\prime}_{I}=\{\theta',{v'_{x}},{v'_{y}},\dot{v'_{z}}\}$}.
 $X_{EI}=\{v_{i}| \forall v_{i} \in \vec{v_{I}}\}$. $X_{EO}=\{v\}$. An
-example of initial predicate is: 
+example of an initial predicate is: 
 \mbox{$Init(l): (v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0 \wedge \theta=0)$}. An
 example edge connecting locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$ is 
 represented

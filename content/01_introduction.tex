@@ -4,9 +4,9 @@ Pacemakers are safety-critical \acp{CPS} that control the pacing of a
 heart for providing therapy for bradycardia -- abnormally slow pacing of
 the heart. %Such devices must operate in a fail-safe manner all the
 %time. 
-Between 1990-2000, close to 200,000 pacemakers have been
+Between 1990-2000, close to 200,000 pacemakers were
 recalled due to software related
-failures~\cite{alemzadeh13}. Considering this, there is a need for the
+failures~\cite{alemzadeh13}. Consequently, there is a need for the
 development of better processes for validation and certification of such
 devices. We propose the well known, engineering
 technique of \emph{emulation}~\cite{patel2015survey} to tackle this
@@ -19,13 +19,13 @@ development of high-fidelity heart models that can provide the required
 real-time response to facilitate emulation. Bioengineering heart
 models~\cite{Trayanova2014} provide excellent model fidelity at the
 expense of computation time as the simulation of a single heart beat may
-take several hours making them not suitable for emulation.
+take several hours making them unsuitable for emulation.
 
 Recently, timed automata~\cite{zhihao12} based heart models have been
 developed primarily for model checking. These models abstract the
 continuous dynamics and hence, are unsuitable for emulation. In contrast
 to this, \acf{HIOA}~\cite{alur2015book, raskin05} is used for modelling
-the forward conduction system of the heart using 33 nodes
+the forward conduction system of the heart with 33 nodes
 in~\cite{chen14}.
 This work is the starting point for real-time
 emulation by demonstrating that \simulink can be used for closed-loop
