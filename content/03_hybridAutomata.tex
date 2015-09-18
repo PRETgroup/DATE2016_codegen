@@ -27,18 +27,17 @@ with three \acfp{ODE} evolving three individual variables: $v_{x}$,
 $v_{y}$, and $v_{z}$, respectively. The overall voltage of the \ac{AP}
 is then aggregated into a single variable $v$ as defined
 in~\cite{YeESG08}. The aggregated \ac{AP} voltage $v$ of each node
-effects its neighboring nodes and vice-versa. This effect of the
-neighboring voltages is captured in the \ac{HIOA} via function
+effects its neighbouring nodes and vice-versa. This effect of the
+neighbouring voltages is captured in the \ac{HIOA} via function
 $g(\vec{v_{I}})$, where $\vec{v_{I}}$ represents the \emph{vector} of
 voltages. Finally, the dynamic response of the action potential to
 secondary excitation is captured by the variable~$\theta$.
 
 For the first stage (\ac{RP}), the continuous dynamics are captured in
-location $\mathbf{q_0}$. \textit{Ordinary Differential Equation} (ODEs),
-for example \mbox{$\dot{v_{x}} = C_{1}v_{x}$}, capture the continuous
-evolution of the voltage of the node in location $\mathbf{q_{0}}$ until
-the so called location invariant
-$v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$ holds.  Once the external
+location $\mathbf{q_0}$. \acfp{ODE}, for example \mbox{$\dot{v_{x}} = 
+C_{1}v_{x}$}, capture the continuous evolution of the voltage of the node in 
+location $\mathbf{q_{0}}$ until the so called location invariant
+$v < V_{T}$ holds.  Once the external
 stimulus, $g(\vec{v_{I}})$, crosses some threshold $V_{T}$, indicated by
 the predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} on the edge connecting
 locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$, the \ac{HIOA}

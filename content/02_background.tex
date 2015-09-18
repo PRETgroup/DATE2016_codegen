@@ -47,11 +47,11 @@ nodes is presented in literature and is used for testing off-the-shelf
 pacemakers~\cite{chen14,zhihao12}. The abstracted electrical conduction
 system consisting of nodes and paths is presented in
 Figure~\ref{fig:heartNetwork}. The functionality of each node is
-described using \acf{HIOA} in Section~\ref{sec:HA}. {\color{red}
-  [AVINASH: The path model is not presented anywhere in the paper]]The
-  path model describes the conduction delay of the electrical
-  signal. }Later in Section~\ref{sec:codeGen}, we use this network of
-nodes to illustrate our modular code generation.
+described using \acf{HIOA} in Section~\ref{sec:HA}.  During implementation, the 
+connections between nodes are implemented as buffers where the length of the 
+buffer depends on the conduction delay and step size.  Later in 
+Section~\ref{sec:codeGen}, we use this network of nodes to illustrate our 
+modular code generation.
 
 
 
