@@ -21,17 +21,9 @@ output $x_o$.  Each input $x_i$ may only be mapped to at most one
 output from $X_{GO}$, however multiple inputs from $X_{GI}$ may be mapped to 
 the same output $x_o$.
 
-\begin{figure}
-	\centering
-	\input{figures/networkComposition}
-	\caption{The parallel composition from Figure~\ref{fig:heartCellHA} 
-		\label{fig:networkComposition}}
-\end{figure}
-
-For the example from Figure~\ref{fig:heartCellHA} (re-drawn in 
-Figure~\ref{fig:networkComposition}), 
-$X_{GI}~=~\{N_{1}.v_{I_{0}},N_{2}.v_{I_{0}}\}$ and 
-$X_{GO}~=~\{N_{1}.v,N_{2}.v\}$. 
+For the example from Figure~\ref{fig:heartCellHA}, 
+\mbox{$X_{GI} = \{N_{1}.v_{I_{0}},N_{2}.v_{I_{0}}\}$} and 
+\mbox{$X_{GO} = \{N_{1}.v,N_{2}.v\}$}. 
 The mapping function $\lambda$ consists of 
 $\lambda(N_{1}.v_{I_{0}})~:~N_{2}.v$ and $\lambda(N_{2}.v_{I_{0}})~:~N_{1}.v$.
 
