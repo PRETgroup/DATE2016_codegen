@@ -19,7 +19,7 @@ Such a mapping function indicates that the value of the continuous variable
 input $x_i$ should be updated with the value from the continuous variable 
 output $x_o$.  Each input $x_i$ may only be mapped to at most one 
 output from $X_{GO}$, however multiple inputs from $X_{GI}$ may be mapped to 
-the same output $x_o$.
+the same output~$x_o$.
 
 For the example from Figure~\ref{fig:heartCellHA}, 
 \mbox{$X_{GI} = \{N_{1}.v_{I_{0}},N_{2}.v_{I_{0}}\}$} and 
@@ -56,16 +56,16 @@ previous, rather than current, values.
 \ourTool orchestrates \acp{FSM} through the use of a round-robin
 scheduler.  It executes one tick of each \ac{FSM} (the \texttt{Step} function 
 described in Section~\ref{sec:backendCodeGeneration}) in series, followed by an 
-\emph{I/O Synchronisation Stage} at the end of each reaction.  Such I/O 
-synchronisation deals with the emission of all outputs from the system, the 
-intake of all inputs to the system, and the transfer of signals between 
-\acp{FSM} in the network.  This process continues indefinitely to emulate the 
+\emph{I/O Synchronisation Stage} at the end of each reaction.  
+At the end of each reaction, all outputs are emitted and new inputs are sampled.
+  This process continues indefinitely to emulate the 
 dynamics of the system.  In addition, when the system initially starts up it 
 enters an \emph{Initialisation Stage} whereby the \texttt{Initialization} 
 function is executed.
-
-Due to the scheduling order agnosticism described earlier, this concept is 
-amenable to further scheduling algorithms that need not be sequential in 
-nature.  \ourTool can be extended to support parallel computation by executing 
-different \acp{FSM} on separate threads (whether logical or physical), with 
-synchronisation between threads occurring at the end of each reaction.
+Due to the scheduling order agnosticism described earlier, 
+%this concept is 
+%amenable to further scheduling algorithms that need not be sequential in 
+%nature. 
+ \ourTool can be extended to support parallel computation by executing 
+different \acp{FSM} on separate threads (whether logical or physical)
+%, with  synchronisation between threads occurring at the end of each reaction.

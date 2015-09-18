@@ -49,27 +49,24 @@ while the location invariant $v < V_{T}$ holds.  Once the external
 stimulus, $g(\vec{v_{I}})$, crosses some threshold $V_{T}$, indicated by
 the predicate \mbox{$g(\vec{v_{I}}) \geq V_{T}$} on the edge connecting
 locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$, the \ac{HIOA}
-transitions to location $\mathbf{q_{1}}$
+transitions to location $\mathbf{q_{1}}$ (\ac{ST})
 \textit{instantaneously}. During this transition, the variables (e.g,
 $v^{\prime}_{x}$) are updated. These updated values of the variables are
 used as initial conditions from which the variables evolve further via
 the \acp{ODE} in the target location.
 
 Once the voltage of the node ($v$) exceeds the threshold voltage
-$V_{T}$, it begins its \ac{ERP} phase (captured by location
+$V_{T}$, it begins its \ac{UP} phase (captured by location
 $\mathbf{q_2}$). The final location, $\mathbf{q_3}$, represents the
-\ac{RRP} stage. The constants $C_1$ through to $C_{15}$ configure the
+\ac{ERP} stage. The constants $C_1$ through to $C_{15}$ configure the
 morphology of the \ac{AP}. Furthermore, constants $V_T$, $V_O$, and
 $V_R$ determine the height of the \ac{AP} and transitions between
 locations of the \ac{HIOA} to further capture the morphology.
-
 % The voltage of any node in the heart effects its neighboring nodes and
 % vice-versa. Hence, a means to communicate the voltages of the node to
 % its neighbors is needed. We achieve this communication between nodes of
 % the heart using the input and output variables and events available in
 % the \ac{HIOA} framework. 
-
-
 We formalise the \ac{HIOA} using Definition~\ref{def:ha}.
 
 \begin{definition}

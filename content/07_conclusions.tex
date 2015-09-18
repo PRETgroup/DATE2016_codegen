@@ -28,14 +28,15 @@ pathway with many nodes. Such an approach for modular and scalable code generati
 \ignore{The developed approach is founded on mathematical semantics and the generated core is guaranteed to
 be sound by construction.} 
 
-We compared the developed approach with the commercial tool \simulink. We show that our approach for modular code generation from \ac{HIOA} can 
+%We compared the developed approach with the commercial tool \simulink.
+ We show that our approach for modular code generation from \ac{HIOA} can 
 provide, on average $9.8$ times faster execution and $54\%$ smaller executables 
 when compared to \simulink.
 We also show that for the \acf{NHN} benchmark our approach is capable of 
 emulation of networks that are $5$ times more complex. 
 In the future, we will compare our approach quantitatively with Z\'{e}lus~\cite{bourke13zelus},
  which is a synchronous code generator from hybrid automata that relies on dynamic interactions with numerical solvers.
-%We will also model re-entrant behaviour in the conduction pathway, unlike the forward conduction system modelled here.
+We will also model re-entrant behaviour in the conduction pathway, unlike the forward conduction system modelled here.
 
 \ignore{While this paper focuses on the example of cardiac pacemakers the proposed code generation for emulation of plant is applicable beyond just the medical domain.
 This is illustrated through the diverse range of benchmarks presented in Section~\ref{sec:diversity}.

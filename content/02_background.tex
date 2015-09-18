@@ -27,18 +27,21 @@ stages.
 \begin{enumerate}
 \item \acf{RP}: This is the steady state, when the node is awaiting
   activation by an external stimulus.
-\item \acf{UP}: When activated by an external stimulus, the node
+\item \acf{ST}: When the external stimulus is above a threshold voltage ($V_T$).
+\item \acf{UP}: After continuous stimulation, the cell's voltage 
+	reaches the threshold voltage ($V_T$. This causes   the node to
   depolarises (inward flow of positive ions) and contracts the
   muscles. This depolarisation yields a stimulus that activates
   neighbouring nodes.
 \item \acf{ERP}: Once activated, the node cannot be activated again due
   to the recovery process of the ionic channels. Any new stimulus will
-  be blocked during this refactory period.
-\item \acf{RRP}: During this period, the ionic channels have partially
-  recovered and the node can be activated again. However, the morphology
-  of the \ac{AP} will be shorter, in this instance.
-
+  be blocked during this refractory period.
 \end{enumerate}
+Finally, the ionic channels will partially
+recover (\acf{RRP}) and then fully recover (\ac{RP}). 
+If activated again by
+external stimulus during \ac{RRP}, the morphology
+of the \ac{AP} will be shorter when compared to \ac{RP}.
 
 \noindent \textbf{Abstract model.} The human heart has over two trillion
 cells. For analytical purposes, a model consisting of a network of $33$~nodes 

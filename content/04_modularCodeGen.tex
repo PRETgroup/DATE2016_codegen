@@ -61,12 +61,6 @@ connecting these locations in Figure~\ref{fig:heartCellHA}.
 \subsection{Backend code generation for a single \ac{HIOA}}
 \label{sec:backendCodeGeneration}
 
-\begin{figure}
-  \centering \input{figures/cellFSM}
-  \caption{\acf{FSM} of a heart node \label{fig:heartCellFSM}. We ignore
-    the $\tau$ event in the \ac{FSM}, because it always evaluates to
-    $true$.}
-\end{figure}
 
 In order to facilitate code generation, each \ac{HIOA} is transformed
 into a simple Mealy \ac{FSM}. The \ac{FSM} generated from the \ac{HIOA}
@@ -102,6 +96,12 @@ is a two step procedure:
 
 %\end{enumerate}
 
+\begin{figure}
+	\centering \input{figures/cellFSM}
+	\caption{\acf{FSM} of a heart node \label{fig:heartCellFSM}. We ignore
+		the $\tau$ event in the \ac{FSM}, because it always evaluates to
+		$true$.}
+\end{figure}
 % Two initial steps are performed: (1) for each location in the
 % \ac{HIOA} there is a corresponding state in the \ac{FSM} of the same
 % name and (2) for each inter-location edge $e$ in the \ac{HIOA} there
