@@ -1,15 +1,28 @@
 \section{Conclusions}
 
-This paper proposes an approach of modular code generation from hybrid input output automata (HIOA)
-for the emulation of diverse physical processes. We have used the developed approach to illustrate 
-how a complex network of cardiac nodes may be modelled along a conduction pathway of the human heart.
-Each node is modelled as a single HIOA such that the voltage of a node is influenced by adjoining nodes.
-This composition is achieved using the concept of delayed synchronous composition, similar to the SL 
-language~\cite{SlLanguage}. Such an approach enables the nodes to effectively operate in a truly parallel manner as all
-input-output dependencies are delayed. Also, we have developed a synchronous semantics of HIOA that enables the mapping of 
-an individual HIOA to a standard synchronous FSM. The key idea is that the synchronous instant or tick is 
-used both as the step size for performing numerical integration (when control resides in a location) and also when 
-any transition is taken to a different location. The developed approach, thus, ``compiles away'' the continuous dynamics to
+This paper proposes an approach of modular code generation 
+from hybrid input output automata (HIOA)
+for the emulation of diverse physical processes. 
+We have used the developed approach to model 
+ a complex electrical conduction network of a human heart.
+% consisting of 
+%network of cardiac nodes may 
+%be modelled along a conduction pathway of the human heart.
+Each node of the network is modelled as a single HIOA.
+%such that the voltage of a node is influenced by adjoining nodes.
+This composition of nodes is achieved using the concept of 
+delayed synchronous composition, similar to the SL 
+language~\cite{SlLanguage}. 
+Such an approach enables the nodes to effectively operate 
+in a truly parallel manner as all
+input-output dependencies are delayed. 
+%Also, we have developed a synchronous semantics of HIOA that enables the mapping of 
+%an individual HIOA to a standard synchronous FSM. 
+%The key idea is that the synchronous instant or tick is 
+%used both as the step size for performing numerical integration
+% (when control resides in a location) and also when 
+%any transition is taken to a different location. 
+The developed approach,  ``compiles away'' the continuous dynamics to
 produce pure synchronous code for each node with delayed composition between nodes for creating the behaviour of a large conduction 
 pathway with many nodes. Such an approach for modular and scalable code generation from hybrid automata without the reliance on external numerical solvers is new.
 \ignore{The developed approach is founded on mathematical semantics and the generated core is guaranteed to
@@ -22,8 +35,7 @@ We also show that for the \acf{NHN} benchmark our approach is capable of
 emulation of networks that are $5$ times more complex. 
 In the future, we will compare our approach quantitatively with Z\'{e}lus~\cite{bourke13zelus},
  which is a synchronous code generator from hybrid automata that relies on dynamic interactions with numerical solvers.
-We will also model re-entrant behaviour in the conduction pathway, unlike the forward conduction 
-system modelled here.
+%We will also model re-entrant behaviour in the conduction pathway, unlike the forward conduction system modelled here.
 
 \ignore{While this paper focuses on the example of cardiac pacemakers the proposed code generation for emulation of plant is applicable beyond just the medical domain.
 This is illustrated through the diverse range of benchmarks presented in Section~\ref{sec:diversity}.
