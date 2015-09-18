@@ -76,12 +76,13 @@ Figure~\ref{fig:heartCellFSM}.
 The translation from a single \ac{HIOA} to its \ac{FSM} representation
 is a two step procedure:
 
-\begin{enumerate}
-\item \textit{Translating locations into states}: The first step
+%\begin{enumerate}
+(1) \textit{Translating locations into states}: The first step
   translates each location in the \ac{HIOA} into a state in the
   \ac{FSM}. Hence, the set of locations $\{q_{0}, q_{1}, q_{2}, q_{3}\}$
   have an equivalent named set of states in the generated \ac{FSM}.
-\item \textit{Translating each edge in the \ac{HIOA} to a transition in
+
+(2) \textit{Translating each edge in the \ac{HIOA} to a transition in
     the \ac{FSM}}: The second step translates each edge ($e$) in the
   \ac{HIOA} into an equivalent transition ($t$) in the \ac{FSM}. Every
   transition ($t$) in the \ac{FSM} is of the form:
@@ -99,7 +100,7 @@ is a two step procedure:
   Figure~\ref{fig:heartCellFSM}, we have ignored the $\tau$ events,
   because they always evaluate to $true$.
 
-\end{enumerate}
+%\end{enumerate}
 
 % Two initial steps are performed: (1) for each location in the
 % \ac{HIOA} there is a corresponding state in the \ac{FSM} of the same
@@ -117,7 +118,7 @@ replicate the continuous evolution of variables within the locations, we
 create \textit{self-transitions} on each state in the \ac{FSM}. A
 self-transition by definition has the same source and target state,
 e.g., transition from state $\mathbf{q_{0}}$ to $\mathbf{q_{0}}$ as shown in
-Figure~\ref{fig:heartCellFSM}. The invariant in $Inv$ from the initial
+Figure~\ref{fig:heartCellFSM}. The invariant from the initial
 \ac{HIOA} becomes the \emph{guard} of the self-transition, and the witness
 functions for each of the \acp{ODE} described in
 Section~\ref{sec:converting-odes-into} become the \emph{update} of the
@@ -133,16 +134,15 @@ $V_{T}$. In order to ensure that such inter-location transitions are
 enabled correctly, we need to enforce that all self-transitions in the
 generated \ac{FSM} are the lowest priority transitions. This is
 accomplished by updating the guard condition of the self-transitions as
-follows:
+follows, where $T$ is a set of all the transitions from the state:
 \begin{itemize}
 \item
-  $guard \leftarrow guard \wedge \bigwedge_{\forall \sigma \in
-    \Sigma_{EI}} \neg \sigma$
+  $guard \leftarrow guard \wedge \neg \bigvee_{\forall t \in
+    T} guard(t)$
 \end{itemize}
 
-In the \ac{HIOA} of Figure~\ref{fig:heartCellHA},
-$\Sigma_{EI} = \emptyset$, hence, the self-transition guard conditions
-remain the same.
+The self-transitions on states $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$ in the 
+\ac{FSM} in Figure~\ref{fig:heartCellFSM} illustrate this.
 
 % to be conjuncted with the negation of the disjunction of all conditions
 % of egress transitions from the state, i.e.
