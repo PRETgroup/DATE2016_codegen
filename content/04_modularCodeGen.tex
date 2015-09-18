@@ -25,7 +25,8 @@ instants, separated by the so called time step $\delta$
 The witness function, for the \ac{ODE} evolving $v_{x}$, implementing
 the forward Euler method is shown in Equation~(\ref{eq:euler_equiv}).
 Equation~(\ref{eq:euler_equiv}) evolves $v_{x}$ \emph{iteratively} while
-the invariant condition on location $\mathbf{q_{0}}$ ($v < V_{T}$)
+the invariant condition on location $\mathbf{q_{0}}$ ($v < V_T \wedge 
+g(\vec{v_{I}}) < V_T$)
 holds. The initial value from which $v_{x}$ starts evolving, in
 $\mathbf{q_{0}}$ is either: (1) specified by the programmer in the
 $Init$ predicate or (2) the final value of $v_{x}$ when an instantaneous
@@ -134,15 +135,16 @@ $V_{T}$. In order to ensure that such inter-location transitions are
 enabled correctly, we need to enforce that all self-transitions in the
 generated \ac{FSM} are the lowest priority transitions. This is
 accomplished by updating the guard condition of the self-transitions as
-follows, where $T$ is a set of all the transitions from the state:
+follows:
 \begin{itemize}
 \item
-  $guard \leftarrow guard \wedge \neg \bigvee_{\forall t \in
-    T} guard(t)$
+  $guard \leftarrow guard \wedge \bigwedge_{\forall \sigma \in
+    \Sigma_{EI}} \neg \sigma$
 \end{itemize}
 
-The self-transitions on states $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$ in the 
-\ac{FSM} in Figure~\ref{fig:heartCellFSM} illustrate this.
+In the \ac{HIOA} of Figure~\ref{fig:heartCellHA},
+$\Sigma_{EI} = \emptyset$, hence, the self-transition guard conditions
+remain the same.
 
 % to be conjuncted with the negation of the disjunction of all conditions
 % of egress transitions from the state, i.e.

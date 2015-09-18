@@ -45,7 +45,8 @@ For the first stage (\ac{RP}), the continuous dynamics are captured in
 location $\mathbf{q_0}$. \acfp{ODE}, for example \mbox{$\dot{v_{x}} = 
 C_{1}v_{x}$}, capture the continuous evolution of components of $v$ ($v_{x}$, 
 $v_{y}$, $v_{z}$) when control resides in location $\mathbf{q_{0}}$ 
-while the location invariant $v < V_{T}$ holds.  Once the external
+while the location invariant $v < V_T \wedge g(\vec{v_{I}}) < V_T$ holds.  Once 
+the external
 stimulus, $g(\vec{v_{I}})$, crosses some threshold $V_{T}$, indicated by
 the predicate \mbox{$g(\vec{v_{I}}) \geq V_{T}$} on the edge connecting
 locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$, the \ac{HIOA}
@@ -128,7 +129,8 @@ example of initial predicate is:
 example edge connecting locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$ is 
 represented
 with the tuple: $(q_{0},\tau,\emptyset,q_{1})$. The example of invariant
-($Inv$) predicate on location $\mathbf{q_{0}}$ is: $v < V_{T}$. The $Jump$ 
+($Inv$) predicate on location $\mathbf{q_{0}}$ is: $v < V_T \wedge 
+g(\vec{v_{I}}) < V_T$. The $Jump$ 
 condition on
 the edge connecting locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$ is enabled 
 when the

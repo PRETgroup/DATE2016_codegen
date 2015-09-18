@@ -17,7 +17,7 @@ semithick,scale=0.8, transform shape]
 
 
 \node[state, 
-label={[shift={(0,0)}]$v < V_T$}, 
+label={[shift={(0,0)}]$v < V_T \wedge g(\vec{v_{I}}) < V_T$}, 
 label={[shift={(-1.5,-2.5)}]\large $ \mathbf{q_0}$ }]
 (Q0)  {$\dot{v_x}=C_1 v_x$ \\ $\dot{v_y}=C_2 v_y$ \\ $\dot{v_z}=C_3 v_z$ \\ $v=v_x - v_y + v_z$};
 
@@ -34,7 +34,7 @@ label={[shift={(-1.5,-2.5)}]\large $ \mathbf{q_0}$ }]
 
 
 \node[state, 
-label={[shift={(0,0)}]$v < V_T$}, 
+label={[shift={(0,0)}]$v < V_T \wedge g(\vec{v_{I}}) > 0$}, 
 label={[shift={(-1.5,-2.5)}]\large $\mathbf{q_1}$   }]
 (Q1) [node distance=6.3cm, right of=Q0] {$\dot{v_x}=C_4 v_x + C_7 g(\vec{v_{I}})$ \\ $\dot{v_y}=C_5 v_y + C_8 g(\vec{v_{I}})$ \\ $\dot{v_z}=C_6 v_z + C_9 g(\vec{v_{I}})$ \\ $v=v_x - v_y + v_z$};
 
