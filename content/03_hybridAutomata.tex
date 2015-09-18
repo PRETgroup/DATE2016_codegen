@@ -18,10 +18,10 @@ formal definition and an informal description of the semantics of
     \label{fig:heartCellHA}}
 \end{figure}
 
-The \ac{HIOA} shown in Figure~\ref{fig:heartCellHA} captures the
+The heart node \ac{HIOA}, shown in Figure~\ref{fig:heartCellHA}, captures the
 behaviour of the four stages of \ac{AP} shown in
 Figure~\ref{fig:actionPotential}. Each stage of the \ac{AP} is captured
-with so called locations in the \ac{HIOA}. The \ac{AP} of every node, in
+using locations in the \ac{HIOA}. The \ac{AP} of every node, in
 the heart, evolves over time, this evolution of the \ac{AP} is captured
 with three \acfp{ODE} evolving three individual variables: $v_{x}$,
 $v_{y}$, and $v_{z}$, respectively. The overall voltage of the \ac{AP}
@@ -35,9 +35,9 @@ secondary excitation is captured by the variable~$\theta$.
 
 For the first stage (\ac{RP}), the continuous dynamics are captured in
 location $\mathbf{q_0}$. \acfp{ODE}, for example \mbox{$\dot{v_{x}} = 
-C_{1}v_{x}$}, capture the continuous evolution of the voltage of the node in 
-location $\mathbf{q_{0}}$ until the so called location invariant
-$v < V_{T}$ holds.  Once the external
+C_{1}v_{x}$}, capture the continuous evolution of components of $v$ ($v_{x}$, 
+$v_{y}$, $v_{z}$) when control resides in location $\mathbf{q_{0}}$ 
+while the location invariant $v < V_{T}$ holds.  Once the external
 stimulus, $g(\vec{v_{I}})$, crosses some threshold $V_{T}$, indicated by
 the predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} on the edge connecting
 locations $\mathbf{q_{0}}$ and $\mathbf{q_{1}}$, the \ac{HIOA}
@@ -53,7 +53,7 @@ $\mathbf{q_2}$). The final location, $\mathbf{q_3}$, represents the
 \ac{RRP} stage. The constants $C_1$ through to $C_{15}$, configure the
 morphology of the \ac{AP}. Furthermore, constants $V_T$, $V_O$, and
 $V_R$ determine the height of the \ac{AP} and transitions between
-locations of the \ac{HIOA} that further modify the morphology.
+locations of the \ac{HIOA} to further capture the morphology.
 
 % The voltage of any node in the heart effects its neighboring nodes and
 % vice-versa. Hence, a means to communicate the voltages of the node to
@@ -99,7 +99,8 @@ We formalise the \ac{HIOA} using Definition~\ref{def:ha}.
     $X_I \cup \dot{X_I}$ and it specifies the rate of change of these
     variables when the HIOA resides in $l$.
   \item $Up(l)$: Is a function that assigns to each variable in set
-    $X_{EO}$ a valuation of the variables from the set $X_{I}$.
+    $X_{EO}$ an algebraic expression involving the variables from \mbox{$X_{I} 
+    \cup X_{EI}$}.
   \item $Jump(e)$: Is a function that assigns to the edge `$e$' a
     predicate whose free variables are from $X_I \cup X_I' \cup X_E$.
     This predicate specifies when the location switch using `$e$' is
@@ -116,12 +117,11 @@ $\Sigma=\{\tau\}$. \mbox{$X_{I}=\{\theta,v_{x},v_{y},v_{z}\}$},
 \mbox{$\dot{X_{I}}=\{\dot{\theta},\dot{v_{x}},\dot{v_{y}},\dot{v_{z}}\}$},
 \mbox{$X^{\prime}_{I}=\{\theta',{v'_{x}},{v'_{y}},\dot{v'_{z}}\}$}.
 $X_{EI}=\{v_{i}| \forall v_{i} \in \vec{v_{I}}\}$. $X_{EO}=\{v\}$. An
-example of initial predicate is:
-$Init(l): v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0 \wedge \theta=0$. An
+example of initial predicate is: 
+\mbox{$Init(l): (v_{x}=0 \wedge v_{y}=0 \wedge v_{z}=0 \wedge \theta=0)$}. An
 example edge connecting locations $q_{0}$ and $q_{1}$ is represented
 with the tuple: $(q_{0},\tau,\emptyset,q_{1})$. The example of invariant
-($Inv$) predicate on location $q_{0}$ is:
-$v < V_{T} \wedge g(\vec{v_{I}}) \leq V_{T}$. The $Jump$ condition on
+($Inv$) predicate on location $q_{0}$ is: $v < V_{T}$. The $Jump$ condition on
 the edge connecting locations $q_{0}$ and $q_{1}$ is enabled when the
 predicate \mbox{$g(\vec{v_{I}} \geq V_{T})$} is true, and the updated
 variables are as shown in Figure~\ref{fig:heartCellHA}. An example of
