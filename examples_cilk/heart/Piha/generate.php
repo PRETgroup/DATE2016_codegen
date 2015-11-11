@@ -216,7 +216,7 @@ fclose($runnable);
 
 fwrite($makefile, "runnable: runnable.c Generic/step.h\n");
 fwrite($makefile, "\t@echo Building Runnable...\n");
-fwrite($makefile, "\t@gcc -O" . $opt_level . " runnable.c ");
+fwrite($makefile, "\t@gcc -fcilkplus -O" . $opt_level . " runnable.c ");
 foreach($items as $item) {
 	fwrite($makefile, "Objects/" . $item . " ");
 }
