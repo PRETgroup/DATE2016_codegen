@@ -6,3 +6,4 @@
 *.gz
 questions.txt
 TAGS
+/examples_cilk/heart_new/Simulation/out.csv
