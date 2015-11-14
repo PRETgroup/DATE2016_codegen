@@ -224,7 +224,11 @@ foreach($items as $item) {
 fwrite($makefile, "-o runnable\n");
 fwrite($makefile, "\n");
 
-fwrite($makefile, "build: ");
+fwrite($makefile, "dir_build:\n");
+fwrite($makefile, "\t@mkdir -p Objects\n");
+fwrite($makefile, "\n");
+
+fwrite($makefile, "build: dir_build ");
 foreach($items as $item) {
 	fwrite($makefile, "Objects/" . $item . " ");
 }
